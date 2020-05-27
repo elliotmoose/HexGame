@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Hexagon 
 {
-    public static Vector3 PositionOfHexagonAtCoordinate(Vector2Int coord, float hexFlatSideToSideWidth)
+    public static Vector3 PositionForCoordinate(Vector2Int coord, float hexFlatSideToSideWidth)
     {
         var x = coord.x;
         var y = coord.y;
@@ -17,4 +17,50 @@ public class Hexagon
 
         return new Vector3(x * verticalOffset, 0, y * 2 - horizontalOffsetOddRow);
     }
+
+    public static List<Vector2Int> NeightbourCoordinatesOfHexagon(Vector2Int coord) 
+    {        
+        List<Vector2Int> neighbours = new List<Vector2Int>();
+
+        var isOdd = ((coord.x % 2) == 0);
+        int[][] neighbourOffsets = {
+            new int[]{0, 1}, 
+            new int[]{0, -1},
+            new int[]{1, 0},
+            new int[]{1, isOdd ? -1 : 1},
+            new int[]{-1, 0},
+            new int[]{-1, isOdd ? -1 : 1},
+        };
+
+        foreach (int[] offset in neighbourOffsets)
+        {
+            neighbours.Add(new Vector2Int(coord.x + offset[0], coord.y + offset[1]));
+        }
+
+        return neighbours;
+    }
+    
+    public static List<Vector2Int> NeighbourhoodCoordinatesOfHexagon(Vector2Int coord) 
+    {        
+        List<Vector2Int> neighbours = new List<Vector2Int>();
+
+        var isOdd = ((coord.x % 2) == 0);
+        int[][] neighbourOffsets = {
+            new int[]{0, 1}, 
+            new int[]{0, -1},
+            new int[]{1, 0},
+            new int[]{1, isOdd ? -1 : 1},
+            new int[]{-1, 0},
+            new int[]{-1, isOdd ? -1 : 1},
+        };
+
+        foreach (int[] offset in neighbourOffsets)
+        {
+            neighbours.Add(new Vector2Int(coord.x + offset[0], coord.y + offset[1]));
+        }
+
+        return neighbours;
+    }
+
+    
 }

@@ -57,6 +57,8 @@
      <Compile Include="Assets\Scripts\Managers\Shop.cs" />
      <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\Platforms\HexPlatform.cs" />
+     <Compile Include="Assets\Scripts\ShopItem.cs" />
+     <Compile Include="Assets\Scripts\UI\ShopItemUI.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
@@ -83,6 +85,9 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2019.2.21f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>

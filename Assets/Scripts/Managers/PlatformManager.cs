@@ -18,11 +18,11 @@ public class PlatformManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateTileMaps();
+        GeneratePlatformMap();
         UpdatePlaceHolders();
     }
 
-    void GenerateTileMaps()
+    void GeneratePlatformMap()
     {           
         // Vector2Int rootTileCoordinate = new Vector2Int((int)TILEMAP_SIZE / 2, (int)TILEMAP_SIZE / 2);
         Vector2Int rootTileCoordinate = Vector2Int.zero;
@@ -53,7 +53,7 @@ public class PlatformManager : MonoBehaviour
     /// <returns></returns>
     private HexPlatform SpawnPlatform(PlatformType buildTileType, Vector2Int coordinate) 
     {        
-        HexPlatform platform = HexTileAtCoordinate(coordinate);
+        HexPlatform platform = PlatformAtCoordinate(coordinate);
 
         if (platform)
         {
@@ -62,7 +62,7 @@ public class PlatformManager : MonoBehaviour
         }
         
         GameObject prefab = null;
-        var position = Hexagon.PositionOfHexagonAtCoordinate(coordinate, MapManager.HEXAGON_FLAT_WIDTH);
+        var position = Hexagon.PositionForCoordinate(coordinate, MapManager.HEXAGON_FLAT_WIDTH);
 
         switch (buildTileType)
         {
@@ -99,7 +99,7 @@ public class PlatformManager : MonoBehaviour
     /// <returns></returns>
     public HexPlatform BuildPlatform(PlatformType buildTileType, Vector2Int coordinate)
     {
-        HexPlatform tile = HexTileAtCoordinate(coordinate);
+        HexPlatform tile = PlatformAtCoordinate(coordinate);
 
         if(!tile.CanBuild()) 
         {
@@ -125,7 +125,7 @@ public class PlatformManager : MonoBehaviour
 
             foreach (HexPlatform neighbour in neighbours)
             {
-                if (neighbour.tileType == PlatformType.NONE && (tile.tileType != PlatformType.NONE && tile.tileType != PlatformType.PLACEHOLDER))
+                if (neighbour.platformType == PlatformType.NONE && (tile.platformType != PlatformType.NONE && tile.platformType != PlatformType.PLACEHOLDER))
                 {
                     newPlaceholders.Add(neighbour);
                 }
@@ -141,21 +141,11 @@ public class PlatformManager : MonoBehaviour
     List<HexPlatform> NeighboursOfTile(HexPlatform tile)
     {
         List<HexPlatform> neighbours = new List<HexPlatform>();
+        List<Vector2Int> neighbourCoordinates = Hexagon.NeightbourCoordinatesOfHexagon(tile.coordinate);
 
-        Vector2Int refCoord = tile.coordinate;
-        var isOdd = ((tile.coordinate.x % 2) == 0);
-        int[][] neighbourOffsets = {
-            new int[]{0, 1}, 
-            new int[]{0, -1},
-            new int[]{1, 0},
-            new int[]{1, isOdd ? -1 : 1},
-            new int[]{-1, 0},
-            new int[]{-1, isOdd ? -1 : 1},
-        };
-
-        foreach (int[] offset in neighbourOffsets)
+        foreach (Vector2Int coordinate in neighbourCoordinates)
         {
-            HexPlatform neighbour = HexTileAtCoordinate(new Vector2Int(refCoord.x + offset[0], refCoord.y + offset[1]));            
+            HexPlatform neighbour = PlatformAtCoordinate(coordinate);            
             if(neighbour) 
             {
                 neighbours.Add(neighbour);
@@ -165,7 +155,7 @@ public class PlatformManager : MonoBehaviour
         return neighbours;
     }
 
-    public HexPlatform HexTileAtCoordinate(Vector2Int coordinate)
+    public HexPlatform PlatformAtCoordinate(Vector2Int coordinate)
     {
         //validation
         HexPlatform tile;

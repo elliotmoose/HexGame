@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PrefabManager : MonoBehaviour
 {
+    //platforms
+    public GameObject grassPlatform;
+    public GameObject soilPlatform;
+
     public GameObject mineralAttachment;
     public GameObject tree;
     

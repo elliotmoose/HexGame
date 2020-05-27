@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public Text mineralsText;
+    public RectTransform shopScrollViewContentContainer;
 
     // Start is called before the first frame update
     void Start()
