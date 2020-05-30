@@ -5,11 +5,26 @@ using UnityEngine;
 public class PrefabManager : MonoBehaviour
 {
     //platforms
-    public GameObject grassPlatform;
+    public GameObject emptyPlatform;
+    public GameObject placeholderPlatform;
+    public GameObject miningPlatform;
+    public GameObject stonePlatform;
     public GameObject soilPlatform;
 
-    public GameObject mineralAttachment;
+    public GameObject miningDisplay;
+    public GameObject stoneDisplay;
+    public GameObject soilDisplay;
+    
+    //buildings
     public GameObject tree;
+    public GameObject condenser;
+    public GameObject lightsource;
+    public GameObject generator;
+
+    public GameObject treeDisplay;
+    public GameObject condenserDisplay;
+    public GameObject lightsourceDisplay;
+    public GameObject generatorDisplay;
     
     private static PrefabManager _singleton;
 

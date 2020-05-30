@@ -12,6 +12,8 @@ public class ShopItemUI : MonoBehaviour
     public Transform itemDisplaySlot;
 
     private ShopItem _item;
+
+    private GameObject _displayObject;
     
     public void LoadData(ShopItem item)
     {
@@ -21,10 +23,24 @@ public class ShopItemUI : MonoBehaviour
         descriptionText.text = item.description;
         priceText.text = $"{item.price}";
 
-        GameObject displayObject = GameObject.Instantiate(item.prefab, itemDisplaySlot, false);
-        displayObject.transform.localPosition = Vector3.zero;
-        displayObject.layer = itemDisplaySlot.gameObject.layer;
+        _displayObject = GameObject.Instantiate(item.prefab, itemDisplaySlot, false);
+        _displayObject.transform.localPosition = Vector3.zero;
+        _displayObject.layer = itemDisplaySlot.gameObject.layer;
+        foreach (Transform child in _displayObject.transform)
+        {
+            child.gameObject.layer = itemDisplaySlot.gameObject.layer;
+        }
     }
+
+    float rotateSpeed = 75;
+    
+    void Update()
+    {
+        if(_displayObject)
+        {
+            _displayObject.transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
+        }
+    }   
 
     public void Purchase() 
     {

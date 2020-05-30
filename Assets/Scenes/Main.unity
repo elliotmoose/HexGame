@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.53
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -260,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132351600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -345,6 +345,95 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &303457206
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241428393723849251, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505912815742796644, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 8.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505912815742796644, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_Range
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6921419306022163517, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_Name
+      value: Lightsource
+      objectReference: {fileID: 0}
+    - target: {fileID: 6921419306022163517, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037030583575049958, guid: 97e5961528ee641abbdc5aa27fc84c86,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.65
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 97e5961528ee641abbdc5aa27fc84c86, type: 3}
 --- !u!1 &494984525
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +535,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1.02
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
@@ -656,7 +745,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -780,7 +869,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 494984527}
   m_HandleRect: {fileID: 494984526}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -854,16 +943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480e22282eac64f0cb0ecd7403b1f71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexPlatformPrefab: {fileID: 929065651996833225, guid: f5b3d2b5d9e9e4619b4f1cbb5a76d952,
-    type: 3}
-  soilPlatformPrefab: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b,
-    type: 3}
-  mineralPlatformPrefab: {fileID: 929065651996833225, guid: f5bfbc48473e74c78b61860e7b55e11f,
-    type: 3}
-  emptyPlatformPrefab: {fileID: 929065651996833225, guid: 581e0847db25445adadc86abbfed6d3b,
-    type: 3}
-  placeholderPlatformPrefab: {fileID: 929065651996833225, guid: 9556916827d5a42449a69ebfc6f24dee,
-    type: 3}
   platformParent: {fileID: 1318548772}
 --- !u!4 &1273203204
 Transform:
@@ -904,13 +983,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcaeb0f21545d491db53a2be7423687a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grassPlatform: {fileID: 929065651996833225, guid: f5b3d2b5d9e9e4619b4f1cbb5a76d952,
+  emptyPlatform: {fileID: 929065651996833225, guid: 581e0847db25445adadc86abbfed6d3b,
+    type: 3}
+  placeholderPlatform: {fileID: 929065651996833225, guid: 9556916827d5a42449a69ebfc6f24dee,
+    type: 3}
+  miningPlatform: {fileID: 2145778990015961652, guid: 24206af96894a4ebbac02e3f2fc56824,
+    type: 3}
+  stonePlatform: {fileID: 929065651996833225, guid: d3512beacdd6b46b49305a3ddf1fa0fe,
     type: 3}
   soilPlatform: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b,
     type: 3}
-  mineralAttachment: {fileID: 2145778990015961652, guid: 24206af96894a4ebbac02e3f2fc56824,
+  miningDisplay: {fileID: 2145778990015961652, guid: a268c03133b36443abec1502302e443e,
+    type: 3}
+  stoneDisplay: {fileID: 7116147573741796012, guid: 9522824087e9849bd9b5ad871e15f939,
+    type: 3}
+  soilDisplay: {fileID: 929065651996833225, guid: 3fd48b45cc04b49689c02fff6ce11170,
     type: 3}
   tree: {fileID: 8834485628860174203, guid: 552e5a66a583941f9bc992d42ab7a583, type: 3}
+  condenser: {fileID: 8650658793903192494, guid: 4cc128fdef4d246109adb096e4b5db93,
+    type: 3}
+  lightsource: {fileID: 6921419306022163517, guid: 97e5961528ee641abbdc5aa27fc84c86,
+    type: 3}
+  generator: {fileID: 8650658793903192494, guid: 0dc02fb045b154285b0b50873fd04164,
+    type: 3}
+  treeDisplay: {fileID: 8834485628860174203, guid: 36712eb4acc774dffb6eb0955ea102fb,
+    type: 3}
+  condenserDisplay: {fileID: 8650658793903192494, guid: 559cfe1e664f54b28b452b209bec690e,
+    type: 3}
+  lightsourceDisplay: {fileID: 6921419306022163517, guid: f52f2428321ec4d3fb9b5647a88f7dae,
+    type: 3}
+  generatorDisplay: {fileID: 8650658793903192494, guid: 733797a2bc7b94348b1249f3f558942f,
+    type: 3}
 --- !u!114 &1273203208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1568,7 +1671,7 @@ GameObject:
   - component: {fileID: 2146989491}
   - component: {fileID: 2146989490}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Minerals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1588,11 +1691,11 @@ RectTransform:
   m_Father: {fileID: 91325591}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -30, y: -30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 30, y: -30}
   m_SizeDelta: {x: 300, y: 100}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &2146989490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1618,7 +1721,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 67
-    m_Alignment: 2
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

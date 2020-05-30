@@ -57,13 +57,21 @@
      <Compile Include="Assets\Scripts\Managers\Shop.cs" />
      <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\Platforms\HexPlatform.cs" />
+     <Compile Include="Assets\Scripts\Platforms\MiningPlatform.cs" />
      <Compile Include="Assets\Scripts\ShopItem.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItemUI.cs" />
+     <None Include="Assets\Materials\Outline.shader" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.RenderPipelines.Core.Editor">
+ <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.RenderPipelines.Core.Runtime">
+ <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -80,14 +88,23 @@
  <Reference Include="Unity.Rider.Editor">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+ <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.ShaderGraph.Editor">
+ <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+ <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Sprite.Editor">
- <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2019.2.21f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>

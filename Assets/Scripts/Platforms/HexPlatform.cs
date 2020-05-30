@@ -4,12 +4,16 @@ using UnityEngine;
 
 
 public enum BuildingType {
-    TREE
+    TREE,
+    CONDENSER,
+    LIGHTSOURCE,
+    GENERATOR
 }
 public enum PlatformType {
     ROOT,
     PLACEHOLDER,
-    MINERAL,
+    MINING,
+    STONE,
     SOIL,
     NONE
 }
@@ -23,7 +27,7 @@ public class HexPlatform : MonoBehaviour
     public PlatformType platformType = PlatformType.NONE;
     public Vector2Int coordinate;
 
-    private Material defaultMaterial;
+    public Material defaultMaterial;
     public Material hoverMaterial;
     public Material selectedMaterial;
 
@@ -38,7 +42,10 @@ public class HexPlatform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        defaultMaterial = GetComponent<Renderer>().material;
+        if(!defaultMaterial)
+        {
+            defaultMaterial = GetComponent<Renderer>().material;
+        }
     }
 
     public void Initialize(PlatformType tileType, Vector2Int coord) {
@@ -52,34 +59,87 @@ public class HexPlatform : MonoBehaviour
             return;
         }
         
+
         
-        GetComponent<Renderer>().material = isHovered ? hoverMaterial : (isSelected ? selectedMaterial : defaultMaterial);
+        Material material = isHovered ? hoverMaterial : (isSelected ? selectedMaterial : defaultMaterial);
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material = material;
+        }
     }
 
-    public void SetSelected(bool isHovered) {
+    public virtual void SetSelected(bool isHovered) {
         if(platformType == PlatformType.NONE) 
         {
             return;
         }
         
-        GetComponent<Renderer>().material = isHovered ? hoverMaterial : defaultMaterial;
+        Material material = isHovered ? hoverMaterial : defaultMaterial;
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material = material;
+        }
     }
 
     public bool CanBuild() {
         return platformType == PlatformType.PLACEHOLDER;
     }
 
-    public void BuildAttachment(AttachmentType attachmentType) {
-        if(attachmentType == AttachmentType.HARVESTER && platformType == PlatformType.MINERAL)
+    // public void BuildAttachment(AttachmentType attachmentType) {
+    //     if(attachmentType == AttachmentType.HARVESTER && platformType == PlatformType.MINERAL)
+    //     {
+    //         GameObject.Instantiate(PrefabManager.GetInstance().mineralAttachment, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
+    //     }
+    // }
+
+    private bool CanBuildBuilding(BuildingType buildingType)
+    {
+        if(building != null)
         {
-            GameObject.Instantiate(PrefabManager.GetInstance().mineralAttachment, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
+            Debug.LogWarning("Can't build building: Platform already has building");
+            return false;
+        }
+        switch (buildingType)
+        {
+            case BuildingType.TREE:
+                return platformType == PlatformType.SOIL;
+            case BuildingType.CONDENSER:
+                return platformType == PlatformType.STONE;
+            case BuildingType.LIGHTSOURCE:
+                return platformType == PlatformType.STONE;
+            case BuildingType.GENERATOR:
+                return platformType == PlatformType.STONE;
+            default:
+                return false;
         }
     }
 
     public void BuildBuilding(BuildingType buildingType) {
-        if(buildingType == BuildingType.TREE && platformType == PlatformType.SOIL && building == null)  //only can have 1 building per tile
+
+        if(!CanBuildBuilding(buildingType))
         {
-            building = GameObject.Instantiate(PrefabManager.GetInstance().tree, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
+            Debug.LogWarning($"Cannot build {buildingType} building on this {platformType} platform");
+            return;
+        }
+        
+        switch (buildingType)
+        {
+            case BuildingType.TREE:
+                building = GameObject.Instantiate(PrefabManager.GetInstance().tree, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
+                break;
+            case BuildingType.CONDENSER:
+                building = GameObject.Instantiate(PrefabManager.GetInstance().condenser, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
+                break;
+            case BuildingType.LIGHTSOURCE:
+                building = GameObject.Instantiate(PrefabManager.GetInstance().lightsource, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
+                break;
+            case BuildingType.GENERATOR:
+                building = GameObject.Instantiate(PrefabManager.GetInstance().generator, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
+                break;
+            default:
+                break;
         }
     }
 
@@ -87,8 +147,31 @@ public class HexPlatform : MonoBehaviour
     {
         List<ShopItem> shopItems = new List<ShopItem>();
 
-        shopItems.Add(new ShopItem("Grass", "A block of grass, let’s you build simple buildings", 500, PrefabManager.GetInstance().grassPlatform));
-        shopItems.Add(new ShopItem("Soil", "A block of soil, let's you grow things", 300, PrefabManager.GetInstance().soilPlatform));
+        GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(this.coordinate);
+        if(feature)
+        {
+            shopItems.Add(ShopItem.MiningPlatform());
+            return shopItems;
+        }
+
+        switch (this.platformType)
+        {
+            case PlatformType.PLACEHOLDER:
+                shopItems.Add(ShopItem.StonePlatform());
+                shopItems.Add(ShopItem.SoilPlatform());
+                break;
+            case PlatformType.SOIL:
+                shopItems.Add(ShopItem.Tree());
+                break;
+            case PlatformType.STONE:
+                shopItems.Add(ShopItem.Condenser());
+                shopItems.Add(ShopItem.LightSource());
+                shopItems.Add(ShopItem.Generator());
+                break;
+            default:
+                return shopItems;
+        }
+
 
         return shopItems;
     }

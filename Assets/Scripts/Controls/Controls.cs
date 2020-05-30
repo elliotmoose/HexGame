@@ -6,14 +6,12 @@ using UnityEngine.EventSystems;
 
 public class Controls : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     HexPlatform lastHovered;
     AttachmentType selectedAttachmentType = AttachmentType.HARVESTER;
+
+    
+    private float panSpeed = 14;
+    private int tabSize = 128;
 
     void Update()
     {
@@ -23,11 +21,6 @@ public class Controls : MonoBehaviour
 
     void UpdatePlatformSelection()
     {        
-        if(EventSystem.current.IsPointerOverGameObject()) 
-        {
-            return;
-        }
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         bool hasHit = Physics.Raycast(ray, out hit);
@@ -36,8 +29,17 @@ public class Controls : MonoBehaviour
         if (hasHit)
         {
             platform = hit.transform.gameObject.GetComponent<HexPlatform>();
+            if(platform == null) 
+            {
+                var parent = hit.transform.parent;
+                
+                if(parent != null) 
+                {
+                    platform = parent.GetComponent<HexPlatform>();
+                }
+            }
 
-            if (Input.GetMouseButtonDown(0) && platform)
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && platform != null)
             {
                 var coord = platform.coordinate;
 
@@ -49,19 +51,6 @@ public class Controls : MonoBehaviour
                 {
                     Shop.GetInstance().Close();    
                 }
-                
-                // if (platform.tileType == PlatformType.PLACEHOLDER)
-                // {
-                //     Shop.GetInstance().BuildPlatform(PlatformType.SOIL, platform.coordinate);
-                // }
-                // else if (platform.tileType == PlatformType.MINERAL)
-                // {
-                //     Shop.GetInstance().BuildAttachment(AttachmentType.HARVESTER, platform.coordinate);
-                // }
-                // else if (platform.tileType == PlatformType.SOIL)
-                // {
-                //     Shop.GetInstance().BuildBuilding(BuildingType.TREE, platform.coordinate);
-                // }
             }
 
             HexPlatform lastLastHovered = null;
@@ -84,9 +73,6 @@ public class Controls : MonoBehaviour
             lastHovered = null;
         }
     }
-
-    float panSpeed = 14;
-    int tabSize = 128;
 
     void UpdateScreenMovement() 
     {

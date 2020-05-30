@@ -56,6 +56,13 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public GameObject FeatureAtCoordinate(Vector2Int coordinate)
+    {
+        GameObject feature = null;
+        mapFeatures.TryGetValue(coordinate, out feature);
+        return feature;
+    }
+
         
     private static MapManager _singleton;
 

@@ -35,7 +35,28 @@ public class Shop : MonoBehaviour
        selectedPlatform = platform;
        platform.SetSelected(true);
 
-       List<ShopItem> shopItems = platform.GetShopItems();
+        UpdateShopItems();
+    }
+
+    public void Close() 
+    {
+        if(selectedPlatform) 
+        {
+            selectedPlatform.SetSelected(false);
+        }
+
+        this.gameObject.SetActive(false);
+        selectedPlatform = null;
+    }
+
+    public void UpdateShopItems()
+    {
+        if(!selectedPlatform) 
+        {
+            return;
+        }
+
+        List<ShopItem> shopItems = selectedPlatform.GetShopItems();
                      
        //update ui based on shopItems
        for (int i = 0; i < shopItemsContainer.childCount; i++)
@@ -51,22 +72,50 @@ public class Shop : MonoBehaviour
        }
     }
 
-    public void Close() 
-    {
-        if(selectedPlatform) 
-        {
-            selectedPlatform.SetSelected(false);
-        }
-
-        this.gameObject.SetActive(false);
-        selectedPlatform = null;
-    }
-
     public void Purchase(ShopItem item) 
     {
         if(selectedPlatform) 
-        {
-            Debug.Log(item.title);
+        {            
+            //PLATFORMS CAN ONLY BE BUILT ON PLACEHOLDERS
+            if(selectedPlatform.platformType == PlatformType.PLACEHOLDER)
+            {
+                switch (item.id)
+                {
+                    case ShopItemID.STONE_PLATFORM:
+                        selectedPlatform = BuildPlatform(PlatformType.STONE, selectedPlatform.coordinate);
+                        break;
+                    case ShopItemID.SOIL_PLATFORM:
+                        selectedPlatform = BuildPlatform(PlatformType.SOIL, selectedPlatform.coordinate);
+                        break;
+                    case ShopItemID.MINING_PLATFORM:
+                        selectedPlatform = BuildPlatform(PlatformType.MINING, selectedPlatform.coordinate);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (item.id)
+                {
+                    case ShopItemID.TREE_BUILDING:
+                        BuildBuilding(BuildingType.TREE, selectedPlatform.coordinate);
+                        break;
+                    case ShopItemID.LIGHTSOURCE_BUILDING:
+                        BuildBuilding(BuildingType.LIGHTSOURCE, selectedPlatform.coordinate);
+                        break;
+                    case ShopItemID.CONDENSER_BUILDING:
+                        BuildBuilding(BuildingType.CONDENSER, selectedPlatform.coordinate);
+                        break;
+                    case ShopItemID.GENERATOR_BUILDING:
+                        BuildBuilding(BuildingType.GENERATOR, selectedPlatform.coordinate);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            UpdateShopItems();
         }
         else 
         {
@@ -74,24 +123,27 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void BuildPlatform(PlatformType platformType, Vector2Int coord)
+    private HexPlatform BuildPlatform(PlatformType platformType, Vector2Int coord)
     {
-        if (PlatformManager.GetInstance().BuildPlatform(platformType, coord))
+        HexPlatform platform = PlatformManager.GetInstance().BuildPlatform(platformType, coord);
+        if (platform)
         {
             Player.GetInstance().TransactMinerals(-100);
         }
+        
+        return platform;
     }
 
-    public void BuildAttachment(AttachmentType attachmentType, Vector2Int coord) 
-    {
-        HexPlatform tile = PlatformManager.GetInstance().PlatformAtCoordinate(coord);
-        tile.BuildAttachment(AttachmentType.HARVESTER);
-    }
+    // private void BuildAttachment(AttachmentType attachmentType, Vector2Int coord) 
+    // {
+    //     HexPlatform tile = PlatformManager.GetInstance().PlatformAtCoordinate(coord);
+    //     tile.BuildAttachment(AttachmentType.HARVESTER);
+    // }
 
     public void BuildBuilding(BuildingType buildingType, Vector2Int coord) 
     {
         HexPlatform tile = PlatformManager.GetInstance().PlatformAtCoordinate(coord);
-        tile.BuildBuilding(BuildingType.TREE);
+        tile.BuildBuilding(buildingType);
     }
 
     private static Shop _singleton;

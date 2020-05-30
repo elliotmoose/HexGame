@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlatformManager : MonoBehaviour
 {
-    public GameObject hexPlatformPrefab;
-    public GameObject soilPlatformPrefab;
-    public GameObject mineralPlatformPrefab;
-    public GameObject emptyPlatformPrefab;
-    public GameObject placeholderPlatformPrefab;
+    // public GameObject hexPlatformPrefab;
+    // public GameObject soilPlatformPrefab;
+    // public GameObject mineralPlatformPrefab;
+    // public GameObject emptyPlatformPrefab;
+    // public GameObject placeholderPlatformPrefab;
     public Transform platformParent;
 
     const int TILEMAP_SIZE = 30;
@@ -67,19 +67,22 @@ public class PlatformManager : MonoBehaviour
         switch (buildTileType)
         {
             case PlatformType.PLACEHOLDER:
-                prefab = placeholderPlatformPrefab;
+                prefab = PrefabManager.GetInstance().placeholderPlatform;
                 // GetComponent<Renderer>().material.color = deselectedColor;
                 break;
+            case PlatformType.STONE:
+                prefab = PrefabManager.GetInstance().stonePlatform;
+                break;
             case PlatformType.SOIL:
-                prefab = soilPlatformPrefab;
+                prefab = PrefabManager.GetInstance().soilPlatform;
                 break;
             
-            case PlatformType.MINERAL:
-                prefab = mineralPlatformPrefab;
+            case PlatformType.MINING:
+                prefab = PrefabManager.GetInstance().miningPlatform;
                 break;
 
             default:
-                prefab = emptyPlatformPrefab;
+                prefab = PrefabManager.GetInstance().emptyPlatform;
                 break;
         }
 
