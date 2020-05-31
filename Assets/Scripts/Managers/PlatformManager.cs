@@ -33,7 +33,7 @@ public class PlatformManager : MonoBehaviour
             {
                 var coord = new Vector2Int(i, j);
                 var isRoot = (rootTileCoordinate == coord);
-                HexPlatform tile = SpawnPlatform(isRoot ? PlatformType.SOIL : PlatformType.NONE, coord);
+                GameObject tile = _SpawnPlatform(isRoot ? Identifiers.SOIL_PLATFORM : Identifiers.EMPTY_PLATFORM, coord);
 
                 if(isRoot) {
                     Camera.main.transform.position = new Vector3(tile.transform.position.x + 5, 10, tile.transform.position.z);
@@ -45,13 +45,7 @@ public class PlatformManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Creates or replaces a tile at the coordinate no questions asked
-    /// </summary>
-    /// <param name="buildTileType"></param>
-    /// <param name="coordinate"></param>
-    /// <returns></returns>
-    private HexPlatform SpawnPlatform(PlatformType buildTileType, Vector2Int coordinate) 
+    private GameObject _SpawnPlatform(Identifiers id, Vector2Int coordinate) 
     {        
         HexPlatform platform = PlatformAtCoordinate(coordinate);
 
@@ -61,63 +55,91 @@ public class PlatformManager : MonoBehaviour
             GameObject.Destroy(platform.gameObject);
         }
         
-        GameObject prefab = null;
         var position = Hexagon.PositionForCoordinate(coordinate, MapManager.HEXAGON_FLAT_WIDTH);
-
-        switch (buildTileType)
-        {
-            case PlatformType.PLACEHOLDER:
-                prefab = PrefabManager.GetInstance().placeholderPlatform;
-                // GetComponent<Renderer>().material.color = deselectedColor;
-                break;
-            case PlatformType.STONE:
-                prefab = PrefabManager.GetInstance().stonePlatform;
-                break;
-            case PlatformType.SOIL:
-                prefab = PrefabManager.GetInstance().soilPlatform;
-                break;
-            
-            case PlatformType.MINING:
-                prefab = PrefabManager.GetInstance().miningPlatform;
-                break;
-
-            default:
-                prefab = PrefabManager.GetInstance().emptyPlatform;
-                break;
-        }
-
-        GameObject tileGo = GameObject.Instantiate(prefab, position, Quaternion.identity, platformParent);
+        GameObject tileGo = GameObject.Instantiate(PrefabManager.PrefabForID(id), position, Quaternion.identity, platformParent);
         HexPlatform hexTile = tileGo.GetComponent<HexPlatform>();
 
         platforms.Add(coordinate, hexTile);
-        hexTile.Initialize(buildTileType, coordinate);
-        return hexTile;
+        hexTile.Initialize(id, coordinate);
+        return tileGo;
     }
 
-    /// <summary>
-    /// Builds a tile at the location if possible, and replaces previous tiles
-    /// </summary>
-    /// <param name="buildTileType"></param>
-    /// <param name="coordinate"></param>
-    /// <returns></returns>
-    public HexPlatform BuildPlatform(PlatformType buildTileType, Vector2Int coordinate)
+    private GameObject BuildPlatform(Identifiers platformType, Vector2Int coordinate)
     {
-        HexPlatform tile = PlatformAtCoordinate(coordinate);
+        HexPlatform platform = PlatformAtCoordinate(coordinate);
 
-        if(!tile.CanBuild()) 
+        if (platform)
+        {
+            GameObject.Destroy(platform.gameObject);
+        }
+
+        GameObject newtile = _SpawnPlatform(platformType, coordinate);
+        UpdatePlaceHolders();
+        return newtile;
+    }
+
+    private GameObject BuildBuilding(Identifiers id, Vector2Int coordinate)
+    {
+        HexPlatform platform = PlatformAtCoordinate(coordinate);
+
+        if(platform.building != null)  
         {
             return null;
         }
 
-        if (tile)
-        {
-            GameObject.Destroy(tile.gameObject);
-        }
-
-        HexPlatform newtile = SpawnPlatform(buildTileType, coordinate);
-        UpdatePlaceHolders();
-        return newtile;
+        return GameObject.Instantiate(PrefabManager.PrefabForID(id), platform.transform.position, platform.transform.rotation);
     }
+
+
+    public bool CanBuild(Identifiers id, Vector2Int coordinate) 
+    {
+        HexPlatform targetPlatform = PlatformAtCoordinate(coordinate);
+        Identifiers platformId = targetPlatform.id;
+        bool isPlaceholder = targetPlatform.id == Identifiers.PLACEHOLDER_PLATFORM;
+        switch (id)
+        {
+            //platforms
+            case Identifiers.STONE_PLATFORM:
+            case Identifiers.SOIL_PLATFORM:
+            case Identifiers.MINING_PLATFORM:
+                return isPlaceholder;
+            //buildings
+            case Identifiers.TREE_BUILDING:
+                return platformId == Identifiers.SOIL_PLATFORM;
+            case Identifiers.CONDENSER_BUILDING:
+            case Identifiers.LIGHTSOURCE_BUILDING:
+            case Identifiers.GENERATOR_BUILDING:
+                return platformId == Identifiers.STONE_PLATFORM;
+            default:
+                return false;
+        }
+    }
+
+    public GameObject Build(Identifiers id , Vector2Int coordinate) 
+    {
+        if(!CanBuild(id, coordinate)) 
+        {
+            Debug.LogWarning($"Cannot build {id} at {coordinate}");
+            return null;
+        }
+        
+        switch (id)
+        {
+            case Identifiers.STONE_PLATFORM:
+            case Identifiers.SOIL_PLATFORM:
+            case Identifiers.MINING_PLATFORM:
+                return BuildPlatform(id, coordinate).gameObject;
+            case Identifiers.TREE_BUILDING:
+            case Identifiers.LIGHTSOURCE_BUILDING:
+            case Identifiers.CONDENSER_BUILDING:
+            case Identifiers.GENERATOR_BUILDING:
+                return BuildBuilding(id, coordinate).gameObject;
+            default:
+                return null;
+        }
+    }
+
+
 
     public void UpdatePlaceHolders()
     {
@@ -128,7 +150,7 @@ public class PlatformManager : MonoBehaviour
 
             foreach (HexPlatform neighbour in neighbours)
             {
-                if (neighbour.platformType == PlatformType.NONE && (tile.platformType != PlatformType.NONE && tile.platformType != PlatformType.PLACEHOLDER))
+                if (neighbour.id == Identifiers.EMPTY_PLATFORM && (tile.id != Identifiers.EMPTY_PLATFORM && tile.id != Identifiers.PLACEHOLDER_PLATFORM))
                 {
                     newPlaceholders.Add(neighbour);
                 }
@@ -137,7 +159,7 @@ public class PlatformManager : MonoBehaviour
 
         foreach (var tile in newPlaceholders)
         {
-            SpawnPlatform(PlatformType.PLACEHOLDER, tile.coordinate);
+            _SpawnPlatform(Identifiers.PLACEHOLDER_PLATFORM, tile.coordinate);
         }
     }
 
@@ -177,3 +199,14 @@ public class PlatformManager : MonoBehaviour
         return _singleton;
     }
 }
+
+
+/*
+Adding a new block
+1. CanBuild (PlatformManager)
+2. Build (PlatformManager)
+3. BuildPlatform/BuildBuilding (PlatformManager)
+4. PrefabForID (PrefabManager)
+5. Add prefab (PrefabManager)
+6. GetShopItems (HexPlatform)
+*/

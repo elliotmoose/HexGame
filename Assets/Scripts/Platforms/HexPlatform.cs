@@ -3,35 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum BuildingType {
-    TREE,
-    CONDENSER,
-    LIGHTSOURCE,
-    GENERATOR
-}
-public enum PlatformType {
-    ROOT,
-    PLACEHOLDER,
-    MINING,
-    STONE,
-    SOIL,
-    NONE
-}
-
 public enum AttachmentType {
     HARVESTER
 }
 
 public class HexPlatform : MonoBehaviour
 {
-    public PlatformType platformType = PlatformType.NONE;
+    public Identifiers id = Identifiers.NULL;
     public Vector2Int coordinate;
 
     public Material defaultMaterial;
     public Material hoverMaterial;
     public Material selectedMaterial;
 
-    public GameObject building;
+    private GameObject _building;
+    public GameObject building {
+        get {
+            return _building;
+        }
+
+        set {
+            _building = value;
+        }
+    }
 
     public bool isSelected {
         get {
@@ -48,13 +42,13 @@ public class HexPlatform : MonoBehaviour
         }
     }
 
-    public void Initialize(PlatformType tileType, Vector2Int coord) {
-        this.platformType = tileType;
+    public void Initialize(Identifiers tileType, Vector2Int coord) {
+        this.id = tileType;
         coordinate = coord;
     }
 
     public void SetHovered(bool isHovered) {
-        if(platformType == PlatformType.NONE) 
+        if(id == Identifiers.NULL) 
         {
             return;
         }
@@ -70,7 +64,7 @@ public class HexPlatform : MonoBehaviour
     }
 
     public virtual void SetSelected(bool isHovered) {
-        if(platformType == PlatformType.NONE) 
+        if(id == Identifiers.NULL) 
         {
             return;
         }
@@ -83,10 +77,6 @@ public class HexPlatform : MonoBehaviour
         }
     }
 
-    public bool CanBuild() {
-        return platformType == PlatformType.PLACEHOLDER;
-    }
-
     // public void BuildAttachment(AttachmentType attachmentType) {
     //     if(attachmentType == AttachmentType.HARVESTER && platformType == PlatformType.MINERAL)
     //     {
@@ -94,54 +84,6 @@ public class HexPlatform : MonoBehaviour
     //     }
     // }
 
-    private bool CanBuildBuilding(BuildingType buildingType)
-    {
-        if(building != null)
-        {
-            Debug.LogWarning("Can't build building: Platform already has building");
-            return false;
-        }
-        switch (buildingType)
-        {
-            case BuildingType.TREE:
-                return platformType == PlatformType.SOIL;
-            case BuildingType.CONDENSER:
-                return platformType == PlatformType.STONE;
-            case BuildingType.LIGHTSOURCE:
-                return platformType == PlatformType.STONE;
-            case BuildingType.GENERATOR:
-                return platformType == PlatformType.STONE;
-            default:
-                return false;
-        }
-    }
-
-    public void BuildBuilding(BuildingType buildingType) {
-
-        if(!CanBuildBuilding(buildingType))
-        {
-            Debug.LogWarning($"Cannot build {buildingType} building on this {platformType} platform");
-            return;
-        }
-        
-        switch (buildingType)
-        {
-            case BuildingType.TREE:
-                building = GameObject.Instantiate(PrefabManager.GetInstance().tree, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
-                break;
-            case BuildingType.CONDENSER:
-                building = GameObject.Instantiate(PrefabManager.GetInstance().condenser, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
-                break;
-            case BuildingType.LIGHTSOURCE:
-                building = GameObject.Instantiate(PrefabManager.GetInstance().lightsource, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
-                break;
-            case BuildingType.GENERATOR:
-                building = GameObject.Instantiate(PrefabManager.GetInstance().generator, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
-                break;
-            default:
-                break;
-        }
-    }
 
     public List<ShopItem> GetShopItems() 
     {
@@ -154,16 +96,16 @@ public class HexPlatform : MonoBehaviour
             return shopItems;
         }
 
-        switch (this.platformType)
+        switch (this.id)
         {
-            case PlatformType.PLACEHOLDER:
+            case Identifiers.PLACEHOLDER_PLATFORM:
                 shopItems.Add(ShopItem.StonePlatform());
                 shopItems.Add(ShopItem.SoilPlatform());
                 break;
-            case PlatformType.SOIL:
+            case Identifiers.SOIL_PLATFORM:
                 shopItems.Add(ShopItem.Tree());
                 break;
-            case PlatformType.STONE:
+            case Identifiers.STONE_PLATFORM:
                 shopItems.Add(ShopItem.Condenser());
                 shopItems.Add(ShopItem.LightSource());
                 shopItems.Add(ShopItem.Generator());

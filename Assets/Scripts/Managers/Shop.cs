@@ -6,6 +6,7 @@ public class Shop : MonoBehaviour
 {
     public GameObject shopItemPrefab;
     public Transform shopItemsContainer;
+    public Dictionary<Identifiers, ShopItem> shopItems = new Dictionary<Identifiers, ShopItem>();
     public bool isOpen {
         get {
             return this.gameObject.activeSelf;
@@ -76,44 +77,18 @@ public class Shop : MonoBehaviour
     {
         if(selectedPlatform) 
         {            
-            //PLATFORMS CAN ONLY BE BUILT ON PLACEHOLDERS
-            if(selectedPlatform.platformType == PlatformType.PLACEHOLDER)
-            {
-                switch (item.id)
+            GameObject platform = PlatformManager.GetInstance().Build(item.id, selectedPlatform.coordinate);
+            if(platform != null) {
+                Player.GetInstance().TransactMinerals(item.price);
+                
+                HexPlatform hex = platform.GetComponent<HexPlatform>();
+
+                if (hex != null)
                 {
-                    case ShopItemID.STONE_PLATFORM:
-                        selectedPlatform = BuildPlatform(PlatformType.STONE, selectedPlatform.coordinate);
-                        break;
-                    case ShopItemID.SOIL_PLATFORM:
-                        selectedPlatform = BuildPlatform(PlatformType.SOIL, selectedPlatform.coordinate);
-                        break;
-                    case ShopItemID.MINING_PLATFORM:
-                        selectedPlatform = BuildPlatform(PlatformType.MINING, selectedPlatform.coordinate);
-                        break;
-                    default:
-                        break;
+                    selectedPlatform = hex;
                 }
             }
-            else
-            {
-                switch (item.id)
-                {
-                    case ShopItemID.TREE_BUILDING:
-                        BuildBuilding(BuildingType.TREE, selectedPlatform.coordinate);
-                        break;
-                    case ShopItemID.LIGHTSOURCE_BUILDING:
-                        BuildBuilding(BuildingType.LIGHTSOURCE, selectedPlatform.coordinate);
-                        break;
-                    case ShopItemID.CONDENSER_BUILDING:
-                        BuildBuilding(BuildingType.CONDENSER, selectedPlatform.coordinate);
-                        break;
-                    case ShopItemID.GENERATOR_BUILDING:
-                        BuildBuilding(BuildingType.GENERATOR, selectedPlatform.coordinate);
-                        break;
-                    default:
-                        break;
-                }
-            }
+
 
             UpdateShopItems();
         }
@@ -121,29 +96,6 @@ public class Shop : MonoBehaviour
         {
             Debug.LogError("Tried to purchase but no selected platform");
         }
-    }
-
-    private HexPlatform BuildPlatform(PlatformType platformType, Vector2Int coord)
-    {
-        HexPlatform platform = PlatformManager.GetInstance().BuildPlatform(platformType, coord);
-        if (platform)
-        {
-            Player.GetInstance().TransactMinerals(-100);
-        }
-        
-        return platform;
-    }
-
-    // private void BuildAttachment(AttachmentType attachmentType, Vector2Int coord) 
-    // {
-    //     HexPlatform tile = PlatformManager.GetInstance().PlatformAtCoordinate(coord);
-    //     tile.BuildAttachment(AttachmentType.HARVESTER);
-    // }
-
-    public void BuildBuilding(BuildingType buildingType, Vector2Int coord) 
-    {
-        HexPlatform tile = PlatformManager.GetInstance().PlatformAtCoordinate(coord);
-        tile.BuildBuilding(buildingType);
     }
 
     private static Shop _singleton;

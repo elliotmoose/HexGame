@@ -6,6 +6,7 @@ public class Tree : MonoBehaviour
 {
     private float _maxAge = 15;
     private float _curAge = 0;
+    private float health = 0;
 
     void Start()
     {
@@ -23,5 +24,14 @@ public class Tree : MonoBehaviour
             float maxAngle = 40;
             transform.rotation = Quaternion.Euler(0, ageFactor * maxAngle, 0);
         }
+    }
+
+
+    /// <summary>
+    /// Checks if the platform this tree is on has the requirements it needs to grow
+    /// </summary>
+    void UpdateRequirements() 
+    {
+
     }
 }

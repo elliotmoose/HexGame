@@ -1,26 +1,15 @@
 using UnityEngine;
 
-public enum ShopItemID 
-{
-    STONE_PLATFORM,
-    MINING_PLATFORM,
-    SOIL_PLATFORM,
-    TREE_BUILDING,
-    LIGHTSOURCE_BUILDING,
-    CONDENSER_BUILDING,    
-    GENERATOR_BUILDING,    
-}
-
 public class ShopItem 
 {
 
-    public ShopItemID id;
+    public Identifiers id;
     public string title;
     public string description;
     public float price;
     public GameObject prefab;
 
-    public ShopItem(ShopItemID id, string title, string description, float price, GameObject prefab)
+    public ShopItem(Identifiers id, string title, string description, float price, GameObject prefab)
     {
         this.id = id;
         this.title = title;
@@ -37,7 +26,7 @@ public class ShopItem
     public static ShopItem StonePlatform() 
     {
         ShopItem item = new ShopItem();
-        item.id = ShopItemID.STONE_PLATFORM;        
+        item.id = Identifiers.STONE_PLATFORM;        
         item.title = "Stone";
         item.description = "A block of stone, let’s you build buildings";
         item.price = 500;
@@ -48,7 +37,7 @@ public class ShopItem
     public static ShopItem SoilPlatform() 
     {
         ShopItem item = new ShopItem();
-        item.id = ShopItemID.SOIL_PLATFORM;
+        item.id = Identifiers.SOIL_PLATFORM;
         item.title = "Soil";
         item.description = "A block of soil, let's you grow things";
         item.price = 300;
@@ -59,7 +48,7 @@ public class ShopItem
     public static ShopItem MiningPlatform() 
     {
         ShopItem item = new ShopItem();
-        item.id = ShopItemID.MINING_PLATFORM;
+        item.id = Identifiers.MINING_PLATFORM;
         item.title = "Mineral Miner";
         item.description = "Mines minerals and generates income.";
         item.price = 500;
@@ -72,7 +61,7 @@ public class ShopItem
     public static ShopItem Tree() 
     {
         ShopItem item = new ShopItem();
-        item.id = ShopItemID.TREE_BUILDING;
+        item.id = Identifiers.TREE_BUILDING;
         item.title = "Tree";
         item.description = "Nature's miracle. Converts CO2 into Oxygen, but burns easily";
         item.price = 900;
@@ -83,7 +72,7 @@ public class ShopItem
     public static ShopItem Condenser() 
     {
         ShopItem item = new ShopItem();
-        item.id = ShopItemID.CONDENSER_BUILDING;
+        item.id = Identifiers.CONDENSER_BUILDING;
         item.title = "Condenser";
         item.description = "Produces water";
         item.price = 900;
@@ -94,7 +83,7 @@ public class ShopItem
     public static ShopItem LightSource() 
     {
         ShopItem item = new ShopItem();
-        item.id = ShopItemID.LIGHTSOURCE_BUILDING;
+        item.id = Identifiers.LIGHTSOURCE_BUILDING;
         item.title = "Light Source";
         item.description = "Help's trees grow";
         item.price = 900;
@@ -105,7 +94,7 @@ public class ShopItem
     public static ShopItem Generator() 
     {
         ShopItem item = new ShopItem();
-        item.id = ShopItemID.GENERATOR_BUILDING;
+        item.id = Identifiers.GENERATOR_BUILDING;
         item.title = "Generator";
         item.description = "Generates energy for nearby platforms";
         item.price = 900;

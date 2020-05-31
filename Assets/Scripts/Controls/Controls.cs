@@ -43,7 +43,7 @@ public class Controls : MonoBehaviour
             {
                 var coord = platform.coordinate;
 
-                if(platform.platformType != PlatformType.NONE) 
+                if(platform.id != Identifiers.NULL) 
                 {
                     Shop.GetInstance().Open(platform);    
                 }
