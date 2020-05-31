@@ -10,4 +10,5 @@ public enum Identifiers
     LIGHTSOURCE_BUILDING,
     CONDENSER_BUILDING,    
     GENERATOR_BUILDING,    
+    TURBINE_BUILDING,    
 }

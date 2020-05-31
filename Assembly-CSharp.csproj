@@ -46,7 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Attachments\Attachment.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Building.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Condenser.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Generator.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Lightsource.cs" />
      <Compile Include="Assets\Scripts\Buildings\Tree.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Turbine.cs" />
      <Compile Include="Assets\Scripts\Controls\Controls.cs" />
      <Compile Include="Assets\Scripts\Helpers\Hexagon.cs" />
      <Compile Include="Assets\Scripts\Helpers\MapTextureGenerator.cs" />

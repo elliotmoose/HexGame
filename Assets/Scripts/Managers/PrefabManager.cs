@@ -20,11 +20,13 @@ public class PrefabManager : MonoBehaviour
     public GameObject condenser;
     public GameObject lightsource;
     public GameObject generator;
+    public GameObject turbine;
 
     public GameObject treeDisplay;
     public GameObject condenserDisplay;
     public GameObject lightsourceDisplay;
     public GameObject generatorDisplay;
+    public GameObject turbineDisplay;
     
     private static PrefabManager _singleton;
 
@@ -61,6 +63,8 @@ public class PrefabManager : MonoBehaviour
                 return _singleton.generator;
             case Identifiers.LIGHTSOURCE_BUILDING:
                 return _singleton.lightsource;
+            case Identifiers.TURBINE_BUILDING:
+                return _singleton.turbine;
             
             default:
                 Debug.LogWarning($"Can't find prefab for id: {id}");

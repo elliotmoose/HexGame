@@ -75,27 +75,25 @@ public class Shop : MonoBehaviour
 
     public void Purchase(ShopItem item) 
     {
-        if(selectedPlatform) 
+        if(selectedPlatform == null) 
         {            
-            GameObject platform = PlatformManager.GetInstance().Build(item.id, selectedPlatform.coordinate);
-            if(platform != null) {
-                Player.GetInstance().TransactMinerals(item.price);
-                
-                HexPlatform hex = platform.GetComponent<HexPlatform>();
-
-                if (hex != null)
-                {
-                    selectedPlatform = hex;
-                }
-            }
-
-
-            UpdateShopItems();
-        }
-        else 
-        {
             Debug.LogError("Tried to purchase but no selected platform");
+            return; 
         }
+
+        GameObject platform = PlatformManager.GetInstance().Build(item.id, selectedPlatform.coordinate);
+        if(platform != null) {
+            Player.GetInstance().TransactMinerals(-item.price);
+            
+            HexPlatform hex = platform.GetComponent<HexPlatform>();
+
+            if (hex != null)
+            {
+                selectedPlatform = hex;
+            }
+        }
+
+        UpdateShopItems();
     }
 
     private static Shop _singleton;

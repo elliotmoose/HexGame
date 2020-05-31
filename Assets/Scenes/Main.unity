@@ -681,7 +681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.40557975, y: -0.579228, z: 0.40557975, w: 0.579228}
-  m_LocalPosition: {x: 3.82, y: 10.13, z: 0.88}
+  m_LocalPosition: {x: 3.82, y: 10, z: 0.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -917,6 +917,7 @@ MonoBehaviour:
     type: 3}
   generator: {fileID: 8650658793903192494, guid: 0dc02fb045b154285b0b50873fd04164,
     type: 3}
+  turbine: {fileID: 8694968302174946980, guid: 23bea9f85848a472da146c0afb3c6c9e, type: 3}
   treeDisplay: {fileID: 8834485628860174203, guid: 36712eb4acc774dffb6eb0955ea102fb,
     type: 3}
   condenserDisplay: {fileID: 8650658793903192494, guid: 559cfe1e664f54b28b452b209bec690e,
@@ -924,6 +925,8 @@ MonoBehaviour:
   lightsourceDisplay: {fileID: 6921419306022163517, guid: f52f2428321ec4d3fb9b5647a88f7dae,
     type: 3}
   generatorDisplay: {fileID: 8650658793903192494, guid: 733797a2bc7b94348b1249f3f558942f,
+    type: 3}
+  turbineDisplay: {fileID: 8694968302174946980, guid: 11943c782d1e043b090866c047023d30,
     type: 3}
 --- !u!114 &1273203208
 MonoBehaviour:

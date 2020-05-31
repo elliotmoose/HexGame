@@ -16,8 +16,8 @@ public class HexPlatform : MonoBehaviour
     public Material hoverMaterial;
     public Material selectedMaterial;
 
-    private GameObject _building;
-    public GameObject building {
+    private Building _building;
+    public Building building {
         get {
             return _building;
         }
@@ -42,8 +42,8 @@ public class HexPlatform : MonoBehaviour
         }
     }
 
-    public void Initialize(Identifiers tileType, Vector2Int coord) {
-        this.id = tileType;
+    public void Initialize(Identifiers id, Vector2Int coord) {
+        this.id = id;
         coordinate = coord;
     }
 
@@ -88,6 +88,10 @@ public class HexPlatform : MonoBehaviour
     public List<ShopItem> GetShopItems() 
     {
         List<ShopItem> shopItems = new List<ShopItem>();
+        if(_building != null)
+        {
+            return shopItems;
+        }
 
         GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(this.coordinate);
         if(feature)
@@ -109,6 +113,7 @@ public class HexPlatform : MonoBehaviour
                 shopItems.Add(ShopItem.Condenser());
                 shopItems.Add(ShopItem.LightSource());
                 shopItems.Add(ShopItem.Generator());
+                shopItems.Add(ShopItem.Turbine());
                 break;
             default:
                 return shopItems;

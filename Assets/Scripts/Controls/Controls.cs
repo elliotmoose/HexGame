@@ -7,8 +7,7 @@ using UnityEngine.EventSystems;
 public class Controls : MonoBehaviour
 {
     HexPlatform lastHovered;
-    AttachmentType selectedAttachmentType = AttachmentType.HARVESTER;
-
+    HexPlatform target = null;
     
     private float panSpeed = 14;
     private int tabSize = 128;
@@ -16,7 +15,8 @@ public class Controls : MonoBehaviour
     void Update()
     {
         UpdatePlatformSelection();
-        UpdateScreenMovement();      
+        // UpdateScreenMovement();      
+        UpdateScreenFocus();
     }
 
     void UpdatePlatformSelection()
@@ -114,6 +114,22 @@ public class Controls : MonoBehaviour
         // {
         //     Camera.main.transform.position += new Vector3(scrollSpeed,0, 0) * Time.deltaTime;
         // }
+    }
+    
+
+    void UpdateScreenFocus()
+    {
+        if(!Shop.GetInstance().selectedPlatform) 
+        {
+            return;
+        }
+        
+        Vector3 cameraOffset = new Vector3(Camera.main.transform.position.y * Mathf.Sin(Camera.main.transform.rotation.eulerAngles.x/Mathf.PI), 0,-2);
+        Vector3 delta = Shop.GetInstance().selectedPlatform.transform.position - (Camera.main.transform.position + cameraOffset);
+        Vector3 deltaXZ = new Vector3(delta.normalized.x , 0 , delta.normalized.z);
+
+        float speed = Mathf.Max(4 * delta.magnitude, 1);
+        Camera.main.transform.position += deltaXZ * Time.deltaTime * speed;
     }
 }
  

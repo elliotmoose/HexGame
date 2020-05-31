@@ -87,7 +87,12 @@ public class PlatformManager : MonoBehaviour
             return null;
         }
 
-        return GameObject.Instantiate(PrefabManager.PrefabForID(id), platform.transform.position, platform.transform.rotation);
+        GameObject buildingObject = GameObject.Instantiate(PrefabManager.PrefabForID(id), platform.transform.position, platform.transform.rotation);
+        Building building = buildingObject.GetComponent<Building>();
+        building.Initialize(id, coordinate);
+
+        platform.building = building;
+        return buildingObject;
     }
 
 
@@ -109,6 +114,7 @@ public class PlatformManager : MonoBehaviour
             case Identifiers.CONDENSER_BUILDING:
             case Identifiers.LIGHTSOURCE_BUILDING:
             case Identifiers.GENERATOR_BUILDING:
+            case Identifiers.TURBINE_BUILDING:
                 return platformId == Identifiers.STONE_PLATFORM;
             default:
                 return false;
@@ -128,12 +134,13 @@ public class PlatformManager : MonoBehaviour
             case Identifiers.STONE_PLATFORM:
             case Identifiers.SOIL_PLATFORM:
             case Identifiers.MINING_PLATFORM:
-                return BuildPlatform(id, coordinate).gameObject;
+                return BuildPlatform(id, coordinate);
             case Identifiers.TREE_BUILDING:
             case Identifiers.LIGHTSOURCE_BUILDING:
             case Identifiers.CONDENSER_BUILDING:
             case Identifiers.GENERATOR_BUILDING:
-                return BuildBuilding(id, coordinate).gameObject;
+            case Identifiers.TURBINE_BUILDING:
+                return BuildBuilding(id, coordinate);
             default:
                 return null;
         }
@@ -146,7 +153,7 @@ public class PlatformManager : MonoBehaviour
         List<HexPlatform> newPlaceholders = new List<HexPlatform>();
         foreach (HexPlatform tile in platforms.Values)
         {
-            List<HexPlatform> neighbours = NeighboursOfTile(tile);
+            List<HexPlatform> neighbours = NeighboursOfPlatform(tile);
 
             foreach (HexPlatform neighbour in neighbours)
             {
@@ -163,10 +170,10 @@ public class PlatformManager : MonoBehaviour
         }
     }
 
-    List<HexPlatform> NeighboursOfTile(HexPlatform tile)
+    public List<HexPlatform> NeighboursOfPlatform(HexPlatform platform)
     {
         List<HexPlatform> neighbours = new List<HexPlatform>();
-        List<Vector2Int> neighbourCoordinates = Hexagon.NeightbourCoordinatesOfHexagon(tile.coordinate);
+        List<Vector2Int> neighbourCoordinates = Hexagon.NeightbourCoordinatesOfHexagon(platform.coordinate);
 
         foreach (Vector2Int coordinate in neighbourCoordinates)
         {
@@ -208,5 +215,7 @@ Adding a new block
 3. BuildPlatform/BuildBuilding (PlatformManager)
 4. PrefabForID (PrefabManager)
 5. Add prefab (PrefabManager)
-6. GetShopItems (HexPlatform)
+6. Create Shop Item (ShopItem)
+7. Create Identifier (Identifiers)
+8. GetShopItems (HexPlatform)
 */

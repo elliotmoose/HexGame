@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : MonoBehaviour
+public class Tree : Building
 {
+    public GameObject treeObject;
     private float _maxAge = 15;
     private float _curAge = 0;
     private float health = 0;
 
     void Start()
     {
-        transform.localScale = Vector3.zero;
+        treeObject.transform.localScale = Vector3.zero;
     }
 
     void Update() 
@@ -19,10 +20,10 @@ public class Tree : MonoBehaviour
         {
             _curAge += Time.deltaTime;
             float ageFactor = _curAge/_maxAge;
-            transform.localScale = new Vector3(ageFactor, ageFactor, ageFactor);
+            treeObject.transform.localScale = new Vector3(ageFactor, ageFactor, ageFactor);
 
             float maxAngle = 40;
-            transform.rotation = Quaternion.Euler(0, ageFactor * maxAngle, 0);
+            treeObject.transform.rotation = Quaternion.Euler(0, ageFactor * maxAngle, 0);
         }
     }
 

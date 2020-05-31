@@ -102,5 +102,16 @@ public class ShopItem
         return item;
     }
 
+    public static ShopItem Turbine() 
+    {
+        ShopItem item = new ShopItem();
+        item.id = Identifiers.TURBINE_BUILDING;
+        item.title = "Wind Turbine";
+        item.description = "Generates energy for nearby platforms";
+        item.price = 500;
+        item.prefab = PrefabManager.GetInstance().turbineDisplay;                
+        return item;
+    }
+
     #endregion
 }
