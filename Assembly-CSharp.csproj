@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Helpers\Hexagon.cs" />
      <Compile Include="Assets\Scripts\Helpers\MapTextureGenerator.cs" />
      <Compile Include="Assets\Scripts\Identifiers.cs" />
+     <Compile Include="Assets\Scripts\Managers\EnvironmentManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PlatformManager.cs" />
      <Compile Include="Assets\Scripts\Managers\Player.cs" />

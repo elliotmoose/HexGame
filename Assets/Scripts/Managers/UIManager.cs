@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public Text mineralsText;
+    public Text temperatureText;
     public RectTransform shopScrollViewContentContainer;
 
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
     public void UpdateUI() 
     {
         mineralsText.text = $"{Player.GetInstance().minerals}";
+        temperatureText.text = $"{EnvironmentManager.GetInstance().currentTemperature}";
     }
 
     private static UIManager _singleton;
