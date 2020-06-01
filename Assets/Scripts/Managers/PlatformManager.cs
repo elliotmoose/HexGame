@@ -20,7 +20,21 @@ public class PlatformManager : MonoBehaviour
     {
         GeneratePlatformMap();
         UpdatePlaceHolders();
+        StartCoroutine(Tick());
     }
+
+    IEnumerator Tick() 
+    {
+        while(true)
+        {
+            foreach (HexPlatform platform in platforms.Values)
+            {
+                platform.Tick();
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
 
     void GeneratePlatformMap()
     {           
@@ -75,6 +89,7 @@ public class PlatformManager : MonoBehaviour
 
         GameObject newtile = _SpawnPlatform(platformType, coordinate);
         UpdatePlaceHolders();
+        OnSystemUpdate();
         return newtile;
     }
 
@@ -92,6 +107,7 @@ public class PlatformManager : MonoBehaviour
         building.Initialize(id, coordinate);
 
         platform.building = building;
+        OnSystemUpdate();
         return buildingObject;
     }
 
@@ -146,7 +162,20 @@ public class PlatformManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// we want to update building's effects on each other
+    /// </summary>
+    public void OnSystemUpdate() 
+    {
+        //TODO: update only nearby buildings?
+        foreach(HexPlatform platform in platforms.Values) 
+        {
+            if(platform.id != Identifiers.EMPTY_PLATFORM)
+            {
+                platform.OnSystemUpdate();
+            }
+        }
+    }
 
     public void UpdatePlaceHolders()
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Generator : Building
 {
+    public float energyOutput = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,18 @@ public class Generator : Building
     void Update()
     {
         
+    }
+
+    // public override void OnSystemUpdateBuilding()
+    public override void Tick()
+    {
+                // List<Building> neighbours = this.neighbourBuildings;
+        foreach (Building neighbour in neighbourBuildings)
+        {
+            if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
+            {
+                neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
+            }
+        }
     }
 }

@@ -77,12 +77,28 @@ public class HexPlatform : MonoBehaviour
         }
     }
 
-    // public void BuildAttachment(AttachmentType attachmentType) {
-    //     if(attachmentType == AttachmentType.HARVESTER && platformType == PlatformType.MINERAL)
-    //     {
-    //         GameObject.Instantiate(PrefabManager.GetInstance().mineralAttachment, this.transform.position - new Vector3(0, 0.1f, 0 ), this.transform.rotation);
-    //     }
-    // }
+    public void Tick() 
+    {
+        if(building != null)
+        {
+            building.Tick();
+        }
+    }
+
+    public void OnSystemUpdate() 
+    {
+        if(building != null) 
+        {
+            building.OnSystemUpdateBuilding();
+        }
+
+        OnSystemUpdatePlatform();
+    }
+
+    protected virtual void OnSystemUpdatePlatform() 
+    {
+        
+    }
 
 
     public List<ShopItem> GetShopItems() 

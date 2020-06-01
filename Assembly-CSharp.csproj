@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Buildings\Building.cs" />
      <Compile Include="Assets\Scripts\Buildings\Condenser.cs" />
      <Compile Include="Assets\Scripts\Buildings\Generator.cs" />
+     <Compile Include="Assets\Scripts\Buildings\Interfaces\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\Buildings\Lightsource.cs" />
      <Compile Include="Assets\Scripts\Buildings\Tree.cs" />
      <Compile Include="Assets\Scripts\Buildings\Turbine.cs" />

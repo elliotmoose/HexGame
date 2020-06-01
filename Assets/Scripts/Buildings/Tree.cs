@@ -9,15 +9,25 @@ public class Tree : Building
     private float _curAge = 0;
     private float health = 0;
 
-    void Start()
+    void Awake()
     {
         treeObject.transform.localScale = Vector3.zero;
+    }
+
+    protected override void InitializeResourceNeeds()
+    {
+        SetNeedsResource(ResourceIdentifiers.WATER);
+        SetNeedsResource(ResourceIdentifiers.LIGHT);
     }
 
     void Update() 
     {
         if(_curAge < _maxAge)
         {
+            if(!HasResource(ResourceIdentifiers.WATER) || !HasResource(ResourceIdentifiers.LIGHT)) 
+            {
+                return;
+            }
             _curAge += Time.deltaTime;
             float ageFactor = _curAge/_maxAge;
             treeObject.transform.localScale = new Vector3(ageFactor, ageFactor, ageFactor);
@@ -27,12 +37,12 @@ public class Tree : Building
         }
     }
 
-
     /// <summary>
     /// Checks if the platform this tree is on has the requirements it needs to grow
     /// </summary>
-    void UpdateRequirements() 
+    public override void OnSystemUpdateBuilding()
     {
-
+        //day time
+        ReceiveResource(ResourceIdentifiers.LIGHT, 1);
     }
 }

@@ -12,3 +12,10 @@ public enum Identifiers
     GENERATOR_BUILDING,    
     TURBINE_BUILDING,    
 }
+
+public enum ResourceIdentifiers
+{
+    WATER,
+    ENERGY,
+    LIGHT
+}

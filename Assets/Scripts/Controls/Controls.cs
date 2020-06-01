@@ -124,7 +124,7 @@ public class Controls : MonoBehaviour
             return;
         }
         
-        Vector3 cameraOffset = new Vector3(Camera.main.transform.position.y * Mathf.Sin(Camera.main.transform.rotation.eulerAngles.x/Mathf.PI), 0,-2);
+        Vector3 cameraOffset = new Vector3(Camera.main.transform.position.y * Mathf.Sin(Camera.main.transform.rotation.eulerAngles.x/Mathf.PI) - 1.8f, 0,-1f);
         Vector3 delta = Shop.GetInstance().selectedPlatform.transform.position - (Camera.main.transform.position + cameraOffset);
         Vector3 deltaXZ = new Vector3(delta.normalized.x , 0 , delta.normalized.z);
 

@@ -15,6 +15,11 @@ public class MiningPlatform : HexPlatform
         
     }
 
+    public void Tick() 
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
