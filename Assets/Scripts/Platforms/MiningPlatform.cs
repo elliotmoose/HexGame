@@ -10,14 +10,19 @@ public class MiningPlatform : HexPlatform
     private float _curMineralInterval = 0;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void InitializeResourceNeeds() 
     {
-        
+        SetNeedsResource(ResourceIdentifiers.ENERGY);
     }
 
-    public void Tick() 
+    protected override void PlatformTick() 
     {
 
+        if(HasResource(ResourceIdentifiers.ENERGY))
+        {
+            Debug.Log("energy!");
+            Player.GetInstance().TransactMinerals(mineralAmount);
+        }
     }
 
     // Update is called once per frame
@@ -33,6 +38,5 @@ public class MiningPlatform : HexPlatform
 
     void Trigger() 
     {
-        Player.GetInstance().TransactMinerals(mineralAmount);
     }
 }

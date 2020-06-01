@@ -7,7 +7,7 @@ public enum AttachmentType {
     HARVESTER
 }
 
-public class HexPlatform : MonoBehaviour
+public class HexPlatform : ResourceConsumer
 {
     public Identifiers id = Identifiers.NULL;
     public Vector2Int coordinate;
@@ -45,6 +45,7 @@ public class HexPlatform : MonoBehaviour
     public void Initialize(Identifiers id, Vector2Int coord) {
         this.id = id;
         coordinate = coord;
+        InitializeResourceNeeds();
     }
 
     public void SetHovered(bool isHovered) {
@@ -81,8 +82,10 @@ public class HexPlatform : MonoBehaviour
     {
         if(building != null)
         {
-            building.Tick();
+            building.BuildingTick();
         }
+
+        PlatformTick();
     }
 
     public void OnSystemUpdate() 
@@ -93,6 +96,11 @@ public class HexPlatform : MonoBehaviour
         }
 
         OnSystemUpdatePlatform();
+    }
+
+    protected virtual void PlatformTick() 
+    {
+        
     }
 
     protected virtual void OnSystemUpdatePlatform() 

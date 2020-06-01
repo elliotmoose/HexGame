@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turbine : Building
+public class Turbine : Generator
 {
+    public GameObject blades;
+    float bladeRotationSpeed = 50;
+
+    new float energyOutput = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +17,6 @@ public class Turbine : Building
     // Update is called once per frame
     void Update()
     {
-        
+        blades.transform.Rotate(0,0,bladeRotationSpeed*Time.deltaTime);
     }
 }

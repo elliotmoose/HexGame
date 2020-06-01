@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float minerals = 200;
+    public float minerals = 2000;
 
     // Start is called before the first frame update
     void Start()

@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour, ResourceConsumer
+public class Building : ResourceConsumer
 {
     public Identifiers id = Identifiers.NULL;
     public Vector2Int coordinate = Vector2Int.zero;
-    protected Dictionary<ResourceIdentifiers, float> resources = new Dictionary<ResourceIdentifiers, float>();
+
+    protected List<HexPlatform> neighbourPlatforms {
+        get {
+            HexPlatform buildingPlatform = PlatformManager.GetInstance().PlatformAtCoordinate(this.coordinate);
+            return PlatformManager.GetInstance().NeighboursOfPlatform(buildingPlatform);
+        }
+    }
 
     protected List<Building> neighbourBuildings {
         get {
@@ -16,7 +22,7 @@ public class Building : MonoBehaviour, ResourceConsumer
 
             foreach (HexPlatform platformNeighbour in platforms)
             {
-                if(platformNeighbour.building)
+                if(platformNeighbour.building != null)
                 {
                     neighbours.Add(platformNeighbour.building);
                 }
@@ -33,41 +39,8 @@ public class Building : MonoBehaviour, ResourceConsumer
         InitializeResourceNeeds();
     }
 
-    protected virtual void InitializeResourceNeeds() {}
-    
-    public void SetNeedsResource(ResourceIdentifiers resourceId) 
-    {
-        resources.Add(resourceId, 0);
-        // Debug.Log($"{id} now needs {resourceId}");
-    }
-    
-    public bool NeedsResource(ResourceIdentifiers resourceId) 
-    {
-        //if a resource has the key it needs the resource
-        return resources.ContainsKey(resourceId);
-    }
 
-    protected bool HasResource(ResourceIdentifiers resourceId) 
-    {
-        float resource = 0;
-        resources.TryGetValue(resourceId, out resource);
-        return resource != 0;
-    }
-
-
-    public void ReceiveResource(ResourceIdentifiers resourceId, float amount) 
-    {
-        if(NeedsResource(resourceId))
-        {
-            resources[resourceId] += amount;
-        }
-        else 
-        {
-            // Debug.Log($"{id} does not need {resourceId}");
-        }
-    }
-
-    public virtual void Tick() {}
+    public virtual void BuildingTick() {}
 
     public virtual void OnSystemUpdateBuilding() {}
 }

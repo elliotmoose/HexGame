@@ -22,7 +22,7 @@ public class Condenser : Building
     }
 
     // public override void OnSystemUpdateBuilding()
-    public override void Tick()
+    public override void BuildingTick()
     {
         if(!HasResource(ResourceIdentifiers.ENERGY))
         {

@@ -18,10 +18,18 @@ public class Generator : Building
     }
 
     // public override void OnSystemUpdateBuilding()
-    public override void Tick()
+    public override void BuildingTick()
     {
-                // List<Building> neighbours = this.neighbourBuildings;
+        // List<Building> neighbours = this.neighbourBuildings;
         foreach (Building neighbour in neighbourBuildings)
+        {
+            if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
+            {
+                neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
+            }
+        }
+
+        foreach (HexPlatform neighbour in neighbourPlatforms)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
             {
