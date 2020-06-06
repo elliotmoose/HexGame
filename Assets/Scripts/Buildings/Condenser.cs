@@ -5,6 +5,7 @@ using UnityEngine;
 public class Condenser : Building
 {
     float waterOutput = 1;
+    float coolFactor = 7;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +30,18 @@ public class Condenser : Building
             // Debug.Log("Condenser does not have energy!");
             return;
         }
+
         // List<Building> neighbours = this.neighbourBuildings;
         foreach (Building neighbour in neighbourBuildings)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.WATER))
             {
                 neighbour.ReceiveResource(ResourceIdentifiers.WATER, waterOutput);
+            }
+            
+            if(neighbour.NeedsResource(ResourceIdentifiers.COOL))
+            {
+                neighbour.ReceiveResource(ResourceIdentifiers.COOL, coolFactor);
             }
         }
     }

@@ -20,7 +20,6 @@ public class MiningPlatform : HexPlatform
 
         if(HasResource(ResourceIdentifiers.ENERGY))
         {
-            Debug.Log("energy!");
             Player.GetInstance().TransactMinerals(mineralAmount);
         }
     }

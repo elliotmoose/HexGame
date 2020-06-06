@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
+    public const float DAY_IN_SECONDS = 24*60*60;
+    [System.NonSerialized]
+    public float timeOfDay = 180 * DAY_IN_SECONDS;
+    [System.NonSerialized]
+    public float dayLength = 400 * DAY_IN_SECONDS; //a day on this planet is 400 earth days: 400 * 24 * 60 * 60 = 34560000
+    private float gameTimeDayLength = 25*60; //a day in the game should last about 25mins
+
 
     public float currentTemperature {
         get {
@@ -36,7 +43,7 @@ public class EnvironmentManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        timeOfDay += (Time.deltaTime * dayLength/gameTimeDayLength);
     }
 
     private static EnvironmentManager _singleton;

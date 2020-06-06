@@ -26,6 +26,21 @@ public class ResourceConsumer : MonoBehaviour
         resources.TryGetValue(resourceId, out resource);
         return resource != 0;
     }
+    
+    protected float GetResource(ResourceIdentifiers resourceId) 
+    {
+        float resource = 0;
+        resources.TryGetValue(resourceId, out resource);
+        return resource;
+    }
+    
+    protected float ExpendAllResource(ResourceIdentifiers resourceId) 
+    {
+        float resource = 0;
+        resources.TryGetValue(resourceId, out resource);
+        resources[resourceId] = 0;
+        return resource;
+    }
 
 
     public void ReceiveResource(ResourceIdentifiers resourceId, float amount) 

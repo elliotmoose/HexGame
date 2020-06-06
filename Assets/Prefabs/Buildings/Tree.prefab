@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 7977539987637132760}
   - component: {fileID: 9188432724374160076}
   - component: {fileID: 2540966907533472093}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4856,7 +4856,7 @@ GameObject:
   - component: {fileID: 4840914796718371203}
   - component: {fileID: 928213199158548080}
   - component: {fileID: 3107488022562830250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5705,7 +5705,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
@@ -9688,7 +9688,7 @@ MonoBehaviour:
     key1: {r: 0.24915846, g: 0.30396816, b: 0.2567709, a: 1}
     key2: {r: 0.32156864, g: 0.4509804, b: 0.34117648, a: 0}
     key3: {r: 0.3225347, g: 0.4528302, b: 0.34057564, a: 0}
-    key4: {r: 0.21176472, g: 0.63529414, b: 0.27058825, a: 0}
+    key4: {r: 0.15726236, g: 0.5849056, b: 0.21665724, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}

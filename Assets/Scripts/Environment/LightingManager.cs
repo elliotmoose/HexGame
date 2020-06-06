@@ -12,16 +12,16 @@ public class LightingManager : MonoBehaviour
 
     private void Update()
     {
-        return;
+        // return;
         if (Preset == null)
             return;
 
         if (Application.isPlaying)
         {
             //(Replace with a reference to the game time)
-            TimeOfDay += Time.deltaTime;
-            TimeOfDay %= 24; //Modulus to ensure always between 0-24
-            UpdateLighting(TimeOfDay / 24f);
+            TimeOfDay = EnvironmentManager.GetInstance().timeOfDay;
+            TimeOfDay %= EnvironmentManager.GetInstance().dayLength; //Modulus to ensure always between 0-24
+            UpdateLighting(TimeOfDay / EnvironmentManager.GetInstance().dayLength);
         }
         else
         {

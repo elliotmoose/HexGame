@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public Text timeText;
     public Text mineralsText;
     public Text temperatureText;
     public Text co2Text;
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {        
         UpdateDetailsPanel();
+        timeText.text = $"{Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().timeOfDay/EnvironmentManager.DAY_IN_SECONDS)}";
     }
 
     public void UpdateUI() 

@@ -29,17 +29,28 @@ public class Tree : Building
     private float _curAge = 0;
 
     private float _health = 100;
+    private float _maxHealth = 100;
+    private float _healthRegenRate = 1;
     public bool alive = true;
     
+    private float _coolFactorTemp = 0;
+    private float _baseTemp  = 25;
     private float _burnTemp = 0;
     private float _burnTempCoolRate = 1;
-    private float _burnTempHeatRate = 2;
+    private float _smokeTempHeatRate = 2;
+    private float _burnTempHeatRate = 10;
     private float _internalTemperature {
-        get {
-            float environmentTemp = EnvironmentManager.GetInstance().currentTemperature;
-            return environmentTemp + _burnTemp;
+        get {                        
+            return _baseTemp + _burnTemp + _coolFactorTemp;
         }
     }  
+
+    private bool isBurning {
+        get {
+            return _burnStage != 0;
+        }
+    }
+
     private float _smokePoint = 48;    
     private float _flashPoint = 65;    
     private int _burnStage = 0; //0 = not burning, 1 = smoking, 2 = burn
@@ -60,6 +71,7 @@ public class Tree : Building
     {
         SetNeedsResource(ResourceIdentifiers.WATER);
         SetNeedsResource(ResourceIdentifiers.LIGHT);
+        SetNeedsResource(ResourceIdentifiers.COOL);
     }
 
     void Update() 
@@ -100,11 +112,24 @@ public class Tree : Building
 
             treeObject.transform.rotation = Quaternion.Euler(0, ageFactor * _maxAngle, 0);
         }
+
+        if(!isBurning)
+        {   
+            if( _health <= _maxHealth)
+            {
+                _health += _healthRegenRate;
+            }
+        }
     }
 
     private void UpdateInternalTemperature()
     {
-        Debug.Log(_burnStage);
+        //environment base temp
+        float environmentTemp = EnvironmentManager.GetInstance().currentTemperature;
+        float targetTemp = environmentTemp + _coolFactorTemp; //so that equilibrium is at cooled temp
+
+        _baseTemp += (targetTemp-_internalTemperature)/10 * Time.deltaTime;
+
         switch (_burnStage)
         {
             case 0:
@@ -119,6 +144,10 @@ public class Tree : Building
                 break;
             
             case 1:
+                _burnTemp += (Time.deltaTime * _smokeTempHeatRate);
+                break;
+            
+            case 2:
                 _burnTemp += (Time.deltaTime * _burnTempHeatRate);
                 break;
 
@@ -160,6 +189,11 @@ public class Tree : Building
             EnvironmentManager.GetInstance().ProduceO2(_maxO2Production * (_curAge/_maxAge));
             UIManager.GetInstance().UpdateUI();
         }
+
+        if(HasResource(ResourceIdentifiers.COOL))
+        {
+            _coolFactorTemp = -ExpendAllResource(ResourceIdentifiers.COOL);
+        }
     }
 
     /// <summary>
@@ -174,7 +208,7 @@ public class Tree : Building
 
     private void UpdateLeaveColors() 
     {
-        Color color = leaveColors.Evaluate(_health/100);
+        Color color = leaveColors.Evaluate(_health/_maxHealth);
         leavesObject.GetComponent<Renderer>().materials[0].color = color;
     }
 
@@ -206,7 +240,7 @@ public class Tree : Building
     }
 
     public override string GetDescription() 
-    {
-        return $"Health: {_health}\nInternal Temp: {_internalTemperature}\nBurning: {_burnStage}\nSmokePt: {_smokePoint}\nFlashPt: {_flashPoint}\nProducing O2: {alive && _burnStage == 0 && hasLight}";
+    {        
+        return $"Health: {_health}\nInternal Temp: {_internalTemperature}\nBurning: {_burnStage}\nSmokePt: {_smokePoint}\nFlashPt: {_flashPoint}\nProducing O2: {alive && _burnStage == 0 && hasLight}\nCool Factor: {_coolFactorTemp}";
     }
 }

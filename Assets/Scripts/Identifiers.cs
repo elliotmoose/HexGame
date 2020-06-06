@@ -17,5 +17,6 @@ public enum ResourceIdentifiers
 {
     WATER,
     ENERGY,
-    LIGHT
+    LIGHT,
+    COOL
 }
