@@ -58,6 +58,11 @@ public class MapManager : MonoBehaviour
 
     public GameObject FeatureAtCoordinate(Vector2Int coordinate)
     {
+        //root is reserved for tree
+        if(coordinate == Vector2Int.zero) 
+        {
+            return null;
+        }
         GameObject feature = null;
         mapFeatures.TryGetValue(coordinate, out feature);
         return feature;

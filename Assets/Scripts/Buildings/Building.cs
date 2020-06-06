@@ -39,8 +39,9 @@ public class Building : ResourceConsumer
         InitializeResourceNeeds();
     }
 
-
     public virtual void BuildingTick() {}
 
     public virtual void OnSystemUpdateBuilding() {}
+
+    public virtual string GetDescription() {return"";}
 }

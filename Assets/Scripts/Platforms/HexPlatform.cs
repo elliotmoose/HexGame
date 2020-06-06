@@ -146,4 +146,14 @@ public class HexPlatform : ResourceConsumer
 
         return shopItems;
     }
+
+    public virtual string GetDescription()
+    {
+        string description = $"{id}\n";
+        if(building)
+        {
+            description += building.GetDescription();
+        }
+        return description;
+    }
 }

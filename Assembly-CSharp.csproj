@@ -53,8 +53,11 @@
      <Compile Include="Assets\Scripts\Buildings\Tree.cs" />
      <Compile Include="Assets\Scripts\Buildings\Turbine.cs" />
      <Compile Include="Assets\Scripts\Controls\Controls.cs" />
+     <Compile Include="Assets\Scripts\Environment\LightingManager.cs" />
+     <Compile Include="Assets\Scripts\Environment\LightingPreset.cs" />
      <Compile Include="Assets\Scripts\Helpers\Hexagon.cs" />
      <Compile Include="Assets\Scripts\Helpers\MapTextureGenerator.cs" />
+     <Compile Include="Assets\Scripts\Helpers\Numbers.cs" />
      <Compile Include="Assets\Scripts\Identifiers.cs" />
      <Compile Include="Assets\Scripts\Managers\EnvironmentManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
@@ -68,6 +71,7 @@
      <Compile Include="Assets\Scripts\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\ShopItem.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItemUI.cs" />
+     <None Include="Assets\Materials\Fire.shader" />
      <None Include="Assets\Materials\Outline.shader" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/elliotmoose/Desktop/Programming/00 Projects/UNITY/Hex/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

@@ -10,7 +10,7 @@ public class PlatformManager : MonoBehaviour
     // public GameObject emptyPlatformPrefab;
     // public GameObject placeholderPlatformPrefab;
     public Transform platformParent;
-
+    private float _tickRate = 0.5f;
     const int TILEMAP_SIZE = 30;
     // HexPlatform[,] platforms = new HexPlatform[TILEMAP_SIZE, TILEMAP_SIZE];
     Dictionary<Vector2Int, HexPlatform> platforms = new Dictionary<Vector2Int, HexPlatform>();
@@ -31,7 +31,7 @@ public class PlatformManager : MonoBehaviour
             {
                 platform.Tick();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1/_tickRate);
         }
     }
 
@@ -50,10 +50,12 @@ public class PlatformManager : MonoBehaviour
                 GameObject tile = _SpawnPlatform(isRoot ? Identifiers.SOIL_PLATFORM : Identifiers.EMPTY_PLATFORM, coord);
 
                 if(isRoot) {
-                    Camera.main.transform.position = new Vector3(tile.transform.position.x + 5, 10, tile.transform.position.z);
-                    Color rootColor;
-                    ColorUtility.TryParseHtmlString("#4244B7", out rootColor);
-                    tile.GetComponent<Renderer>().material.color = rootColor;
+                    GameObject building = BuildBuilding(Identifiers.TREE_BUILDING, coord);
+                    building.GetComponent<Tree>().GrowUp();
+                //     Camera.main.transform.position = new Vector3(tile.transform.position.x + 5, 10, tile.transform.position.z);
+                //     Color rootColor;
+                //     ColorUtility.TryParseHtmlString("#4244B7", out rootColor);
+                //     tile.GetComponent<Renderer>().material.color = rootColor;
                 }
             }
         }
