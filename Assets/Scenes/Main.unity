@@ -15,12 +15,12 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.31170565, g: 0.22132264, b: 0.010292174, a: 1}
+  m_FogColor: {r: 0.39626503, g: 0.6761635, b: 0.79369545, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.14718579, g: 0.4529541, b: 0.83752215, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0.53
@@ -38,8 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0040420527, g: 0.0002208096, b: 0.00000005486967,
-    a: 1}
+  m_IndirectSpecularColor: {r: 0.43882468, g: 0.48700315, b: 0.56726795, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -773,7 +772,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 0, g: 0.036005653, b: 0.24705882, a: 1}
+  m_Color: {r: 1, g: 0.956071, b: 0.9199865, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -819,7 +818,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.5915e-41, y: 2.9289818e-27, z: 1e-45, w: 2.8910427e-27}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -830,7 +829,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: -0.039567906, y: 0.887616, z: 0.45226294, w: 0.07765639}
+  m_LocalRotation: {x: 0.052147456, y: 0.79820484, z: -0.59604776, w: 0.06983393}
   m_LocalPosition: {x: 0, y: 6.09, z: 8.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1002,13 +1001,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.40557975, y: -0.579228, z: 0.40557975, w: 0.579228}
-  m_LocalPosition: {x: 3.82, y: 10, z: 0.88}
+  m_LocalRotation: {x: 0.29883623, y: -0.64085644, z: 0.29883623, w: 0.64085644}
+  m_LocalPosition: {x: 3.82, y: 8, z: 0.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 70, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -90, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,7 +1263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b532c99e3534749158d04de1013ce60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOfDay: 0
   currentCO2: 82
 --- !u!114 &1273203208
 MonoBehaviour:
@@ -1295,7 +1293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DirectionalLight: {fileID: 705507994}
   Preset: {fileID: 11400000, guid: 6aac411b9c5544422aa7314904ec17ca, type: 2}
-  TimeOfDay: 2.4
+  TimeOfDay: 10.9
 --- !u!1 &1318548771
 GameObject:
   m_ObjectHideFlags: 0

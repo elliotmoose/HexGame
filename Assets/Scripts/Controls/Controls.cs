@@ -124,7 +124,12 @@ public class Controls : MonoBehaviour
             return;
         }
         
-        Vector3 cameraOffset = new Vector3(Camera.main.transform.position.y * Mathf.Sin(Camera.main.transform.rotation.eulerAngles.x/Mathf.PI) - 1.8f, 0,-1f);
+        // Debug.Log(Camera.main.transform.rotation.eulerAngles);
+        float angleInRadians = (90-Camera.main.transform.rotation.eulerAngles.x)*Mathf.PI/180;
+        float oppositeOverAdjacent = Mathf.Tan(angleInRadians);
+        float horOffset = oppositeOverAdjacent * Camera.main.transform.position.y;
+        Vector3 cameraOffset = new Vector3(-horOffset, 0,-1f);
+        // Vector3 delta = Vector3.zero - (Camera.main.transform.position + cameraOffset);
         Vector3 delta = Shop.GetInstance().selectedPlatform.transform.position - (Camera.main.transform.position + cameraOffset);
         Vector3 deltaXZ = new Vector3(delta.normalized.x , 0 , delta.normalized.z);
 
