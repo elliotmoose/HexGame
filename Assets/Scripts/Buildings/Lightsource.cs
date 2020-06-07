@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Lightsource : Building
 {
-    public new GameObject light;
+    // public GameObject[] lights;
     private float _turnonDuration = 1.6f;
-    private float _intensity = 0;
+    private float _curIntensity = 0;
+    private float _maxIntensity = 4;
     private bool _on = false;
+    
     protected override void InitializeResourceNeeds()
     {
         SetNeedsResource(ResourceIdentifiers.ENERGY);
@@ -15,8 +17,7 @@ public class Lightsource : Building
     
     void Start()
     {
-        _intensity = light.GetComponent<Light>().intensity;
-        light.GetComponent<Light>().intensity = 0;
+        SetLightIntensities(0);
     }
 
     public override void OnSystemUpdateBuilding()
@@ -44,18 +45,27 @@ public class Lightsource : Building
 
     IEnumerator SetTurnOn(bool isOn) 
     {
-        Debug.Log("turning on");
-        float target = isOn ? _intensity : 0;
-        Light lightComponent = light.GetComponent<Light>();
-        bool hasReachedTarget = isOn ? (lightComponent.intensity >= _intensity) : (lightComponent.intensity <= 0);
-        Debug.Log(hasReachedTarget);
+        float target = isOn ? _curIntensity : 0;
+        
+        bool hasReachedTarget = isOn ? (_curIntensity >= _maxIntensity) : (_curIntensity <= 0);
         while(!hasReachedTarget)
         {
-            lightComponent.intensity += Time.deltaTime*(isOn ? 1 : -1)*_intensity/_turnonDuration;
-            hasReachedTarget = isOn ? (lightComponent.intensity >= _intensity) : (lightComponent.intensity <= 0);
+            _curIntensity += Time.deltaTime*(isOn ? 1 : -1)*_maxIntensity/_turnonDuration;
+            hasReachedTarget = isOn ? (_curIntensity >= _maxIntensity) : (_curIntensity <= 0);
+            SetLightIntensities(_curIntensity);
             yield return null;
-        }
+        }            
 
         yield return null;
+    }
+
+    private void SetLightIntensities(float intensity) 
+    {
+        Light[] lightComponents = GetComponentsInChildren<Light>();
+
+        foreach(Light lightComponent in lightComponents) 
+        {
+            lightComponent.intensity = intensity;
+        }
     }
 }

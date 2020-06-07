@@ -37,7 +37,7 @@ public class Tree : Building
     private float _baseTemp  = 25;
     private float _burnTemp = 0;
     private float _burnTempCoolRate = 1;
-    private float _smokeTempHeatRate = 2;
+    private float _smokeTempHeatRate = 3;
     private float _burnTempHeatRate = 10;
     private float _internalTemperature {
         get {                        
@@ -168,7 +168,7 @@ public class Tree : Building
             SetBurnStage(0);
             return;
         }
-        
+
         switch (_burnStage)
         {
             case 0:
