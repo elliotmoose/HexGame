@@ -15,8 +15,9 @@ public class Turbine : Generator
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         blades.transform.Rotate(0,0,bladeRotationSpeed*Time.deltaTime);
     }
 }

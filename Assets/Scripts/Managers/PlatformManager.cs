@@ -52,6 +52,7 @@ public class PlatformManager : MonoBehaviour
                 if(isRoot) {
                     GameObject building = BuildBuilding(Identifiers.TREE_BUILDING, coord);
                     building.GetComponent<Tree>().GrowUp();
+                    Shop.GetInstance().selectedPlatform = tile.GetComponent<HexPlatform>();
                 //     Camera.main.transform.position = new Vector3(tile.transform.position.x + 5, 10, tile.transform.position.z);
                 //     Color rootColor;
                 //     ColorUtility.TryParseHtmlString("#4244B7", out rootColor);

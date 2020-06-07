@@ -46,7 +46,13 @@ public class MapManager : MonoBehaviour
 
     void GenerateChunkUnit(Vector2Int coordinate) 
     {
+        //root is reserved for tree
+        if(coordinate == Vector2Int.zero) 
+        {
+            return;
+        }
         var randInt =  Random.Range(0, 10);
+
         if(randInt < 1) 
         {
             Vector3 position = Hexagon.PositionForCoordinate(coordinate, MapManager.HEXAGON_FLAT_WIDTH);
@@ -58,11 +64,6 @@ public class MapManager : MonoBehaviour
 
     public GameObject FeatureAtCoordinate(Vector2Int coordinate)
     {
-        //root is reserved for tree
-        if(coordinate == Vector2Int.zero) 
-        {
-            return null;
-        }
         GameObject feature = null;
         mapFeatures.TryGetValue(coordinate, out feature);
         return feature;

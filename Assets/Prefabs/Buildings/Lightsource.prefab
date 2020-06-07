@@ -301,6 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   coordinate: {x: 0, y: 0}
+  light: {fileID: 7668231482371177394}
 --- !u!1 &6964708231985672078
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +404,7 @@ GameObject:
   - component: {fileID: 1087239669347198814}
   - component: {fileID: 4017576054021316483}
   m_Layer: 0
-  m_Name: Spot Light
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,10 +434,10 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 0
-  m_Color: {r: 0.101960786, g: 0.003921569, b: 1, a: 1}
-  m_Intensity: 3.79
+  m_Color: {r: 0.3349057, g: 0.3254717, b: 1, a: 1}
+  m_Intensity: 8.05
   m_Range: 10
-  m_SpotAngle: 96
+  m_SpotAngle: 93.659096
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:

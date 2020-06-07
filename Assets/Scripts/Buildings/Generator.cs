@@ -12,15 +12,8 @@ public class Generator : Building
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        
-    }
-
-    // public override void OnSystemUpdateBuilding()
-    public override void BuildingTick()
-    {
-        // List<Building> neighbours = this.neighbourBuildings;
         foreach (Building neighbour in neighbourBuildings)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
@@ -36,5 +29,13 @@ public class Generator : Building
                 neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
             }
         }
+    
+    }
+
+    // public override void OnSystemUpdateBuilding()
+    public override void BuildingTick()
+    {
+        // List<Building> neighbours = this.neighbourBuildings;
+        
     }
 }

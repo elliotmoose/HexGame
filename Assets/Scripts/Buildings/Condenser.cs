@@ -19,19 +19,12 @@ public class Condenser : Building
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    // public override void OnSystemUpdateBuilding()
-    public override void BuildingTick()
-    {
         if(!HasResource(ResourceIdentifiers.ENERGY))
         {
             // Debug.Log("Condenser does not have energy!");
             return;
         }
-
-        // List<Building> neighbours = this.neighbourBuildings;
+                // List<Building> neighbours = this.neighbourBuildings;
         foreach (Building neighbour in neighbourBuildings)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.WATER))
@@ -44,5 +37,11 @@ public class Condenser : Building
                 neighbour.ReceiveResource(ResourceIdentifiers.COOL, coolFactor);
             }
         }
+    }
+
+    // public override void OnSystemUpdateBuilding()
+    public override void BuildingTick()
+    {
+        
     }
 }

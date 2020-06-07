@@ -86,7 +86,7 @@ public class Tree : Building
         }        
 
         UpdateInternalTemperature();
-        CheckBurn();
+        CheckBurn();        
     }
 
     private void Decay(float amount) 
@@ -124,6 +124,11 @@ public class Tree : Building
 
     private void UpdateInternalTemperature()
     {
+        if(HasResource(ResourceIdentifiers.COOL))
+        {
+            _coolFactorTemp = -ExpendAllResource(ResourceIdentifiers.COOL);
+        }
+
         //environment base temp
         float environmentTemp = EnvironmentManager.GetInstance().currentTemperature;
         float targetTemp = environmentTemp + _coolFactorTemp; //so that equilibrium is at cooled temp
@@ -158,6 +163,12 @@ public class Tree : Building
 
     private void CheckBurn() 
     {
+        if(_internalTemperature < _smokePoint) 
+        {
+            SetBurnStage(0);
+            return;
+        }
+        
         switch (_burnStage)
         {
             case 0:
@@ -190,10 +201,6 @@ public class Tree : Building
             UIManager.GetInstance().UpdateUI();
         }
 
-        if(HasResource(ResourceIdentifiers.COOL))
-        {
-            _coolFactorTemp = -ExpendAllResource(ResourceIdentifiers.COOL);
-        }
     }
 
     /// <summary>
