@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Tree : Building
 {
+    public Color healthBarGreen;
+    public Color healthBarOrange;
+    public Color healthBarRed;
+    public GameObject healthBarObject;
     public GameObject treeObject;
     public GameObject smokeObject;
     public GameObject fireObject;
@@ -81,7 +85,7 @@ public class Tree : Building
     {        
         base.Update();
         UpdateResourceIndicators();   
-        
+
         if(!hasLight || !hasWater) {
             Decay(1);
         }
@@ -101,7 +105,7 @@ public class Tree : Building
         if(_health > 0)
         {
             _health -= amount * Time.deltaTime;
-            UpdateLeaveColors();
+            UpdateLeaveAndHealthbarColors();
         }
         else 
         {
@@ -248,10 +252,27 @@ public class Tree : Building
         SetResourceIndicator(ResourceIdentifiers.WATER, !HasResource(ResourceIdentifiers.WATER));        
     }
 
-    private void UpdateLeaveColors() 
+    private void UpdateLeaveAndHealthbarColors() 
     {
-        Color color = leaveColors.Evaluate(_health/_maxHealth);
-        leavesObject.GetComponent<Renderer>().materials[0].color = color;
+        leavesObject.GetComponent<Renderer>().materials[0].color = leaveColors.Evaluate(_health/_maxHealth);
+
+
+        Color healthBarColor;
+
+        if(_health/_maxHealth > 0.7f)
+        {
+            healthBarColor = healthBarGreen;
+        }
+        else if(_health/_maxHealth > 0.3f) 
+        {
+            healthBarColor = healthBarOrange;
+        }
+        else 
+        {
+            healthBarColor = healthBarRed;
+        }
+
+        healthBarObject.GetComponent<Renderer>().material.color = healthBarColor;
     }
 
     private void Die() 

@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 0.5389743, y: 0.5389743, z: 0.5389743}
   m_Children: []
   m_Father: {fileID: 4209601720401594817}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5003239954887069112
 MeshFilter:
@@ -4845,6 +4845,104 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &3356407926576761123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1787650742606052144}
+  - component: {fileID: 7319480096454082822}
+  - component: {fileID: 3938553134476688895}
+  - component: {fileID: 8522219109661513290}
+  m_Layer: 8
+  m_Name: healthbar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1787650742606052144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356407926576761123}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.073, z: 0}
+  m_LocalScale: {x: 0.7828635, y: 0.7828635, z: 0.7828635}
+  m_Children: []
+  m_Father: {fileID: 4209601720401594817}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &7319480096454082822
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356407926576761123}
+  m_Mesh: {fileID: 2534964839176971238, guid: 1cca6498d04c244aeb8a71f448e57900, type: 3}
+--- !u!23 &3938553134476688895
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356407926576761123}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 72e3cc46e13764fdd80a33b28537a3de, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!95 &8522219109661513290
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356407926576761123}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 1cca6498d04c244aeb8a71f448e57900, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3776485923149408753
 GameObject:
   m_ObjectHideFlags: 0
@@ -9629,7 +9727,7 @@ Transform:
   - {fileID: 4840914796718371203}
   - {fileID: 1787078933630041623}
   m_Father: {fileID: 4209601720401594817}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8834485628860174203
 GameObject:
@@ -9659,6 +9757,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1787650742606052144}
   - {fileID: 2240600361692721979}
   - {fileID: 966446873763036056}
   m_Father: {fileID: 0}
@@ -9678,6 +9777,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   coordinate: {x: 0, y: 0}
+  healthBarGreen: {r: 0, g: 0.47058824, b: 0.09411765, a: 1}
+  healthBarOrange: {r: 1, g: 0.7684327, b: 0, a: 1}
+  healthBarRed: {r: 0.7921569, g: 0, b: 0.015686275, a: 1}
+  healthBarObject: {fileID: 3356407926576761123}
   treeObject: {fileID: 7686897920099045532}
   smokeObject: {fileID: 2233541161886716005}
   fireObject: {fileID: 3776485923149408753}

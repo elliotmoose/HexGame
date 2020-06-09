@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbca33bf68f624afd800f4fa79a354c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformType: 4
+  id: 0
   coordinate: {x: 0, y: 0}
+  defaultMaterial: {fileID: 0}
   hoverMaterial: {fileID: 2100000, guid: b0ef6090573b5433481311c4d8257caa, type: 2}
   selectedMaterial: {fileID: 2100000, guid: 214904c0b16c14402aed06d68cb8abb4, type: 2}
-  building: {fileID: 0}
