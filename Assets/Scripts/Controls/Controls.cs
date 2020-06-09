@@ -9,14 +9,16 @@ public class Controls : MonoBehaviour
     HexPlatform lastHovered;
     HexPlatform target = null;
     
+
+    private bool _isManualPanning = false;
     private float panSpeed = 14;
     private int tabSize = 128;
 
     void Update()
     {
         UpdatePlatformSelection();
-        // UpdateScreenMovement();      
         UpdateScreenFocus();
+        UpdateScreenMovement();      
     }
 
     void UpdatePlatformSelection()
@@ -42,14 +44,14 @@ public class Controls : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && platform != null)
             {
                 var coord = platform.coordinate;
-
+                _isManualPanning = false;
                 if(platform.id != Identifiers.NULL) 
                 {
                     Shop.GetInstance().Open(platform);    
                 }
                 else 
                 {
-                    Shop.GetInstance().Close();    
+                    // Shop.GetInstance().Close();    
                 }
             }
 
@@ -91,7 +93,11 @@ public class Controls : MonoBehaviour
             intensity -= ( ( Screen.height - mouse.y) - tabSize )/ tabSize;
         if(tabSize > mouse.y)
             intensity += (tabSize - mouse.y)/ tabSize;
- 
+
+        if(intensity != 0)
+        {
+            _isManualPanning = true;
+        }
         // intensity /= 1000;
         transform.Translate(panSpeed * dir.normalized * Mathf.Min(intensity, 1) * Time.deltaTime, Space.World);
 
@@ -100,18 +106,22 @@ public class Controls : MonoBehaviour
         
         // if(Input.mousePosition.x >= Screen.width * (1-threshold)) 
         // {
+            
         //     Camera.main.transform.position += new Vector3(0,0, scrollSpeed) * Time.deltaTime;
         // }
         // if(Input.mousePosition.x <= Screen.width * threshold) 
         // {
+        //     _isManualPanning = true;
         //     Camera.main.transform.position -= new Vector3(0, 0, scrollSpeed) * Time.deltaTime;
         // }
         // if(Input.mousePosition.y >= Screen.height * (1-threshold)) 
         // {
+        //     _isManualPanning = true;
         //     Camera.main.transform.position -= new Vector3(scrollSpeed,0,0) * Time.deltaTime;
         // }
         // if(Input.mousePosition.y <= Screen.height * threshold) 
         // {
+        //     _isManualPanning = true;
         //     Camera.main.transform.position += new Vector3(scrollSpeed,0, 0) * Time.deltaTime;
         // }
     }
@@ -119,7 +129,7 @@ public class Controls : MonoBehaviour
 
     void UpdateScreenFocus()
     {
-        if(!Shop.GetInstance().selectedPlatform) 
+        if(!Shop.GetInstance().selectedPlatform || _isManualPanning) 
         {
             return;
         }
