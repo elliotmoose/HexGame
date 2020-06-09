@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     private HexPlatform _focusedPlatform = null;
     public RectTransform shopScrollViewContentContainer;
 
+    public Camera UICamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,5 +67,23 @@ public class UIManager : MonoBehaviour
     public static UIManager GetInstance() 
     {
         return _singleton;
+    }
+
+    public static GameObject GetCanvas() 
+    {
+        return _singleton.gameObject;
+    }
+
+    public static Vector3 WorldToUISpace(Vector3 worldPos)
+    {
+        Canvas parentCanvas = _singleton.GetComponent<Canvas>();
+        //Convert the world for screen point so that it can be used with ScreenPointToLocalPointInRectangle function
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        Vector2 movePos;
+
+        //Convert the screenpoint to ui rectangle local point
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, screenPos, _singleton.UICamera, out movePos);
+        //Convert the local point to world point
+        return parentCanvas.transform.TransformPoint(movePos);
     }
 }

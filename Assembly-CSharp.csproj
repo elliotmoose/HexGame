@@ -70,7 +70,10 @@
      <Compile Include="Assets\Scripts\Platforms\MiningPlatform.cs" />
      <Compile Include="Assets\Scripts\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\ShopItem.cs" />
+     <Compile Include="Assets\Scripts\UI\Indicator.cs" />
+     <Compile Include="Assets\Scripts\UI\IndicatorSet.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItemUI.cs" />
+     <Compile Include="Assets\Scripts\UI\UIFollow.cs" />
      <None Include="Assets\Materials\Fire.shader" />
      <None Include="Assets\Materials\Outline.shader" />
  <Reference Include="Unity.Timeline.Editor">

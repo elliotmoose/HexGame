@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrefabManager : MonoBehaviour
 {
+    public GameObject indicatorSet;
+
     //platforms
     public GameObject emptyPlatform;
     public GameObject placeholderPlatform;

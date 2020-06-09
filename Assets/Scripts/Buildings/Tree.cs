@@ -72,11 +72,14 @@ public class Tree : Building
         SetNeedsResource(ResourceIdentifiers.WATER);
         SetNeedsResource(ResourceIdentifiers.LIGHT);
         SetNeedsResource(ResourceIdentifiers.COOL);
+
+        AddResourceIndicator(ResourceIdentifiers.WATER, "This tree needs water!!");
+        AddResourceIndicator(ResourceIdentifiers.LIGHT, "This tree needs light!!");
     }
 
-    void Update() 
-    {
-
+    protected override void Update() 
+    {        
+        base.Update();
         if(!hasLight || !hasWater) {
             Decay(1);
         }
@@ -86,7 +89,8 @@ public class Tree : Building
         }        
 
         UpdateInternalTemperature();
-        CheckBurn();        
+        CheckBurn();     
+        UpdateResourceIndicators();   
     }
 
     private void Decay(float amount) 
@@ -213,17 +217,6 @@ public class Tree : Building
     }
 
 
-    private void UpdateLeaveColors() 
-    {
-        Color color = leaveColors.Evaluate(_health/_maxHealth);
-        leavesObject.GetComponent<Renderer>().materials[0].color = color;
-    }
-
-    private void Die() 
-    {
-        alive = false;
-    }
-
     private void SetBurnStage(int stage)
     {
         var smokeEmission = smokeObject.GetComponent<ParticleSystem>().emission;
@@ -244,6 +237,23 @@ public class Tree : Building
             smokeEmission.enabled = false;
             fireEmission.enabled = true;            
         }
+    }
+
+    private void UpdateResourceIndicators() 
+    {
+        SetResourceIndicator(ResourceIdentifiers.LIGHT, !HasResource(ResourceIdentifiers.LIGHT));
+        SetResourceIndicator(ResourceIdentifiers.WATER, !HasResource(ResourceIdentifiers.WATER));        
+    }
+
+    private void UpdateLeaveColors() 
+    {
+        Color color = leaveColors.Evaluate(_health/_maxHealth);
+        leavesObject.GetComponent<Renderer>().materials[0].color = color;
+    }
+
+    private void Die() 
+    {
+        alive = false;
     }
 
     public override string GetDescription() 

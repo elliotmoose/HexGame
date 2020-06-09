@@ -320,6 +320,7 @@ MonoBehaviour:
   co2Text: {fileID: 1919079623}
   detailsPanel: {fileID: 601927668}
   shopScrollViewContentContainer: {fileID: 2071331563}
+  UICamera: {fileID: 132351602}
 --- !u!1 &132351600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcaeb0f21545d491db53a2be7423687a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indicatorSet: {fileID: 1395178299533535620, guid: 5cc81dafee09f469895aacace7347cf9,
+    type: 3}
   emptyPlatform: {fileID: 929065651996833225, guid: 581e0847db25445adadc86abbfed6d3b,
     type: 3}
   placeholderPlatform: {fileID: 929065651996833225, guid: 9556916827d5a42449a69ebfc6f24dee,
