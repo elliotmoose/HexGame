@@ -56,16 +56,36 @@ public class Hexagon
                 };
                 break;
             case 1:
-                neighbourOffsets = new int[][]{
-                    new int[]{-1, 0},
-                    new int[]{1, isOdd ? -1 : 1},
-                };
+                if(isOdd)
+                {
+                    neighbourOffsets = new int[][]{
+                        new int[]{-1, 0},
+                        new int[]{1,-1},
+                    };
+                }
+                else 
+                {
+                    neighbourOffsets = new int[][]{
+                        new int[]{1, 0},
+                        new int[]{-1, 1},
+                    };                           
+                }
                 break;
             case 2:
-                neighbourOffsets = new int[][]{
-                    new int[]{1, 0},
-                    new int[]{-1, isOdd ? -1 : 1},
-                };
+                if(isOdd)
+                {
+                    neighbourOffsets = new int[][]{
+                        new int[]{1, 0},
+                        new int[]{-1, -1},
+                    };
+                }
+                else 
+                {
+                    neighbourOffsets = new int[][]{
+                        new int[]{-1, 0},
+                        new int[]{1,1},
+                    };    
+                }
                 break;
             default:
                 Debug.Log($"invalid axis: {axis}");
