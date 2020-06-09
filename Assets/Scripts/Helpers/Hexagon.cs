@@ -18,7 +18,7 @@ public class Hexagon
         return new Vector3(x * verticalOffset, 0, y * 2 - horizontalOffsetOddRow);
     }
 
-    public static List<Vector2Int> NeightbourCoordinatesOfHexagon(Vector2Int coord) 
+    public static List<Vector2Int> NeighbourCoordinatesOfHexagon(Vector2Int coord) 
     {        
         List<Vector2Int> neighbours = new List<Vector2Int>();
 
@@ -39,20 +39,38 @@ public class Hexagon
 
         return neighbours;
     }
-    
-    public static List<Vector2Int> NeighbourhoodCoordinatesOfHexagon(Vector2Int coord) 
+
+    public static List<Vector2Int> NeighbourCoordinatesOfHexagonWithAxis(Vector2Int coord, int axis) 
     {        
         List<Vector2Int> neighbours = new List<Vector2Int>();
 
         var isOdd = ((coord.x % 2) == 0);
-        int[][] neighbourOffsets = {
-            new int[]{0, 1}, 
-            new int[]{0, -1},
-            new int[]{1, 0},
-            new int[]{1, isOdd ? -1 : 1},
-            new int[]{-1, 0},
-            new int[]{-1, isOdd ? -1 : 1},
-        };
+        int[][] neighbourOffsets = new int[2][];
+
+        switch (axis)
+        {
+            case 0:
+                neighbourOffsets = new int[][]{
+                    new int[] { 0, 1 }, 
+                    new int[] { 0, -1 }
+                };
+                break;
+            case 1:
+                neighbourOffsets = new int[][]{
+                    new int[]{-1, 0},
+                    new int[]{1, isOdd ? -1 : 1},
+                };
+                break;
+            case 2:
+                neighbourOffsets = new int[][]{
+                    new int[]{1, 0},
+                    new int[]{-1, isOdd ? -1 : 1},
+                };
+                break;
+            default:
+                Debug.Log($"invalid axis: {axis}");
+                break;
+        }
 
         foreach (int[] offset in neighbourOffsets)
         {

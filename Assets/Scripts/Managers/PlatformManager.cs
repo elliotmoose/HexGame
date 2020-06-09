@@ -205,7 +205,24 @@ public class PlatformManager : MonoBehaviour
     public List<HexPlatform> NeighboursOfPlatform(HexPlatform platform)
     {
         List<HexPlatform> neighbours = new List<HexPlatform>();
-        List<Vector2Int> neighbourCoordinates = Hexagon.NeightbourCoordinatesOfHexagon(platform.coordinate);
+        List<Vector2Int> neighbourCoordinates = Hexagon.NeighbourCoordinatesOfHexagon(platform.coordinate);
+
+        foreach (Vector2Int coordinate in neighbourCoordinates)
+        {
+            HexPlatform neighbour = PlatformAtCoordinate(coordinate);            
+            if(neighbour) 
+            {
+                neighbours.Add(neighbour);
+            }
+        }
+
+        return neighbours;
+    }
+
+    public List<HexPlatform> NeighboursOfPlatformWithAxis(HexPlatform platform, int axis)
+    {
+        List<HexPlatform> neighbours = new List<HexPlatform>();
+        List<Vector2Int> neighbourCoordinates = Hexagon.NeighbourCoordinatesOfHexagonWithAxis(platform.coordinate, axis);
 
         foreach (Vector2Int coordinate in neighbourCoordinates)
         {

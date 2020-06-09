@@ -80,6 +80,8 @@ public class Tree : Building
     protected override void Update() 
     {        
         base.Update();
+        UpdateResourceIndicators();   
+        
         if(!hasLight || !hasWater) {
             Decay(1);
         }
@@ -87,10 +89,11 @@ public class Tree : Building
         {
             Grow();
         }        
+        
 
         UpdateInternalTemperature();
         CheckBurn();     
-        UpdateResourceIndicators();   
+        ExpendAllResource(ResourceIdentifiers.LIGHT);
     }
 
     private void Decay(float amount) 
@@ -107,7 +110,7 @@ public class Tree : Building
     }
 
     private void Grow() 
-    {
+    {        
         if(_curAge < _maxAge)
         {
             _curAge += Time.deltaTime;
@@ -127,7 +130,7 @@ public class Tree : Building
     }
 
     private void UpdateInternalTemperature()
-    {
+    {        
         if(HasResource(ResourceIdentifiers.COOL))
         {
             _coolFactorTemp = -ExpendAllResource(ResourceIdentifiers.COOL);

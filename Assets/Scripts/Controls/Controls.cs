@@ -78,6 +78,11 @@ public class Controls : MonoBehaviour
 
     void UpdateScreenMovement() 
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            _isManualPanning = false;
+        }
+
         float intensity = 0;
         Vector3 mouse = Input.mousePosition;
         Vector3 center = new Vector3(Screen.width/2,Screen.height/2,0);

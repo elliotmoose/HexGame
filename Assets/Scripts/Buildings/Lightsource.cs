@@ -9,6 +9,7 @@ public class Lightsource : Building
     private float _curIntensity = 0;
     private float _maxIntensity = 4;
     private bool _on = false;
+    private int axis = 0;
     
     protected override void InitializeResourceNeeds()
     {
@@ -33,7 +34,8 @@ public class Lightsource : Building
 
     public override void Reselect()
     {
-        this.transform.Rotate(new Vector3(0, 120, 0));
+        axis = (axis + 1) % 3;
+        this.transform.rotation = Quaternion.Euler(0, axis * 120, 0);
     }
 
     // Update is called once per frame
@@ -45,6 +47,15 @@ public class Lightsource : Building
             // light.SetActive(isOn);
             StartCoroutine(SetTurnOn(isOn));
             _on = isOn;
+        }
+
+        foreach(Building neighbour in GetNeighbourBuildingsWithAxis(axis))
+        {
+            if(neighbour)
+            {
+                Debug.Log(neighbour.id);
+                neighbour.ReceiveResource(ResourceIdentifiers.LIGHT, _curIntensity);
+            }
         }
     }
 

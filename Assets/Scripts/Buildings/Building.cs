@@ -32,6 +32,23 @@ public class Building : ResourceConsumer
         }
     }
 
+    protected List<Building> GetNeighbourBuildingsWithAxis(int axis)
+    {
+        HexPlatform buildingPlatform = PlatformManager.GetInstance().PlatformAtCoordinate(this.coordinate);
+        List<HexPlatform> platforms = PlatformManager.GetInstance().NeighboursOfPlatformWithAxis(buildingPlatform, axis);
+        List<Building> neighbours = new List<Building>();
+
+        foreach (HexPlatform platformNeighbour in platforms)
+        {
+            if(platformNeighbour.building != null)
+            {
+                neighbours.Add(platformNeighbour.building);
+            }
+        }
+
+        return neighbours;
+    }
+
     public void Initialize(Identifiers id, Vector2Int coord) 
     {
         this.id = id;
