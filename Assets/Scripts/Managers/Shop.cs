@@ -19,7 +19,8 @@ public class Shop : MonoBehaviour
     {
         if(isOpen && platform == selectedPlatform)
         {
-            Close();
+            platform.Reselect();
+            // Close();
             return;
         }
 

@@ -31,8 +31,13 @@ public class Lightsource : Building
         }
     }
 
+    public override void Reselect()
+    {
+        this.transform.Rotate(new Vector3(0, 120, 0));
+    }
+
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         bool isOn = (EnvironmentManager.GetInstance().timeOfDayFraction < 0.25f || EnvironmentManager.GetInstance().timeOfDayFraction > 0.75f) && HasResource(ResourceIdentifiers.ENERGY);
         if(isOn != _on)

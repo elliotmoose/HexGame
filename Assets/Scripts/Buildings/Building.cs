@@ -44,6 +44,8 @@ public class Building : ResourceConsumer
         UpdateIndicatorsPosition();
     }
 
+    public virtual void Reselect() {}
+
     public virtual void BuildingTick() {}
 
     public virtual void OnSystemUpdateBuilding() {}
