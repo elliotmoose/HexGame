@@ -11,6 +11,7 @@ public class Indicator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     
     public void Initialize(ResourceIdentifiers resourceId, string message) 
     {
+        GetComponent<Image>().sprite = PrefabManager.SpriteForResourceId(resourceId);
         messageText.text = message;
     }
 

@@ -213,7 +213,7 @@ public class Tree : Building
     public override void OnSystemUpdateBuilding()
     {
         //day time
-        ReceiveResource(ResourceIdentifiers.LIGHT, 1);
+        // ReceiveResource(ResourceIdentifiers.LIGHT, 1);
     }
 
 
