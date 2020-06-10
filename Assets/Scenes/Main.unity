@@ -1230,11 +1230,15 @@ MonoBehaviour:
     type: 3}
   soilPlatform: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b,
     type: 3}
+  digSitePlatform: {fileID: 929065651996833225, guid: 8af25c7dab4344d0b9a5bc253ea6470e,
+    type: 3}
   miningDisplay: {fileID: 2145778990015961652, guid: a268c03133b36443abec1502302e443e,
     type: 3}
   stoneDisplay: {fileID: 7116147573741796012, guid: 9522824087e9849bd9b5ad871e15f939,
     type: 3}
   soilDisplay: {fileID: 929065651996833225, guid: 3fd48b45cc04b49689c02fff6ce11170,
+    type: 3}
+  digSiteDisplay: {fileID: 929065651996833225, guid: bf7aecec38eba4b66beec07ee736bf92,
     type: 3}
   tree: {fileID: 8834485628860174203, guid: 552e5a66a583941f9bc992d42ab7a583, type: 3}
   condenser: {fileID: 8650658793903192494, guid: 4cc128fdef4d246109adb096e4b5db93,
@@ -1244,6 +1248,9 @@ MonoBehaviour:
   generator: {fileID: 8650658793903192494, guid: 0dc02fb045b154285b0b50873fd04164,
     type: 3}
   turbine: {fileID: 8694968302174946980, guid: 23bea9f85848a472da146c0afb3c6c9e, type: 3}
+  oilPump: {fileID: 8650658793903192494, guid: 65827cd3f405441c8afa270254f41a3a, type: 3}
+  mineralMiner: {fileID: 8650658793903192494, guid: 03f1ceef52a9a41479ad743279b98925,
+    type: 3}
   treeDisplay: {fileID: 8834485628860174203, guid: 36712eb4acc774dffb6eb0955ea102fb,
     type: 3}
   condenserDisplay: {fileID: 8650658793903192494, guid: 559cfe1e664f54b28b452b209bec690e,
@@ -1253,6 +1260,10 @@ MonoBehaviour:
   generatorDisplay: {fileID: 8650658793903192494, guid: 733797a2bc7b94348b1249f3f558942f,
     type: 3}
   turbineDisplay: {fileID: 8694968302174946980, guid: 11943c782d1e043b090866c047023d30,
+    type: 3}
+  oilPumpDisplay: {fileID: 8650658793903192494, guid: 28876277b30414e75a080a4181c36cc9,
+    type: 3}
+  mineralMinerDisplay: {fileID: 8650658793903192494, guid: 390e86d8263574f4491db520d781539f,
     type: 3}
   nowater: {fileID: 21300000, guid: 34b040d2e673b4373b0065e45110d117, type: 3}
   noenergy: {fileID: 21300000, guid: 29f76a987f1054a459b0791af5d281ad, type: 3}

@@ -12,10 +12,12 @@ public class PrefabManager : MonoBehaviour
     public GameObject miningPlatform;
     public GameObject stonePlatform;
     public GameObject soilPlatform;
+    public GameObject digSitePlatform;
 
     public GameObject miningDisplay;
     public GameObject stoneDisplay;
     public GameObject soilDisplay;
+    public GameObject digSiteDisplay;
     
     //buildings
     public GameObject tree;
@@ -23,12 +25,16 @@ public class PrefabManager : MonoBehaviour
     public GameObject lightsource;
     public GameObject generator;
     public GameObject turbine;
+    public GameObject oilPump;
+    public GameObject mineralMiner;
 
     public GameObject treeDisplay;
     public GameObject condenserDisplay;
     public GameObject lightsourceDisplay;
     public GameObject generatorDisplay;
     public GameObject turbineDisplay;
+    public GameObject oilPumpDisplay;
+    public GameObject mineralMinerDisplay;
     
     
     public Sprite nowater;
@@ -61,6 +67,8 @@ public class PrefabManager : MonoBehaviour
                 return _singleton.stonePlatform;
             case Identifiers.MINING_PLATFORM:
                 return _singleton.miningPlatform;
+            case Identifiers.DIG_SITE_PLATFORM:
+                return _singleton.digSitePlatform;
             //buildings
             case Identifiers.TREE_BUILDING:
                 return _singleton.tree;
@@ -72,6 +80,10 @@ public class PrefabManager : MonoBehaviour
                 return _singleton.lightsource;
             case Identifiers.TURBINE_BUILDING:
                 return _singleton.turbine;
+            case Identifiers.MINERAL_MINER_BUILDING:
+                return _singleton.mineralMiner;
+            case Identifiers.OIL_PUMP_BUILDING:
+                return _singleton.oilPump;
             
             default:
                 Debug.LogWarning($"Can't find prefab for id: {id}");

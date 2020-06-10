@@ -38,7 +38,7 @@ public class HexPlatform : ResourceConsumer
     {
         if(!defaultMaterial)
         {
-            defaultMaterial = GetComponent<Renderer>().material;
+            defaultMaterial = GetComponentInChildren<Renderer>().material;
         }
     }
 
@@ -136,6 +136,7 @@ public class HexPlatform : ResourceConsumer
             case Identifiers.PLACEHOLDER_PLATFORM:
                 shopItems.Add(ShopItem.StonePlatform());
                 shopItems.Add(ShopItem.SoilPlatform());
+                shopItems.Add(ShopItem.DigSitePlatform());
                 break;
             case Identifiers.SOIL_PLATFORM:
                 shopItems.Add(ShopItem.Tree());
@@ -145,6 +146,10 @@ public class HexPlatform : ResourceConsumer
                 shopItems.Add(ShopItem.LightSource());
                 shopItems.Add(ShopItem.Generator());
                 shopItems.Add(ShopItem.Turbine());
+                break;
+            case Identifiers.DIG_SITE_PLATFORM:
+                shopItems.Add(ShopItem.MineralMiner());
+                shopItems.Add(ShopItem.OilPump());
                 break;
             default:
                 return shopItems;

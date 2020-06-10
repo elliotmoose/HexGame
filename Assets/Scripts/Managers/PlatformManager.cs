@@ -126,6 +126,7 @@ public class PlatformManager : MonoBehaviour
             case Identifiers.STONE_PLATFORM:
             case Identifiers.SOIL_PLATFORM:
             case Identifiers.MINING_PLATFORM:
+            case Identifiers.DIG_SITE_PLATFORM:
                 return isPlaceholder;
             //buildings
             case Identifiers.TREE_BUILDING:
@@ -135,12 +136,15 @@ public class PlatformManager : MonoBehaviour
             case Identifiers.GENERATOR_BUILDING:
             case Identifiers.TURBINE_BUILDING:
                 return platformId == Identifiers.STONE_PLATFORM;
+            case Identifiers.MINERAL_MINER_BUILDING:
+            case Identifiers.OIL_PUMP_BUILDING:
+                return platformId == Identifiers.DIG_SITE_PLATFORM;
             default:
                 return false;
         }
     }
 
-    public GameObject Build(Identifiers id , Vector2Int coordinate) 
+    public GameObject Build(Identifiers id, Vector2Int coordinate) 
     {
         if(!CanBuild(id, coordinate)) 
         {
@@ -153,12 +157,15 @@ public class PlatformManager : MonoBehaviour
             case Identifiers.STONE_PLATFORM:
             case Identifiers.SOIL_PLATFORM:
             case Identifiers.MINING_PLATFORM:
+            case Identifiers.DIG_SITE_PLATFORM:
                 return BuildPlatform(id, coordinate);
             case Identifiers.TREE_BUILDING:
             case Identifiers.LIGHTSOURCE_BUILDING:
             case Identifiers.CONDENSER_BUILDING:
             case Identifiers.GENERATOR_BUILDING:
             case Identifiers.TURBINE_BUILDING:
+            case Identifiers.MINERAL_MINER_BUILDING:
+            case Identifiers.OIL_PUMP_BUILDING:
                 return BuildBuilding(id, coordinate);
             default:
                 return null;

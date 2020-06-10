@@ -6,11 +6,15 @@ public enum Identifiers
     STONE_PLATFORM,
     MINING_PLATFORM,
     SOIL_PLATFORM,
+    DIG_SITE_PLATFORM,
+
     TREE_BUILDING,
     LIGHTSOURCE_BUILDING,
     CONDENSER_BUILDING,    
     GENERATOR_BUILDING,    
     TURBINE_BUILDING,    
+    MINERAL_MINER_BUILDING,    
+    OIL_PUMP_BUILDING,    
 }
 
 public enum ResourceIdentifiers

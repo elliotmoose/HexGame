@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ShopItem 
 {
-
     public Identifiers id;
     public string title;
     public string description;
@@ -53,6 +52,17 @@ public class ShopItem
         item.description = "Mines minerals and generates income.";
         item.price = 500;
         item.prefab = PrefabManager.GetInstance().miningDisplay;                
+        return item;
+    }
+ 
+    public static ShopItem DigSitePlatform() 
+    {
+        ShopItem item = new ShopItem();
+        item.id = Identifiers.DIG_SITE_PLATFORM;
+        item.title = "Digging Site";
+        item.description = "Demarcated area for digging";
+        item.price = 500;
+        item.prefab = PrefabManager.GetInstance().digSiteDisplay;                
         return item;
     }
 
@@ -110,6 +120,28 @@ public class ShopItem
         item.description = "Generates energy for nearby platforms";
         item.price = 500;
         item.prefab = PrefabManager.GetInstance().turbineDisplay;                
+        return item;
+    }
+
+    public static ShopItem MineralMiner() 
+    {
+        ShopItem item = new ShopItem();
+        item.id = Identifiers.MINERAL_MINER_BUILDING;
+        item.title = "Mineral Miner";
+        item.description = "Digs the ground for minerals";
+        item.price = 500;
+        item.prefab = PrefabManager.GetInstance().mineralMiner;                
+        return item;
+    }
+
+    public static ShopItem OilPump() 
+    {
+        ShopItem item = new ShopItem();
+        item.id = Identifiers.OIL_PUMP_BUILDING;
+        item.title = "Oil Pump";
+        item.description = "Digs the ground for oil";
+        item.price = 500;
+        item.prefab = PrefabManager.GetInstance().oilPump;                
         return item;
     }
 

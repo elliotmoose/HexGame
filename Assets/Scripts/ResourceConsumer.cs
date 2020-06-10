@@ -83,6 +83,10 @@ public class ResourceConsumer : MonoBehaviour
 
     protected void UpdateIndicatorsPosition() 
     {
+        if(!resourceIndicatorSet)
+        {
+            return;
+        }
         resourceIndicatorSet.transform.position = UIManager.WorldToUISpace(this.transform.position);
     }
 }

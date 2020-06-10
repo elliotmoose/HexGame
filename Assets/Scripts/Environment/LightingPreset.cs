@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName ="Lighting Preset", menuName ="Scriptables/Lighting Preset",order =1)]
+[CreateAssetMenu(fileName ="Lighting Preset", menuName ="Scriptables/Lighting Preset",order=2)]
 public class LightingPreset : ScriptableObject
 {
     public Gradient AmbientColor;
