@@ -116,49 +116,6 @@ public class HexPlatform : ResourceConsumer
         }
     }
 
-    // public List<ShopItem> GetShopItems() 
-    // {
-    //     List<ShopItem> shopItems = new List<ShopItem>();
-    //     if(_building != null)
-    //     {
-    //         return shopItems;
-    //     }
-
-    //     GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(this.coordinate);
-    //     if(feature)
-    //     {
-    //         shopItems.Add(ShopItem.MiningPlatform());
-    //         return shopItems;
-    //     }
-
-    //     switch (this.id)
-    //     {
-    //         case Identifiers.PLACEHOLDER_PLATFORM:
-    //             shopItems.Add(ShopItem.StonePlatform());
-    //             shopItems.Add(ShopItem.SoilPlatform());
-    //             shopItems.Add(ShopItem.DigSitePlatform());
-    //             break;
-    //         case Identifiers.SOIL_PLATFORM:
-    //             shopItems.Add(ShopItem.Tree());
-    //             break;
-    //         case Identifiers.STONE_PLATFORM:
-    //             shopItems.Add(ShopItem.Condenser());
-    //             shopItems.Add(ShopItem.LightSource());
-    //             shopItems.Add(ShopItem.Generator());
-    //             shopItems.Add(ShopItem.Turbine());
-    //             break;
-    //         case Identifiers.DIG_SITE_PLATFORM:
-    //             shopItems.Add(ShopItem.MineralMiner());
-    //             shopItems.Add(ShopItem.OilPump());
-    //             break;
-    //         default:
-    //             return shopItems;
-    //     }
-
-
-    //     return shopItems;
-    // }
-
     public virtual string GetDescription()
     {
         string description = $"{metaData.id}\n";

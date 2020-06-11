@@ -50,10 +50,10 @@ public class PlatformManager : MonoBehaviour
                 var position = Hexagon.PositionForCoordinate(coord, MapManager.HEXAGON_FLAT_WIDTH);
             
                 Identifiers platformToSpawn = (isRoot ? Identifiers.SOIL_PLATFORM : Identifiers.EMPTY_PLATFORM);
-                GameObject platformGo = _SpawnPlatform(MetaDataManager.MetaDataForId(platformToSpawn), coord);
+                GameObject platformGo = _SpawnPlatform(MetaDataManager.GetMetaDataForId(platformToSpawn), coord);
                 if(isRoot)
                 {
-                    GameObject building = BuildBuilding(MetaDataManager.MetaDataForId(Identifiers.TREE_BUILDING), coord);
+                    GameObject building = BuildBuilding(MetaDataManager.GetMetaDataForId(Identifiers.TREE_BUILDING), coord);
                     building.GetComponent<Tree>().GrowUp();
                     Shop.GetInstance().selectedPlatform = platformGo.GetComponent<HexPlatform>();                
 
@@ -122,42 +122,42 @@ public class PlatformManager : MonoBehaviour
     }
 
 
-    public bool CanBuild(Identifiers id, Vector2Int coordinate) 
-    {
-        HexPlatform targetPlatform = PlatformAtCoordinate(coordinate);
-        Identifiers platformId = targetPlatform.metaData.id;
-        bool isPlaceholder = targetPlatform.metaData.id == Identifiers.PLACEHOLDER_PLATFORM;
-        switch (id)
-        {
-            //platforms
-            case Identifiers.STONE_PLATFORM:
-            case Identifiers.SOIL_PLATFORM:
-            case Identifiers.MINING_PLATFORM:
-            case Identifiers.DIG_SITE_PLATFORM:
-                return isPlaceholder;
-            //buildings
-            case Identifiers.TREE_BUILDING:
-                return platformId == Identifiers.SOIL_PLATFORM;
-            case Identifiers.CONDENSER_BUILDING:
-            case Identifiers.LIGHTSOURCE_BUILDING:
-            case Identifiers.GENERATOR_BUILDING:
-            case Identifiers.TURBINE_BUILDING:
-                return platformId == Identifiers.STONE_PLATFORM;
-            case Identifiers.MINERAL_MINER_BUILDING:
-            case Identifiers.OIL_PUMP_BUILDING:
-                return platformId == Identifiers.DIG_SITE_PLATFORM;
-            default:
-                return false;
-        }
-    }
+    // public bool CanBuild(Identifiers id, Vector2Int coordinate) 
+    // {
+    //     HexPlatform targetPlatform = PlatformAtCoordinate(coordinate);
+    //     Identifiers platformId = targetPlatform.metaData.id;
+    //     bool isPlaceholder = targetPlatform.metaData.id == Identifiers.PLACEHOLDER_PLATFORM;
+    //     switch (id)
+    //     {
+    //         //platforms
+    //         case Identifiers.STONE_PLATFORM:
+    //         case Identifiers.SOIL_PLATFORM:
+    //         case Identifiers.MINING_PLATFORM:
+    //         case Identifiers.DIG_SITE_PLATFORM:
+    //             return isPlaceholder;
+    //         //buildings
+    //         case Identifiers.TREE_BUILDING:
+    //             return platformId == Identifiers.SOIL_PLATFORM;
+    //         case Identifiers.CONDENSER_BUILDING:
+    //         case Identifiers.LIGHTSOURCE_BUILDING:
+    //         case Identifiers.GENERATOR_BUILDING:
+    //         case Identifiers.TURBINE_BUILDING:
+    //             return platformId == Identifiers.STONE_PLATFORM;
+    //         case Identifiers.MINERAL_MINER_BUILDING:
+    //         case Identifiers.OIL_PUMP_BUILDING:
+    //             return platformId == Identifiers.DIG_SITE_PLATFORM;
+    //         default:
+    //             return false;
+    //     }
+    // }
 
     public GameObject Build(ObjectMetaData shopItemScriptable, Vector2Int coordinate) 
     {
-        if(!CanBuild(shopItemScriptable.id, coordinate)) 
-        {
-            Debug.LogWarning($"Cannot build {shopItemScriptable.id} at {coordinate}");
-            return null;
-        }
+        // if(!CanBuild(shopItemScriptable.id, coordinate)) 
+        // {
+        //     Debug.LogWarning($"Cannot build {shopItemScriptable.id} at {coordinate}");
+        //     return null;
+        // }
         
         if(shopItemScriptable.type == ShopItemType.BUILDING)
         {
@@ -202,7 +202,7 @@ public class PlatformManager : MonoBehaviour
 
         foreach (var tile in newPlaceholders)
         {
-            _SpawnPlatform(MetaDataManager.MetaDataForId(Identifiers.PLACEHOLDER_PLATFORM), tile.coordinate);
+            _SpawnPlatform(MetaDataManager.GetMetaDataForId(Identifiers.PLACEHOLDER_PLATFORM), tile.coordinate);
         }
     }
 
@@ -259,16 +259,3 @@ public class PlatformManager : MonoBehaviour
         return _singleton;
     }
 }
-
-
-/*
-Adding a new block
-1. CanBuild (PlatformManager)
-2. Build (PlatformManager)
-3. BuildPlatform/BuildBuilding (PlatformManager)
-4. PrefabForID (PrefabManager)
-5. Add prefab (PrefabManager)
-6. Create Shop Item (ShopItem)
-7. Create Identifier (Identifiers)
-8. GetShopItems (HexPlatform)
-*/

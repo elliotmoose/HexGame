@@ -84,7 +84,6 @@ public class Tree : Building
     protected override void Update() 
     {        
         base.Update();
-        UpdateResourceIndicators();   
 
         if(!hasLight || !hasWater) {
             Decay(1);
@@ -246,11 +245,7 @@ public class Tree : Building
         }
     }
 
-    private void UpdateResourceIndicators() 
-    {
-        SetResourceIndicator(ResourceIdentifiers.LIGHT, !HasResource(ResourceIdentifiers.LIGHT));
-        SetResourceIndicator(ResourceIdentifiers.WATER, !HasResource(ResourceIdentifiers.WATER));        
-    }
+
 
     private void UpdateLeaveAndHealthbarColors() 
     {

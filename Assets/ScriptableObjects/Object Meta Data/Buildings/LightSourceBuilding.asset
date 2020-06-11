@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
   m_Name: LightSourceBuilding
   m_EditorClassIdentifier: 
-  id: 8
+  id: 7
   title: Blue Light
   description: Helps trees grow through the night
   price: 300

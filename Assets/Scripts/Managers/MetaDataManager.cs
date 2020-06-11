@@ -18,7 +18,7 @@ public class MetaDataManager : MonoBehaviour
         
     }
 
-    public static ObjectMetaData MetaDataForId(Identifiers id)
+    public static ObjectMetaData GetMetaDataForId(Identifiers id)
     {
         foreach(ObjectMetaData item in _singleton.buildingMetaData) 
         {

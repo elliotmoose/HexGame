@@ -62,14 +62,7 @@ public class Shop : MonoBehaviour
             return shopItemsIds;
         }
 
-        GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(platform.coordinate);
-        if(feature)
-        {
-            shopItemsIds.Add(MetaDataManager.MetaDataForId(Identifiers.MINING_PLATFORM));
-            return shopItemsIds;
-        }
-
-        return platform.metaData.availableShopItems;
+        return platform.metaData.GetContextualAvailableShopItems(platform.coordinate);
     }
 
     public void UpdateShopItems()

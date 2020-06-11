@@ -6,13 +6,13 @@ using UnityEngine;
 public class IndicatorSet : MonoBehaviour
 {
     public GameObject indicatorPrefab;
-    private Dictionary<ResourceIdentifiers, string> displayedResourceMessages = new Dictionary<ResourceIdentifiers, string>();
+    public Dictionary<ResourceIdentifiers, string> displayedResources = new Dictionary<ResourceIdentifiers, string>();
     private Dictionary<ResourceIdentifiers, GameObject> indicators = new Dictionary<ResourceIdentifiers, GameObject>();
 
     // Start is called before the first frame update
     public void AddIndicator(ResourceIdentifiers resourceID, string message)
     {
-        displayedResourceMessages.Add(resourceID, message);
+        displayedResources.Add(resourceID, message);
         UpdateIndicators();
     }
 
@@ -25,11 +25,11 @@ public class IndicatorSet : MonoBehaviour
 
         indicators.Clear();
 
-        foreach(ResourceIdentifiers resourceId in displayedResourceMessages.Keys)
+        foreach(ResourceIdentifiers resourceId in displayedResources.Keys)
         {
             GameObject indicatorObject = GameObject.Instantiate(indicatorPrefab, Vector3.zero, Quaternion.identity, this.transform.GetChild(0));
             indicatorObject.transform.localPosition = Vector3.zero;
-            indicatorObject.GetComponent<Indicator>().Initialize(resourceId, displayedResourceMessages[resourceId]);
+            indicatorObject.GetComponent<Indicator>().Initialize(resourceId, displayedResources[resourceId]);
             indicators.Add(resourceId, indicatorObject);
         }
     }

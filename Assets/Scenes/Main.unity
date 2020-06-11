@@ -1221,51 +1221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   indicatorSet: {fileID: 1395178299533535620, guid: 5cc81dafee09f469895aacace7347cf9,
     type: 3}
-  emptyPlatform: {fileID: 929065651996833225, guid: 581e0847db25445adadc86abbfed6d3b,
-    type: 3}
-  placeholderPlatform: {fileID: 929065651996833225, guid: 9556916827d5a42449a69ebfc6f24dee,
-    type: 3}
-  miningPlatform: {fileID: 2145778990015961652, guid: 24206af96894a4ebbac02e3f2fc56824,
-    type: 3}
-  stonePlatform: {fileID: 929065651996833225, guid: d3512beacdd6b46b49305a3ddf1fa0fe,
-    type: 3}
-  soilPlatform: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b,
-    type: 3}
-  digSitePlatform: {fileID: 929065651996833225, guid: 8af25c7dab4344d0b9a5bc253ea6470e,
-    type: 3}
-  miningDisplay: {fileID: 2145778990015961652, guid: a268c03133b36443abec1502302e443e,
-    type: 3}
-  stoneDisplay: {fileID: 7116147573741796012, guid: 9522824087e9849bd9b5ad871e15f939,
-    type: 3}
-  soilDisplay: {fileID: 929065651996833225, guid: 3fd48b45cc04b49689c02fff6ce11170,
-    type: 3}
-  digSiteDisplay: {fileID: 929065651996833225, guid: bf7aecec38eba4b66beec07ee736bf92,
-    type: 3}
-  tree: {fileID: 8834485628860174203, guid: 552e5a66a583941f9bc992d42ab7a583, type: 3}
-  condenser: {fileID: 8650658793903192494, guid: 4cc128fdef4d246109adb096e4b5db93,
-    type: 3}
-  lightsource: {fileID: 6921419306022163517, guid: 97e5961528ee641abbdc5aa27fc84c86,
-    type: 3}
-  generator: {fileID: 8650658793903192494, guid: 0dc02fb045b154285b0b50873fd04164,
-    type: 3}
-  turbine: {fileID: 8694968302174946980, guid: 23bea9f85848a472da146c0afb3c6c9e, type: 3}
-  oilPump: {fileID: 8650658793903192494, guid: 65827cd3f405441c8afa270254f41a3a, type: 3}
-  mineralMiner: {fileID: 8650658793903192494, guid: 03f1ceef52a9a41479ad743279b98925,
-    type: 3}
-  treeDisplay: {fileID: 8834485628860174203, guid: 36712eb4acc774dffb6eb0955ea102fb,
-    type: 3}
-  condenserDisplay: {fileID: 8650658793903192494, guid: 559cfe1e664f54b28b452b209bec690e,
-    type: 3}
-  lightsourceDisplay: {fileID: 6921419306022163517, guid: f52f2428321ec4d3fb9b5647a88f7dae,
-    type: 3}
-  generatorDisplay: {fileID: 8650658793903192494, guid: 733797a2bc7b94348b1249f3f558942f,
-    type: 3}
-  turbineDisplay: {fileID: 8694968302174946980, guid: 11943c782d1e043b090866c047023d30,
-    type: 3}
-  oilPumpDisplay: {fileID: 8650658793903192494, guid: 28876277b30414e75a080a4181c36cc9,
-    type: 3}
-  mineralMinerDisplay: {fileID: 8650658793903192494, guid: 390e86d8263574f4491db520d781539f,
-    type: 3}
   nowater: {fileID: 21300000, guid: 34b040d2e673b4373b0065e45110d117, type: 3}
   noenergy: {fileID: 21300000, guid: 29f76a987f1054a459b0791af5d281ad, type: 3}
   nolight: {fileID: 21300000, guid: 66112980b961b42079028b2b24343ec4, type: 3}
@@ -1326,10 +1281,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingMetaData:
   - {fileID: 11400000, guid: 1ede8b7bbfdd34220972634cd32b3b1b, type: 2}
+  - {fileID: 11400000, guid: e5808a0e7f92b4fefaf5b915af8d64e7, type: 2}
   platformMetaData:
   - {fileID: 11400000, guid: f5bafc1b705b349e2be91eb95a91b84e, type: 2}
   - {fileID: 11400000, guid: d4e86779042ad491f8b284a841fd359c, type: 2}
   - {fileID: 11400000, guid: a169acdb33197486a9b44f86f37bc752, type: 2}
+  - {fileID: 11400000, guid: 3e9bfc174754442efb99565e01665e73, type: 2}
 --- !u!1 &1318548771
 GameObject:
   m_ObjectHideFlags: 0

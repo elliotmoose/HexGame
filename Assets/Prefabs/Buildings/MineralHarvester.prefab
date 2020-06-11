@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3142403439996381223}
-  - component: {fileID: 3712140754811773009}
+  - component: {fileID: 43452273642248095}
   m_Layer: 0
-  m_Name: miningPlatform
+  m_Name: MineralHarvester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,14 +26,14 @@ Transform:
   m_GameObject: {fileID: 2145778990015961652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 2045504317830407725}
   - {fileID: 5492595125492213854}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3712140754811773009
+--- !u!114 &43452273642248095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,15 +42,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145778990015961652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 237fdee525249463589bfd6f4dc8e0aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 24db859843d784ddd9f9345c83ab015b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformType: 5
+  metaData: {fileID: 0}
   coordinate: {x: 0, y: 0}
-  defaultMaterial: {fileID: 2100000, guid: 9e329233f93e64bcf972e96b5f9c1fbf, type: 2}
-  hoverMaterial: {fileID: 2100000, guid: b0ef6090573b5433481311c4d8257caa, type: 2}
-  selectedMaterial: {fileID: 2100000, guid: 214904c0b16c14402aed06d68cb8abb4, type: 2}
-  building: {fileID: 0}
   mineralAmount: 15
   mineralInterval: 1
 --- !u!1 &3042267920170865726

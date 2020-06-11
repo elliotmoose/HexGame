@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
   m_Name: TreeBuilding
   m_EditorClassIdentifier: 
-  id: 7
+  id: 6
   title: Tree
   description: A block of soil to grow things on
   price: 300
@@ -20,3 +20,4 @@ MonoBehaviour:
   displayPrefab: {fileID: 8834485628860174203, guid: 36712eb4acc774dffb6eb0955ea102fb,
     type: 3}
   type: 0
+  availableShopItems: []

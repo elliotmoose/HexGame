@@ -81,6 +81,19 @@ public class ResourceConsumer : MonoBehaviour
         resourceIndicatorSet.GetComponent<IndicatorSet>().SetShowIndicator(resourceId, isActive);
     }
 
+    protected void UpdateResourceIndicators() 
+    {
+        if(!resourceIndicatorSet)
+        {
+            return;
+        }
+
+        foreach(ResourceIdentifiers resourceId in resourceIndicatorSet.GetComponent<IndicatorSet>().displayedResources.Keys)
+        {
+            SetResourceIndicator(resourceId, !HasResource(resourceId));
+        }
+    }
+
     protected void UpdateIndicatorsPosition() 
     {
         if(!resourceIndicatorSet)

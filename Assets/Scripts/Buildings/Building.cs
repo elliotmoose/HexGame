@@ -59,6 +59,7 @@ public class Building : ResourceConsumer
     protected virtual void Update() 
     {
         UpdateIndicatorsPosition();
+        UpdateResourceIndicators();   
     }
 
     public virtual void Reselect() {}

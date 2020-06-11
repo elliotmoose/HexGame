@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
-  m_Name: SoilPlatform
+  m_Name: MineralHarvesterBuilding
   m_EditorClassIdentifier: 
-  id: 4
-  title: Soil
-  description: A block of soil to grow things on
-  price: 300
-  prefab: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b, type: 3}
-  displayPrefab: {fileID: 929065651996833225, guid: 3fd48b45cc04b49689c02fff6ce11170,
+  id: 11
+  title: Mineral Harvester
+  description: Harvests surface minerals for much more minerals
+  price: 500
+  prefab: {fileID: 2145778990015961652, guid: 24206af96894a4ebbac02e3f2fc56824, type: 3}
+  displayPrefab: {fileID: 2145778990015961652, guid: a268c03133b36443abec1502302e443e,
     type: 3}
-  type: 1
-  availableShopItems:
-  - {fileID: 11400000, guid: 1ede8b7bbfdd34220972634cd32b3b1b, type: 2}
+  type: 0
+  availableShopItems: []

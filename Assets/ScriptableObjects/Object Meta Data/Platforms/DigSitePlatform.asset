@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
   m_Name: DigSitePlatform
   m_EditorClassIdentifier: 
-  id: 6
+  id: 5
   title: Dig Site
   description: A demarcated site for all your digging needs!
   price: 300
