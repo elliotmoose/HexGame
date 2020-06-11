@@ -45,7 +45,7 @@ public class Controls : MonoBehaviour
             {
                 var coord = platform.coordinate;
                 _isManualPanning = false;
-                if(platform.id != Identifiers.NULL) 
+                if(platform.metaData.id != Identifiers.NULL) 
                 {
                     Shop.GetInstance().Open(platform);    
                 }

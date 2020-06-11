@@ -1159,6 +1159,7 @@ GameObject:
   - component: {fileID: 1273203208}
   - component: {fileID: 1273203207}
   - component: {fileID: 1273203209}
+  - component: {fileID: 1273203210}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1311,6 +1312,24 @@ MonoBehaviour:
   DirectionalLight: {fileID: 705507994}
   Preset: {fileID: 11400000, guid: 6aac411b9c5544422aa7314904ec17ca, type: 2}
   TimeOfDay: 10.9
+--- !u!114 &1273203210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273203202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fd6fc2a136643f985b189411cfaf8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingMetaData:
+  - {fileID: 11400000, guid: 1ede8b7bbfdd34220972634cd32b3b1b, type: 2}
+  platformMetaData:
+  - {fileID: 11400000, guid: f5bafc1b705b349e2be91eb95a91b84e, type: 2}
+  - {fileID: 11400000, guid: d4e86779042ad491f8b284a841fd359c, type: 2}
+  - {fileID: 11400000, guid: a169acdb33197486a9b44f86f37bc752, type: 2}
 --- !u!1 &1318548771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,7 +1789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bbbc69049adf4f9d9ea83f3919c5c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopItemPrefab: {fileID: 9000562033378227831, guid: 64075e3cb5a0c454b9fb41b64945813c,
+  shopItemUIPrefab: {fileID: 9000562033378227831, guid: 64075e3cb5a0c454b9fb41b64945813c,
     type: 3}
   shopItemsContainer: {fileID: 2071331563}
   selectedPlatform: {fileID: 0}

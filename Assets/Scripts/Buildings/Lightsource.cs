@@ -53,7 +53,7 @@ public class Lightsource : Building
         {
             if(neighbour)
             {
-                Debug.Log(neighbour.id);
+                Debug.Log(neighbour.metaData.id);
                 neighbour.ReceiveResource(ResourceIdentifiers.LIGHT, _curIntensity);
             }
         }

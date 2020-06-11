@@ -45,7 +45,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\ScriptableObjects\ShopItems\ShopItemScriptable.cs" />
+     <Compile Include="Assets\ScriptableObjects\ObjectMetaData.cs" />
      <Compile Include="Assets\Scripts\Attachments\Attachment.cs" />
      <Compile Include="Assets\Scripts\Buildings\Building.cs" />
      <Compile Include="Assets\Scripts\Buildings\Condenser.cs" />
@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Identifiers.cs" />
      <Compile Include="Assets\Scripts\Managers\EnvironmentManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\MetaDataManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PlatformManager.cs" />
      <Compile Include="Assets\Scripts\Managers\Player.cs" />
      <Compile Include="Assets\Scripts\Managers\PrefabManager.cs" />

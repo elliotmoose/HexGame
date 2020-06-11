@@ -47,22 +47,22 @@ public class PlatformManager : MonoBehaviour
             {
                 var coord = new Vector2Int(i, j);
                 var isRoot = (rootTileCoordinate == coord);
-                GameObject tile = _SpawnPlatform(isRoot ? Identifiers.SOIL_PLATFORM : Identifiers.EMPTY_PLATFORM, coord);
-
-                if(isRoot) {
-                    GameObject building = BuildBuilding(Identifiers.TREE_BUILDING, coord);
+                var position = Hexagon.PositionForCoordinate(coord, MapManager.HEXAGON_FLAT_WIDTH);
+            
+                Identifiers platformToSpawn = (isRoot ? Identifiers.SOIL_PLATFORM : Identifiers.EMPTY_PLATFORM);
+                GameObject platformGo = _SpawnPlatform(MetaDataManager.MetaDataForId(platformToSpawn), coord);
+                if(isRoot)
+                {
+                    GameObject building = BuildBuilding(MetaDataManager.MetaDataForId(Identifiers.TREE_BUILDING), coord);
                     building.GetComponent<Tree>().GrowUp();
-                    Shop.GetInstance().selectedPlatform = tile.GetComponent<HexPlatform>();
-                //     Camera.main.transform.position = new Vector3(tile.transform.position.x + 5, 10, tile.transform.position.z);
-                //     Color rootColor;
-                //     ColorUtility.TryParseHtmlString("#4244B7", out rootColor);
-                //     tile.GetComponent<Renderer>().material.color = rootColor;
+                    Shop.GetInstance().selectedPlatform = platformGo.GetComponent<HexPlatform>();                
+
                 }
             }
         }
     }
 
-    private GameObject _SpawnPlatform(Identifiers id, Vector2Int coordinate) 
+    private GameObject _SpawnPlatform(ObjectMetaData metaData, Vector2Int coordinate) 
     {        
         HexPlatform platform = PlatformAtCoordinate(coordinate);
 
@@ -73,30 +73,37 @@ public class PlatformManager : MonoBehaviour
         }
         
         var position = Hexagon.PositionForCoordinate(coordinate, MapManager.HEXAGON_FLAT_WIDTH);
-        GameObject tileGo = GameObject.Instantiate(PrefabManager.PrefabForID(id), position, Quaternion.identity, platformParent);
+        GameObject tileGo = GameObject.Instantiate(metaData.prefab, position, Quaternion.identity, platformParent);
         HexPlatform hexTile = tileGo.GetComponent<HexPlatform>();
 
         platforms.Add(coordinate, hexTile);
-        hexTile.Initialize(id, coordinate);
+        hexTile.Initialize(metaData, coordinate);
         return tileGo;
     }
 
-    private GameObject BuildPlatform(Identifiers platformType, Vector2Int coordinate)
+    private GameObject BuildPlatform(ObjectMetaData metaData, Vector2Int coordinate)
     {
         HexPlatform platform = PlatformAtCoordinate(coordinate);
 
         if (platform)
         {
+            platforms.Remove(coordinate);
             GameObject.Destroy(platform.gameObject);
         }
+        
+        var position = Hexagon.PositionForCoordinate(coordinate, MapManager.HEXAGON_FLAT_WIDTH);
+        GameObject newtile = GameObject.Instantiate(metaData.prefab, position, Quaternion.identity, platformParent);
+        HexPlatform hexTile = newtile.GetComponent<HexPlatform>();
+        platforms.Add(coordinate, hexTile);
+        hexTile.Initialize(metaData, coordinate);
+        
 
-        GameObject newtile = _SpawnPlatform(platformType, coordinate);
         UpdatePlaceHolders();
         OnSystemUpdate();
         return newtile;
     }
 
-    private GameObject BuildBuilding(Identifiers id, Vector2Int coordinate)
+    private GameObject BuildBuilding(ObjectMetaData metaData, Vector2Int coordinate)
     {
         HexPlatform platform = PlatformAtCoordinate(coordinate);
 
@@ -105,9 +112,9 @@ public class PlatformManager : MonoBehaviour
             return null;
         }
 
-        GameObject buildingObject = GameObject.Instantiate(PrefabManager.PrefabForID(id), platform.transform.position, platform.transform.rotation);
+        GameObject buildingObject = GameObject.Instantiate(metaData.prefab, platform.transform.position, platform.transform.rotation);
         Building building = buildingObject.GetComponent<Building>();
-        building.Initialize(id, coordinate);
+        building.Initialize(metaData, coordinate);
 
         platform.building = building;
         OnSystemUpdate();
@@ -118,8 +125,8 @@ public class PlatformManager : MonoBehaviour
     public bool CanBuild(Identifiers id, Vector2Int coordinate) 
     {
         HexPlatform targetPlatform = PlatformAtCoordinate(coordinate);
-        Identifiers platformId = targetPlatform.id;
-        bool isPlaceholder = targetPlatform.id == Identifiers.PLACEHOLDER_PLATFORM;
+        Identifiers platformId = targetPlatform.metaData.id;
+        bool isPlaceholder = targetPlatform.metaData.id == Identifiers.PLACEHOLDER_PLATFORM;
         switch (id)
         {
             //platforms
@@ -144,31 +151,21 @@ public class PlatformManager : MonoBehaviour
         }
     }
 
-    public GameObject Build(Identifiers id, Vector2Int coordinate) 
+    public GameObject Build(ObjectMetaData shopItemScriptable, Vector2Int coordinate) 
     {
-        if(!CanBuild(id, coordinate)) 
+        if(!CanBuild(shopItemScriptable.id, coordinate)) 
         {
-            Debug.LogWarning($"Cannot build {id} at {coordinate}");
+            Debug.LogWarning($"Cannot build {shopItemScriptable.id} at {coordinate}");
             return null;
         }
         
-        switch (id)
+        if(shopItemScriptable.type == ShopItemType.BUILDING)
         {
-            case Identifiers.STONE_PLATFORM:
-            case Identifiers.SOIL_PLATFORM:
-            case Identifiers.MINING_PLATFORM:
-            case Identifiers.DIG_SITE_PLATFORM:
-                return BuildPlatform(id, coordinate);
-            case Identifiers.TREE_BUILDING:
-            case Identifiers.LIGHTSOURCE_BUILDING:
-            case Identifiers.CONDENSER_BUILDING:
-            case Identifiers.GENERATOR_BUILDING:
-            case Identifiers.TURBINE_BUILDING:
-            case Identifiers.MINERAL_MINER_BUILDING:
-            case Identifiers.OIL_PUMP_BUILDING:
-                return BuildBuilding(id, coordinate);
-            default:
-                return null;
+            return BuildBuilding(shopItemScriptable, coordinate);
+        }
+        else 
+        {
+            return BuildPlatform(shopItemScriptable, coordinate);
         }
     }
 
@@ -180,7 +177,7 @@ public class PlatformManager : MonoBehaviour
         //TODO: update only nearby buildings?
         foreach(HexPlatform platform in platforms.Values) 
         {
-            if(platform.id != Identifiers.EMPTY_PLATFORM)
+            if(platform.metaData.id != Identifiers.EMPTY_PLATFORM)
             {
                 platform.OnSystemUpdate();
             }
@@ -196,7 +193,7 @@ public class PlatformManager : MonoBehaviour
 
             foreach (HexPlatform neighbour in neighbours)
             {
-                if (neighbour.id == Identifiers.EMPTY_PLATFORM && (tile.id != Identifiers.EMPTY_PLATFORM && tile.id != Identifiers.PLACEHOLDER_PLATFORM))
+                if (neighbour.metaData.id == Identifiers.EMPTY_PLATFORM && (tile.metaData.id != Identifiers.EMPTY_PLATFORM && tile.metaData.id != Identifiers.PLACEHOLDER_PLATFORM))
                 {
                     newPlaceholders.Add(neighbour);
                 }
@@ -205,7 +202,7 @@ public class PlatformManager : MonoBehaviour
 
         foreach (var tile in newPlaceholders)
         {
-            _SpawnPlatform(Identifiers.PLACEHOLDER_PLATFORM, tile.coordinate);
+            _SpawnPlatform(MetaDataManager.MetaDataForId(Identifiers.PLACEHOLDER_PLATFORM), tile.coordinate);
         }
     }
 

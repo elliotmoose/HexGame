@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Shop : MonoBehaviour
 {
-    public GameObject shopItemPrefab;
+    public GameObject shopItemUIPrefab;
     public Transform shopItemsContainer;
-    public Dictionary<Identifiers, ShopItem> shopItems = new Dictionary<Identifiers, ShopItem>();
+
     public bool isOpen {
         get {
             return this.gameObject.activeSelf;
@@ -51,6 +53,25 @@ public class Shop : MonoBehaviour
         selectedPlatform = null;
     }
 
+
+    public List<ObjectMetaData> AvailableShopItemsForPlatform(HexPlatform platform) 
+    {
+        List<ObjectMetaData> shopItemsIds = new List<ObjectMetaData>();
+        if(platform.building != null)
+        {
+            return shopItemsIds;
+        }
+
+        GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(platform.coordinate);
+        if(feature)
+        {
+            shopItemsIds.Add(MetaDataManager.MetaDataForId(Identifiers.MINING_PLATFORM));
+            return shopItemsIds;
+        }
+
+        return platform.metaData.availableShopItems;
+    }
+
     public void UpdateShopItems()
     {
         if(!selectedPlatform) 
@@ -58,23 +79,24 @@ public class Shop : MonoBehaviour
             return;
         }
 
-        List<ShopItem> shopItems = selectedPlatform.GetShopItems();
-                     
-       //update ui based on shopItems
+        List<ObjectMetaData> metaDatas = AvailableShopItemsForPlatform(selectedPlatform);
+                         
+       //clear shop item uis
        for (int i = 0; i < shopItemsContainer.childCount; i++)
        {
            GameObject child = shopItemsContainer.GetChild(i).gameObject;
            GameObject.Destroy(child);
        }
 
-       foreach (var item in shopItems)
+        //rebuild shop item uis
+       foreach (ObjectMetaData shopItemMetaData in metaDatas)
        {
-           GameObject shopItemUIObject = GameObject.Instantiate(shopItemPrefab, shopItemsContainer, false);           
-           shopItemUIObject.GetComponent<ShopItemUI>().LoadData(item);
+           GameObject shopItemUIObject = GameObject.Instantiate(shopItemUIPrefab, shopItemsContainer, false);           
+           shopItemUIObject.GetComponent<ShopItemUI>().LoadData(shopItemMetaData);
        }
     }
 
-    public void Purchase(ShopItem item) 
+    public void Purchase(ObjectMetaData item) 
     {
         if(selectedPlatform == null) 
         {            
@@ -82,7 +104,7 @@ public class Shop : MonoBehaviour
             return; 
         }
 
-        GameObject platform = PlatformManager.GetInstance().Build(item.id, selectedPlatform.coordinate);
+        GameObject platform = PlatformManager.GetInstance().Build(item, selectedPlatform.coordinate);
         if(platform != null) {
             Player.GetInstance().TransactMinerals(-item.price);
             

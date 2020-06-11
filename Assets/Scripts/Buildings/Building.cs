@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Building : ResourceConsumer
 {
-    public Identifiers id = Identifiers.NULL;
+    public ObjectMetaData metaData;
     public Vector2Int coordinate = Vector2Int.zero;
 
     protected List<HexPlatform> neighbourPlatforms {
@@ -49,9 +49,9 @@ public class Building : ResourceConsumer
         return neighbours;
     }
 
-    public void Initialize(Identifiers id, Vector2Int coord) 
+    public void Initialize(ObjectMetaData metaData, Vector2Int coord) 
     {
-        this.id = id;
+        this.metaData = metaData;
         coordinate = coord;
         InitializeResourceNeeds();
     }

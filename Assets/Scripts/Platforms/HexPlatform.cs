@@ -9,7 +9,7 @@ public enum AttachmentType {
 
 public class HexPlatform : ResourceConsumer
 {
-    public Identifiers id = Identifiers.NULL;
+    public ObjectMetaData metaData;
     public Vector2Int coordinate;
 
     public Material defaultMaterial;
@@ -42,14 +42,14 @@ public class HexPlatform : ResourceConsumer
         }
     }
 
-    public void Initialize(Identifiers id, Vector2Int coord) {
-        this.id = id;
+    public void Initialize(ObjectMetaData metaData, Vector2Int coord) {
+        this.metaData = metaData;
         coordinate = coord;
         InitializeResourceNeeds();
     }
 
     public void SetHovered(bool isHovered) {
-        if(id == Identifiers.NULL) 
+        if(metaData.id == Identifiers.NULL) 
         {
             return;
         }
@@ -65,7 +65,7 @@ public class HexPlatform : ResourceConsumer
     }
 
     public virtual void SetSelected(bool isHovered) {
-        if(id == Identifiers.NULL) 
+        if(metaData.id == Identifiers.NULL) 
         {
             return;
         }
@@ -116,52 +116,52 @@ public class HexPlatform : ResourceConsumer
         }
     }
 
-    public List<ShopItem> GetShopItems() 
-    {
-        List<ShopItem> shopItems = new List<ShopItem>();
-        if(_building != null)
-        {
-            return shopItems;
-        }
+    // public List<ShopItem> GetShopItems() 
+    // {
+    //     List<ShopItem> shopItems = new List<ShopItem>();
+    //     if(_building != null)
+    //     {
+    //         return shopItems;
+    //     }
 
-        GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(this.coordinate);
-        if(feature)
-        {
-            shopItems.Add(ShopItem.MiningPlatform());
-            return shopItems;
-        }
+    //     GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(this.coordinate);
+    //     if(feature)
+    //     {
+    //         shopItems.Add(ShopItem.MiningPlatform());
+    //         return shopItems;
+    //     }
 
-        switch (this.id)
-        {
-            case Identifiers.PLACEHOLDER_PLATFORM:
-                shopItems.Add(ShopItem.StonePlatform());
-                shopItems.Add(ShopItem.SoilPlatform());
-                shopItems.Add(ShopItem.DigSitePlatform());
-                break;
-            case Identifiers.SOIL_PLATFORM:
-                shopItems.Add(ShopItem.Tree());
-                break;
-            case Identifiers.STONE_PLATFORM:
-                shopItems.Add(ShopItem.Condenser());
-                shopItems.Add(ShopItem.LightSource());
-                shopItems.Add(ShopItem.Generator());
-                shopItems.Add(ShopItem.Turbine());
-                break;
-            case Identifiers.DIG_SITE_PLATFORM:
-                shopItems.Add(ShopItem.MineralMiner());
-                shopItems.Add(ShopItem.OilPump());
-                break;
-            default:
-                return shopItems;
-        }
+    //     switch (this.id)
+    //     {
+    //         case Identifiers.PLACEHOLDER_PLATFORM:
+    //             shopItems.Add(ShopItem.StonePlatform());
+    //             shopItems.Add(ShopItem.SoilPlatform());
+    //             shopItems.Add(ShopItem.DigSitePlatform());
+    //             break;
+    //         case Identifiers.SOIL_PLATFORM:
+    //             shopItems.Add(ShopItem.Tree());
+    //             break;
+    //         case Identifiers.STONE_PLATFORM:
+    //             shopItems.Add(ShopItem.Condenser());
+    //             shopItems.Add(ShopItem.LightSource());
+    //             shopItems.Add(ShopItem.Generator());
+    //             shopItems.Add(ShopItem.Turbine());
+    //             break;
+    //         case Identifiers.DIG_SITE_PLATFORM:
+    //             shopItems.Add(ShopItem.MineralMiner());
+    //             shopItems.Add(ShopItem.OilPump());
+    //             break;
+    //         default:
+    //             return shopItems;
+    //     }
 
 
-        return shopItems;
-    }
+    //     return shopItems;
+    // }
 
     public virtual string GetDescription()
     {
-        string description = $"{id}\n";
+        string description = $"{metaData.id}\n";
         if(building)
         {
             description += building.GetDescription();

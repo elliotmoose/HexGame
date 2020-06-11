@@ -11,11 +11,11 @@ public class ShopItemUI : MonoBehaviour
     public Text priceText;
     public Transform itemDisplaySlot;
 
-    private ShopItem _item;
+    private ObjectMetaData _item;
 
     private GameObject _displayObject;
     
-    public void LoadData(ShopItem item)
+    public void LoadData(ObjectMetaData item)
     {
         this._item = item;
 
@@ -23,7 +23,7 @@ public class ShopItemUI : MonoBehaviour
         descriptionText.text = item.description;
         priceText.text = $"{item.price}";
 
-        _displayObject = GameObject.Instantiate(item.prefab, itemDisplaySlot, false);
+        _displayObject = GameObject.Instantiate(item.displayPrefab, itemDisplaySlot, false);
         _displayObject.transform.localPosition = Vector3.zero;
         _displayObject.layer = itemDisplaySlot.gameObject.layer;
         foreach (Transform child in _displayObject.transform)
