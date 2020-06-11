@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public Text timeText;
     public Text mineralsText;
+    public Text oilText;
     public Text temperatureText;
     public Text co2Text;
     public GameObject detailsPanel;
@@ -31,6 +32,7 @@ public class UIManager : MonoBehaviour
     public void UpdateUI() 
     {
         mineralsText.text = $"{Player.GetInstance().minerals}";
+        oilText.text = $"{Player.GetInstance().oil}";
         
         temperatureText.text = Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().currentTemperature)+"°C";
         co2Text.text = Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().currentCO2)+"%";

@@ -7,6 +7,7 @@ public class PrefabManager : MonoBehaviour
     public GameObject indicatorSet;
     
     public Sprite nowater;
+    public Sprite nooil;
     public Sprite noenergy;
     public Sprite nolight;
     

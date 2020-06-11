@@ -7,11 +7,10 @@ public class Turbine : Generator
     public GameObject blades;
     float bladeRotationSpeed = 50;
 
-    new float energyOutput = 2;
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.energyOutput = 2;
     }
 
     // Update is called once per frame

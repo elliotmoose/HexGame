@@ -54,7 +54,7 @@ public class PlatformManager : MonoBehaviour
                 if(isRoot)
                 {
                     GameObject building = BuildBuilding(MetaDataManager.GetMetaDataForId(Identifiers.TREE_BUILDING), coord);
-                    building.GetComponent<Tree>().GrowUp();
+                    building.GetComponent<TreeBuilding>().GrowUp();
                     Shop.GetInstance().selectedPlatform = platformGo.GetComponent<HexPlatform>();                
 
                 }

@@ -53,7 +53,7 @@
      <Compile Include="Assets\Scripts\Buildings\Lightsource.cs" />
      <Compile Include="Assets\Scripts\Buildings\MineralMiner.cs" />
      <Compile Include="Assets\Scripts\Buildings\OilPump.cs" />
-     <Compile Include="Assets\Scripts\Buildings\Tree.cs" />
+     <Compile Include="Assets\Scripts\Buildings\TreeBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\Turbine.cs" />
      <Compile Include="Assets\Scripts\Controls\Controls.cs" />
      <Compile Include="Assets\Scripts\Environment\LightingManager.cs" />

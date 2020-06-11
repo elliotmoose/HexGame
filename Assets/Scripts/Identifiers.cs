@@ -22,5 +22,6 @@ public enum ResourceIdentifiers
     WATER,
     ENERGY,
     LIGHT,
-    COOL
+    COOL,
+    OIL
 }

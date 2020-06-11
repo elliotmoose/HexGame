@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
 public class Controls : MonoBehaviour
 {
     HexPlatform lastHovered;
-    HexPlatform target = null;
     
 
     private bool _isManualPanning = false;

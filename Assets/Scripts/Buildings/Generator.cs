@@ -12,8 +12,9 @@ public class Generator : Building
     }
 
     // Update is called once per frame
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         foreach (Building neighbour in neighbourBuildings)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
