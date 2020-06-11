@@ -16,7 +16,12 @@ MonoBehaviour:
   title: Stone
   description: A block of soil to grow things on
   price: 300
-  prefab: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b, type: 3}
-  displayPrefab: {fileID: 929065651996833225, guid: 3fd48b45cc04b49689c02fff6ce11170,
+  prefab: {fileID: 929065651996833225, guid: d3512beacdd6b46b49305a3ddf1fa0fe, type: 3}
+  displayPrefab: {fileID: 7116147573741796012, guid: 9522824087e9849bd9b5ad871e15f939,
     type: 3}
   type: 1
+  availableShopItems:
+  - {fileID: 11400000, guid: 296dc100f9bbf47f68a8bfd202b16653, type: 2}
+  - {fileID: 11400000, guid: a832f217b562e4447b98243b82daaee3, type: 2}
+  - {fileID: 11400000, guid: 20cfccaad7e8348589801fa0afa291a9, type: 2}
+  - {fileID: 11400000, guid: 9322b948ad21b45898969fe3abcf220a, type: 2}

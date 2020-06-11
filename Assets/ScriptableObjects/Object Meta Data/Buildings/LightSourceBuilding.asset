@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
-  m_Name: MineralMinerBuilding
+  m_Name: LightSourceBuilding
   m_EditorClassIdentifier: 
-  id: 12
-  title: Mineral Miner
-  description: Digs the ground for minerals
+  id: 8
+  title: Blue Light
+  description: Helps trees grow through the night
   price: 300
-  prefab: {fileID: 8650658793903192494, guid: 03f1ceef52a9a41479ad743279b98925, type: 3}
-  displayPrefab: {fileID: 8650658793903192494, guid: 390e86d8263574f4491db520d781539f,
+  prefab: {fileID: 6921419306022163517, guid: 97e5961528ee641abbdc5aa27fc84c86, type: 3}
+  displayPrefab: {fileID: 6921419306022163517, guid: f52f2428321ec4d3fb9b5647a88f7dae,
     type: 3}
   type: 0
   availableShopItems: []

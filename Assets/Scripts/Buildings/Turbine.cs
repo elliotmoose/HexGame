@@ -18,6 +18,7 @@ public class Turbine : Generator
     protected override void Update()
     {
         base.Update();
+
         blades.transform.Rotate(0,0,bladeRotationSpeed*Time.deltaTime);
     }
 }

@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 6
   title: Dig Site
-  description: A block of soil to grow things on
+  description: A demarcated site for all your digging needs!
   price: 300
-  prefab: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b, type: 3}
-  displayPrefab: {fileID: 929065651996833225, guid: 3fd48b45cc04b49689c02fff6ce11170,
+  prefab: {fileID: 929065651996833225, guid: 8af25c7dab4344d0b9a5bc253ea6470e, type: 3}
+  displayPrefab: {fileID: 929065651996833225, guid: bf7aecec38eba4b66beec07ee736bf92,
     type: 3}
   type: 1
+  availableShopItems:
+  - {fileID: 11400000, guid: fb34caba970e943989460d1bf6f39c3b, type: 2}
+  - {fileID: 11400000, guid: aff01392bad7f4815ac50a923bc01711, type: 2}

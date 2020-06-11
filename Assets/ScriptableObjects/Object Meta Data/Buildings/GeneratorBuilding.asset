@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
   m_Name: GeneratorBuilding
   m_EditorClassIdentifier: 
-  id: 7
-  title: Tree
-  description: A block of soil to grow things on
+  id: 10
+  title: Generator
+  description: Converts oil into energy
   price: 300
-  prefab: {fileID: 8834485628860174203, guid: 552e5a66a583941f9bc992d42ab7a583, type: 3}
-  displayPrefab: {fileID: 8834485628860174203, guid: 36712eb4acc774dffb6eb0955ea102fb,
+  prefab: {fileID: 8650658793903192494, guid: 0dc02fb045b154285b0b50873fd04164, type: 3}
+  displayPrefab: {fileID: 8650658793903192494, guid: 733797a2bc7b94348b1249f3f558942f,
     type: 3}
   type: 0
+  availableShopItems: []

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
-  m_Name: MineralMinerBuilding
+  m_Name: OilPumpBuilding
   m_EditorClassIdentifier: 
-  id: 12
-  title: Mineral Miner
-  description: Digs the ground for minerals
+  id: 13
+  title: Oil Pump
+  description: Digs the ground for oil
   price: 300
-  prefab: {fileID: 8650658793903192494, guid: 03f1ceef52a9a41479ad743279b98925, type: 3}
-  displayPrefab: {fileID: 8650658793903192494, guid: 390e86d8263574f4491db520d781539f,
+  prefab: {fileID: 8650658793903192494, guid: 65827cd3f405441c8afa270254f41a3a, type: 3}
+  displayPrefab: {fileID: 8650658793903192494, guid: 28876277b30414e75a080a4181c36cc9,
     type: 3}
   type: 0
   availableShopItems: []

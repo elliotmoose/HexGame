@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee58bfd23c5b24cf1ae91f9e5d6cdfb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  metaData: {fileID: 0}
   coordinate: {x: 0, y: 0}
 --- !u!1 &7608237702927980601
 GameObject:
@@ -316,6 +316,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: lamppost
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 27f6127185f0e40a3b7bded14511e8bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27f6127185f0e40a3b7bded14511e8bb, type: 3}
