@@ -7,31 +7,16 @@ public class IndicatorSet : MonoBehaviour
 {
     public GameObject indicatorPrefab;
     public Dictionary<ResourceIdentifiers, string> displayedResources = new Dictionary<ResourceIdentifiers, string>();
-    private Dictionary<ResourceIdentifiers, GameObject> indicators = new Dictionary<ResourceIdentifiers, GameObject>();
+    private Dictionary<ResourceIdentifiers, GameObject> indicators = new Dictionary<ResourceIdentifiers, GameObject>();    
 
     // Start is called before the first frame update
     public void AddIndicator(ResourceIdentifiers resourceID, string message)
     {
         displayedResources.Add(resourceID, message);
-        UpdateIndicators();
-    }
-
-    private void UpdateIndicators() 
-    {        
-        foreach (GameObject indicator in indicators.Values)
-        {
-            GameObject.Destroy(indicator);
-        }
-
-        indicators.Clear();
-
-        foreach(ResourceIdentifiers resourceId in displayedResources.Keys)
-        {
-            GameObject indicatorObject = GameObject.Instantiate(indicatorPrefab, Vector3.zero, Quaternion.identity, this.transform.GetChild(0));
-            indicatorObject.transform.localPosition = Vector3.zero;
-            indicatorObject.GetComponent<Indicator>().Initialize(resourceId, displayedResources[resourceId]);
-            indicators.Add(resourceId, indicatorObject);
-        }
+        GameObject indicatorObject = GameObject.Instantiate(indicatorPrefab, Vector3.zero, Quaternion.identity, this.transform.GetChild(0));
+        indicatorObject.transform.localPosition = Vector3.zero;
+        indicatorObject.GetComponent<Indicator>().Initialize(resourceID, displayedResources[resourceID]);
+        indicators.Add(resourceID, indicatorObject);
     }
 
     public void SetShowIndicator(ResourceIdentifiers resourceId, bool active) 
