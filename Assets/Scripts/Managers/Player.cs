@@ -19,9 +19,20 @@ public class Player : MonoBehaviour
         
     }
 
-    public void TransactMinerals(float amount) 
+    public void TransactResource(ResourceIdentifiers resourceId, float amount) 
     {
-        minerals += amount;
+        switch (resourceId)
+        {
+            case ResourceIdentifiers.OIL:
+                oil += amount;
+                break;
+            case ResourceIdentifiers.MINERALS:
+                minerals += amount;
+                break;
+            default:
+                Debug.LogError($"Player does not have the resource {resourceId}");
+                return;
+        }
 
         UIManager.GetInstance().UpdateUI();
     }

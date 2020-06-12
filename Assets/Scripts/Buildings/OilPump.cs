@@ -20,7 +20,7 @@ public class OilPump : Building
     {
         if(HasResource(ResourceIdentifiers.ENERGY))
         {
-            Player.GetInstance().TransactMinerals(oilAmount);
+            Player.GetInstance().TransactResource(ResourceIdentifiers.OIL, oilAmount);
         }
     }
 

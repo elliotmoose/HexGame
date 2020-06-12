@@ -99,7 +99,7 @@ public class Shop : MonoBehaviour
 
         GameObject platform = PlatformManager.GetInstance().Build(item, selectedPlatform.coordinate);
         if(platform != null) {
-            Player.GetInstance().TransactMinerals(-item.price);
+            Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, -item.price);
             
             HexPlatform hex = platform.GetComponent<HexPlatform>();
 

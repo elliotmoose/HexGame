@@ -27,6 +27,6 @@ public class Attachment : MonoBehaviour
 
     void Trigger() 
     {
-        Player.GetInstance().TransactMinerals(mineralAmount);
+        Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, mineralAmount);
     }
 }

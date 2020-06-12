@@ -32,6 +32,8 @@ public class PrefabManager : MonoBehaviour
                 return _singleton.nowater;
             case ResourceIdentifiers.ENERGY:
                 return _singleton.noenergy;
+            case ResourceIdentifiers.OIL:
+                return _singleton.nooil;
             default:
                 return null;
         }
