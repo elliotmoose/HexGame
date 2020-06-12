@@ -31,8 +31,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI() 
     {
-        mineralsText.text = $"{Player.GetInstance().minerals}";
-        oilText.text = $"{Player.GetInstance().oil}";
+        mineralsText.text = $"{Numbers.TwoDecimalPlace(Player.GetInstance().minerals)}";
+        oilText.text = $"{Numbers.TwoDecimalPlace(Player.GetInstance().oil)}";
         
         temperatureText.text = Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().currentTemperature)+"°C";
         co2Text.text = Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().currentCO2)+"%";

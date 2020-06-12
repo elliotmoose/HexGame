@@ -14,13 +14,15 @@ public class Condenser : Building
     protected override void InitializeResourceNeeds()
     {
         SetNeedsResource(ResourceIdentifiers.ENERGY);
+        AddResourceIndicator(ResourceIdentifiers.ENERGY, "Condenser needs energy to produce water!");
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        if(!HasResource(ResourceIdentifiers.ENERGY))
+        
+        if(ExpendAllResource(ResourceIdentifiers.ENERGY) == 0)
         {
             // Debug.Log("Condenser does not have energy!");
             return;

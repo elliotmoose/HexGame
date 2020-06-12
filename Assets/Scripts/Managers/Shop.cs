@@ -97,10 +97,16 @@ public class Shop : MonoBehaviour
             return; 
         }
 
+        if(item.price > Player.GetInstance().minerals)
+        {
+            Debug.LogWarning("Insufficient Minerals");
+            return;
+        }
+
         GameObject platform = PlatformManager.GetInstance().Build(item, selectedPlatform.coordinate);
         if(platform != null) {
-            Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, -item.price);
-            
+            Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, -item.price);            
+
             HexPlatform hex = platform.GetComponent<HexPlatform>();
 
             if (hex != null)
