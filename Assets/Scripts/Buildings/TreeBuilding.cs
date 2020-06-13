@@ -12,6 +12,7 @@ public class TreeBuilding : Building
     public GameObject smokeObject;
     public GameObject fireObject;
     public GameObject leavesObject;
+    public GameObject trunkObject;
     public Gradient leaveColors;
 
     private float _maxAngle = 40;
@@ -41,7 +42,7 @@ public class TreeBuilding : Building
     private float _baseTemp  = 25;
     private float _burnTemp = 0;
     private float _burnTempCoolRate = 1;
-    private float _smokeTempHeatRate = 3;
+    private float _smokeTempHeatRate = 1.5f;
     private float _burnTempHeatRate = 10;
     private float _internalTemperature {
         get {                        
@@ -87,14 +88,21 @@ public class TreeBuilding : Building
     protected override void Update() 
     {        
         base.Update();
-
-        if(!hasLight || !hasWater) {
-            Decay(1);
-        }
-        else 
+        
+        if(!hasLight)
         {
+            Decay(4);
+        }
+        
+        if(!hasWater)
+        {
+            Decay(4);
+        }
+
+        if(hasLight && hasWater) {
             Grow();
-        }        
+        }
+            
         
         UpdateLeaveAndHealthbarColors();
         UpdateInternalTemperature();
@@ -247,7 +255,7 @@ public class TreeBuilding : Building
 
     private void UpdateLeaveAndHealthbarColors() 
     {
-        leavesObject.GetComponent<Renderer>().materials[0].color = leaveColors.Evaluate(_health/_maxHealth);
+        leavesObject.GetComponent<Renderer>().material.color = leaveColors.Evaluate(_health/_maxHealth);
 
 
         Color healthBarColor;
@@ -271,6 +279,9 @@ public class TreeBuilding : Building
     private void Die() 
     {
         alive = false;
+        leavesObject.SetActive(false);
+        trunkObject.GetComponent<Renderer>().material.color = new Color32(0,0,0,1);
+
     }
 
     public override string GetDescription() 
