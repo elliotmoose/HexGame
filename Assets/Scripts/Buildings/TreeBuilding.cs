@@ -209,10 +209,7 @@ public class TreeBuilding : Building
         if(alive && _burnStage == 0 && hasLight)
         {
             EnvironmentManager.GetInstance().ProduceO2(_maxO2Production * (_curAge/_maxAge));
-            //PERFORMANCE: might not need to update every frame
-            UIManager.GetInstance().UpdateUI();
         }
-
     }
 
 

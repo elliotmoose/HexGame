@@ -71,6 +71,8 @@ public class Generator : Building
                 }
             }
         }        
+
+        base.RecalculateResources();
     }
 
     public override void BuildingTick()

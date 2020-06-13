@@ -40,8 +40,6 @@ public class Player : MonoBehaviour
                 Debug.LogError($"Player does not have the resource {resourceId}");
                 return;
         }
-
-        UIManager.GetInstance().UpdateUI();
     }
 
     private void OilEmptyStatusChanged() 

@@ -35,22 +35,39 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
-
-    public float currentTemperature {
-        get {
-            //compute temperature based on ratio and time of day
-            float minTemp = 25;
-            float maxTemp = 65;
-            float targetCO2 = 30;
-            float percentageTemp = (currentCO2-targetCO2)/(currentCO2 + currentO2 - targetCO2);
-            return (maxTemp-minTemp)*(percentageTemp) + minTemp;
-        }
-    }
-
     public float currentCO2 = 70;
     public float currentO2 {
         get {
             return 100-currentCO2;
+        }
+    }
+
+    private float targetCO2 = 30;
+    private float co2Factor {
+        get {            
+            //100% CO2 will give 1
+            //target CO2 will give 0
+            return Mathf.Clamp((currentCO2-targetCO2)/(100 - targetCO2), 0, 1);
+        }
+    }
+
+    private float maxTemp {
+        get {
+            return Mathf.Lerp(35, 65, co2Factor);
+        }
+    }
+    
+    private float minTemp {
+        get {
+            return Mathf.Lerp(25, 35, co2Factor);
+        }
+    }
+
+    public float currentTemperature {
+        get {
+            //compute temperature based on ratio and time of day
+            float timeOfDaySinFactor = (-Mathf.Sin(2 * Mathf.PI * (timeOfDayFraction + 0.25f)) + 1)/2;
+            return Mathf.Lerp(minTemp, maxTemp, timeOfDaySinFactor);
         }
     }
 

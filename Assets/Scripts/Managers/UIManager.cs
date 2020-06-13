@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {        
+        UpdateUI();
         UpdateDetailsPanel();
         timeText.text = $"{Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().timeOfDay/EnvironmentManager.DAY_IN_SECONDS)}";
     }
