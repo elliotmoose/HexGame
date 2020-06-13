@@ -47,7 +47,7 @@ public class Lightsource : Building
     // Update is called once per frame
     protected override void Update()
     {
-        bool isOn = (EnvironmentManager.GetInstance().timeOfDayFraction < 0.25f || EnvironmentManager.GetInstance().timeOfDayFraction > 0.75f) && HasResource(ResourceIdentifiers.ENERGY);
+        bool isOn = !EnvironmentManager.GetInstance().isDay && HasResource(ResourceIdentifiers.ENERGY);
         if(isOn != _on)
         {
             // light.SetActive(isOn);

@@ -16,6 +16,25 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
+    public bool isDay {
+        get {
+            return (timeOfDayFraction > 0.25f && timeOfDayFraction < 0.75f);
+        }
+    }
+
+    public float daylight {
+        get {
+            if(!isDay) 
+            {
+                return 0;
+            } 
+
+            //peak is at 0.5
+            //y = -(4x-2)^2 + 1
+            return -Mathf.Pow((4*timeOfDayFraction - 2), 2) + 1;
+        }
+    }
+
 
     public float currentTemperature {
         get {
@@ -42,13 +61,23 @@ public class EnvironmentManager : MonoBehaviour
 
     void Start() 
     {
-
+        StartCoroutine(EnvironmentTick());
     }
 
     // Update is called once per frame
     void Update()
     {
         timeOfDay += (Time.deltaTime * dayLength/gameTimeDayLength);
+    }
+
+    IEnumerator EnvironmentTick() 
+    {
+        while(true)
+        {
+            //PERFORMANCE: might not want to recalculate every frame 
+            PlatformManager.GetInstance().RecalculateResources();
+            yield return null;
+        }
     }
 
     private static EnvironmentManager _singleton;

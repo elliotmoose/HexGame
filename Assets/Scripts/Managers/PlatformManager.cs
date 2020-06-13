@@ -148,22 +148,34 @@ public class PlatformManager : MonoBehaviour
             consumer.ResetResources();
         }
 
-        //GLOBAL RESOURCE DISTRIBUTION FIRST
-        foreach(var consumer in resourceConsumers) 
-        {
-            Generator generator = consumer as Generator;
-            if(generator != null)
-            {
-                if(Player.GetInstance().oil != 0)
-                {
-                    generator.ReceiveResource(ResourceIdentifiers.OIL, 1);
-                }
-            }
-        }
+        GlobalResourceCalculation();
 
         foreach(var consumer in resourceConsumers) 
         {
             consumer.RecalculateResources();
+        }
+    }
+
+    public void GlobalResourceCalculation() 
+    {
+        //GLOBAL RESOURCE DISTRIBUTION FIRST
+        foreach(var consumer in resourceConsumers) 
+        {
+            if(consumer.NeedsResource(ResourceIdentifiers.OIL)) 
+            {
+                if(Player.GetInstance().oil != 0)
+                {
+                    consumer.ReceiveResource(ResourceIdentifiers.OIL, 1);
+                }
+            }
+            
+            if(consumer.NeedsResource(ResourceIdentifiers.LIGHT))
+            {
+                if(EnvironmentManager.GetInstance().isDay)
+                {
+                    consumer.ReceiveResource(ResourceIdentifiers.LIGHT, EnvironmentManager.GetInstance().daylight);
+                }
+            }
         }
     }
 

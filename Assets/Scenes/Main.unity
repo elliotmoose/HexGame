@@ -1240,7 +1240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b532c99e3534749158d04de1013ce60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeDayLength: 300
+  gameTimeDayLength: 60
   currentCO2: 82
 --- !u!114 &1273203208
 MonoBehaviour:
