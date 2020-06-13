@@ -59,6 +59,9 @@ public class TreeBuilding : Building
     private float _flashPoint = 65;    
     private int _burnStage = 0; //0 = not burning, 1 = smoking, 2 = burn
 
+    private float idealWaterInput = 5;
+    private float idealLightInput = 5;
+
     void Awake()
     {
         treeObject.transform.localScale = Vector3.zero;
@@ -73,9 +76,9 @@ public class TreeBuilding : Building
 
     protected override void InitializeResourceNeeds()
     {
-        SetNeedsResource(ResourceIdentifiers.WATER);
-        SetNeedsResource(ResourceIdentifiers.LIGHT);
-        SetNeedsResource(ResourceIdentifiers.COOL);
+        SetNeedsResource(ResourceIdentifiers.WATER, idealWaterInput);
+        SetNeedsResource(ResourceIdentifiers.LIGHT, idealLightInput);
+        SetNeedsResource(ResourceIdentifiers.COOL, 1);
 
         AddResourceIndicator(ResourceIdentifiers.WATER, "This tree needs water!!");
         AddResourceIndicator(ResourceIdentifiers.LIGHT, "This tree needs light!!");
@@ -93,18 +96,16 @@ public class TreeBuilding : Building
             Grow();
         }        
         
-
+        UpdateLeaveAndHealthbarColors();
         UpdateInternalTemperature();
         CheckBurn();     
-        ExpendAllResource(ResourceIdentifiers.LIGHT);
     }
 
     private void Decay(float amount) 
     {
         if(_health > 0)
         {
-            _health -= amount * Time.deltaTime;
-            UpdateLeaveAndHealthbarColors();
+            _health -= amount * Time.deltaTime;            
         }
         else 
         {
@@ -136,7 +137,7 @@ public class TreeBuilding : Building
     {        
         if(HasResource(ResourceIdentifiers.COOL))
         {
-            _coolFactorTemp = -ExpendAllResource(ResourceIdentifiers.COOL);
+            _coolFactorTemp = -GetResource(ResourceIdentifiers.COOL);
         }
 
         //environment base temp
@@ -213,13 +214,12 @@ public class TreeBuilding : Building
 
     }
 
-    /// <summary>
-    /// Checks if the platform this tree is on has the requirements it needs to grow
-    /// </summary>
-    public override void OnSystemUpdateBuilding()
+
+    public override void ResetResources()
     {
-        //day time
-        // ReceiveResource(ResourceIdentifiers.LIGHT, 1);
+        ExpendAllResource(ResourceIdentifiers.COOL);
+        ExpendAllResource(ResourceIdentifiers.LIGHT);
+        ExpendAllResource(ResourceIdentifiers.WATER);
     }
 
 

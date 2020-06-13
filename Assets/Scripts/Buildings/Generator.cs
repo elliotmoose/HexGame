@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Generator : Building
 {
-    public float energyOutput = 1;
+    float oilInput = 10;
+    float idealEnergyOutput = 10;
+        
+    int split = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,51 +17,73 @@ public class Generator : Building
 
     protected override void InitializeResourceNeeds()
     {
-        SetNeedsResource(ResourceIdentifiers.OIL);
+        SetNeedsResource(ResourceIdentifiers.OIL, oilInput);
         AddResourceIndicator(ResourceIdentifiers.OIL, "Needs oil to generate energy!");
     }
 
     // Update is called once per frame
     protected override void Update()
+    {        
+        ConsumeOil();
+        base.Update(); //update ui   
+        UpdateResourceIndicators();              
+    }
+
+    //complex case
+    //oil is deducted every frame, but the oil resource on generators are not indicative of the amount of oil going in and out
+    //oil resource only acts as a flip switch for generators
+    //they are turned on/off when player has no oil
+    public void ConsumeOil() 
     {
-        float oilConsumptionRate = 100;
+        //draw oil from player source
         Player player = Player.GetInstance();
-        float consumedThisFrame = Mathf.Min(oilConsumptionRate * Time.deltaTime, player.oil);
+        float consumedThisFrame = Mathf.Min(oilInput * Time.deltaTime, player.oil);
         player.TransactResource(ResourceIdentifiers.OIL, -consumedThisFrame);
-        ReceiveResource(ResourceIdentifiers.OIL, consumedThisFrame);
-        base.Update(); //update ui       
+    }
 
-        //if no oil consumed, no energy produced
-        ExpendAllResource(ResourceIdentifiers.OIL);
-        if(consumedThisFrame == 0)
+    public override void RecalculateResources()
+    {
+        if(Player.GetInstance().oil <= 0) 
         {
-            Debug.Log(GetResource(ResourceIdentifiers.OIL));
+            Debug.Log("No oil generator");
             return;
-        }
-        
+        }        
 
+        split = 0;    
         foreach (Building neighbour in neighbourBuildings)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
             {
-                neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
-            }
-        }
-
-        foreach (HexPlatform neighbour in neighbourPlatforms)
-        {
-            if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
-            {
-                neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
+                split += 1;
             }
         }
     
+        
+        //if someone needs the energy
+        if(split != 0)
+        {
+            foreach (Building neighbour in neighbourBuildings)
+            {
+                if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
+                {
+                    float energyOutput = idealEnergyOutput/split;
+                    neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
+                }
+            }
+        }        
     }
 
-    // public override void OnSystemUpdateBuilding()
     public override void BuildingTick()
     {
-        // List<Building> neighbours = this.neighbourBuildings;
         
+    }
+
+    public override string GetDescription()
+    {        
+        if(split == 0) 
+        {
+            return "Not active (No surrounding building needs energy)";
+        }
+        return $"Energy Output: {idealEnergyOutput} (Shared amongst {split})";
     }
 }

@@ -21,10 +21,17 @@ public class Player : MonoBehaviour
 
     public void TransactResource(ResourceIdentifiers resourceId, float amount) 
     {
+        
         switch (resourceId)
         {
             case ResourceIdentifiers.OIL:
+                float oldOil = oil;                
                 oil += amount;
+
+                if((oldOil > 0 && oil <= 0) || oldOil <= 0 && oldOil > 0) 
+                {
+                    OilEmptyStatusChanged();
+                }
                 break;
             case ResourceIdentifiers.MINERALS:
                 minerals += amount;
@@ -35,6 +42,11 @@ public class Player : MonoBehaviour
         }
 
         UIManager.GetInstance().UpdateUI();
+    }
+
+    private void OilEmptyStatusChanged() 
+    {
+        PlatformManager.GetInstance().RecalculateResources();
     }
 
     private static Player _singleton;

@@ -13,6 +13,7 @@ public class ObjectMetaData : ScriptableObject
     public GameObject prefab;
     public GameObject displayPrefab;
     public ShopItemType type;
+    public int resourceRecalculationOrder;
     public List<ObjectMetaData> availableShopItems = new List<ObjectMetaData>();
 
     //custom logic for shop items 

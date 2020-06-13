@@ -8,20 +8,22 @@ public class Lightsource : Building
     private float _turnonDuration = 1.6f;
     private float _curIntensity = 0;
     private float _maxIntensity = 4;
+    private float idealEnergyInput = 30;
     private bool _on = false;
     private int axis = 0;
     
     protected override void InitializeResourceNeeds()
     {
-        SetNeedsResource(ResourceIdentifiers.ENERGY);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
+        AddResourceIndicator(ResourceIdentifiers.ENERGY, "Light source needs energy!");
     }
     
     void Start()
     {
         SetLightIntensities(0);
     }
-
-    public override void OnSystemUpdateBuilding()
+    
+    public override void RecalculateResources()
     {
         if(HasResource(ResourceIdentifiers.ENERGY))
         {
@@ -30,6 +32,10 @@ public class Lightsource : Building
                 building.ReceiveResource(ResourceIdentifiers.LIGHT, 1);
             }
         }
+
+        //update brightness
+        SetTurnOn(_on);
+        base.RecalculateResources();
     }
 
     public override void Reselect()
@@ -45,7 +51,7 @@ public class Lightsource : Building
         if(isOn != _on)
         {
             // light.SetActive(isOn);
-            StartCoroutine(SetTurnOn(isOn));
+            SetTurnOn(isOn);
             _on = isOn;
         }
 
@@ -53,24 +59,40 @@ public class Lightsource : Building
         {
             if(neighbour)
             {
-                Debug.Log(neighbour.metaData.id);
                 neighbour.ReceiveResource(ResourceIdentifiers.LIGHT, _curIntensity);
             }
         }
+
+        base.Update();
+    }
+    
+
+    Coroutine lightCoroutine = null;
+    private void SetTurnOn(bool isOn)
+    {
+        if(lightCoroutine != null)
+        {
+            StopCoroutine(lightCoroutine);
+        }
+
+        lightCoroutine = StartCoroutine(_SetTurnOn(isOn));
     }
 
-    IEnumerator SetTurnOn(bool isOn) 
+    private IEnumerator _SetTurnOn(bool isOn) 
     {
-        float target = isOn ? _curIntensity : 0;
-        
-        bool hasReachedTarget = isOn ? (_curIntensity >= _maxIntensity) : (_curIntensity <= 0);
-        while(!hasReachedTarget)
+        float target = isOn ? ScaledOutputByResource(ResourceIdentifiers.ENERGY, _maxIntensity) : 0;        
+        float delta = target-_curIntensity;
+        float time = 0;
+        while(time < _turnonDuration)
         {
-            _curIntensity += Time.deltaTime*(isOn ? 1 : -1)*_maxIntensity/_turnonDuration;
-            hasReachedTarget = isOn ? (_curIntensity >= _maxIntensity) : (_curIntensity <= 0);
+            _curIntensity += Time.deltaTime*delta/_turnonDuration;
             SetLightIntensities(_curIntensity);
+            time += Time.deltaTime;
             yield return null;
         }            
+
+        _curIntensity = target;
+        SetLightIntensities(_curIntensity);
 
         yield return null;
     }
@@ -83,5 +105,10 @@ public class Lightsource : Building
         {
             lightComponent.intensity = intensity;
         }
+    }
+
+    public override string GetDescription()
+    {                
+        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY)}\nLight Output: {_curIntensity}\nEnergy Fulfillment: {GetResourceFulfillFactor(ResourceIdentifiers.ENERGY)}";
     }
 }

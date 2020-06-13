@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class Condenser : Building
 {
-    float waterOutput = 1;
-    float coolFactor = 7;
+    float idealEnergyInput = 15;
+    float idealWaterOutput = 10;
+    float idealCoolFactor = 7;
+    float waterOutput {
+        get {
+            return ScaledOutputByResource(ResourceIdentifiers.ENERGY, idealWaterOutput);
+        }
+    }
+    float coolFactor {
+        get {
+            return ScaledOutputByResource(ResourceIdentifiers.ENERGY, idealCoolFactor);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
+
     }
     
     protected override void InitializeResourceNeeds()
     {
-        SetNeedsResource(ResourceIdentifiers.ENERGY);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "Condenser needs energy to produce water!");
     }
 
@@ -21,13 +33,15 @@ public class Condenser : Building
     protected override void Update()
     {
         base.Update();
-        
-        if(ExpendAllResource(ResourceIdentifiers.ENERGY) == 0)
+    }
+
+    public override void RecalculateResources()
+    {        
+        if(!HasResource(ResourceIdentifiers.ENERGY))
         {
-            // Debug.Log("Condenser does not have energy!");
             return;
         }
-                // List<Building> neighbours = this.neighbourBuildings;
+
         foreach (Building neighbour in neighbourBuildings)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.WATER))
@@ -40,11 +54,12 @@ public class Condenser : Building
                 neighbour.ReceiveResource(ResourceIdentifiers.COOL, coolFactor);
             }
         }
+
+        base.RecalculateResources();
     }
 
-    // public override void OnSystemUpdateBuilding()
-    public override void BuildingTick()
+    public override string GetDescription()
     {
-        
+        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY)}/{GetResourceIdeal(ResourceIdentifiers.ENERGY)}\nWater Output: {waterOutput}\nCool Output: {coolFactor}";
     }
 }

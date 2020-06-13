@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class MineralMiner : Building
 {
-
-    public float mineralAmount = 15;
-    public float mineralInterval = 1;
-    private float _curMineralInterval = 0;
+    private float idealEnergyInput = 10;
+    public float mineralMiningRate = 15;
 
     // Start is called before the first frame update
     protected override void InitializeResourceNeeds() 
     {
-        SetNeedsResource(ResourceIdentifiers.ENERGY);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "This building needs energy to work!");
     }
 
@@ -20,22 +18,7 @@ public class MineralMiner : Building
     {
         if(HasResource(ResourceIdentifiers.ENERGY))
         {
-            Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, mineralAmount);
+            Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, ScaledOutputByResource(ResourceIdentifiers.ENERGY, mineralMiningRate));
         }
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        _curMineralInterval += Time.deltaTime;
-        if(_curMineralInterval >= mineralInterval)
-        {
-            Trigger();
-            _curMineralInterval = 0;
-        }
-    }
-
-    void Trigger() 
-    {
     }
 }

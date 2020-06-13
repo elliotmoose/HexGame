@@ -53,20 +53,18 @@ public class Building : ResourceConsumer
     {
         this.metaData = metaData;
         coordinate = coord;
+        resourceCalculationOrder = metaData.resourceRecalculationOrder;
         InitializeResourceNeeds();
     }
 
     protected virtual void Update() 
     {
-        UpdateIndicatorsPosition();
-        UpdateResourceIndicators();   
+        UpdateIndicatorsPosition(); 
     }
 
     public virtual void Reselect() {}
 
     public virtual void BuildingTick() {}
-
-    public virtual void OnSystemUpdateBuilding() {}
 
     public virtual string GetDescription() {return"";}
 }

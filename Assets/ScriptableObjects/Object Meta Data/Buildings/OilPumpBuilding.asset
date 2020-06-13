@@ -20,4 +20,5 @@ MonoBehaviour:
   displayPrefab: {fileID: 8650658793903192494, guid: 28876277b30414e75a080a4181c36cc9,
     type: 3}
   type: 0
+  resourceRecalculationOrder: 1
   availableShopItems: []

@@ -45,6 +45,7 @@ public class HexPlatform : ResourceConsumer
     public void Initialize(ObjectMetaData metaData, Vector2Int coord) {
         this.metaData = metaData;
         coordinate = coord;
+        resourceCalculationOrder = metaData.resourceRecalculationOrder;
         InitializeResourceNeeds();
     }
 
@@ -88,22 +89,7 @@ public class HexPlatform : ResourceConsumer
         PlatformTick();
     }
 
-    public void OnSystemUpdate() 
-    {
-        if(building != null) 
-        {
-            building.OnSystemUpdateBuilding();
-        }
-
-        OnSystemUpdatePlatform();
-    }
-
     protected virtual void PlatformTick() 
-    {
-        
-    }
-
-    protected virtual void OnSystemUpdatePlatform() 
     {
         
     }

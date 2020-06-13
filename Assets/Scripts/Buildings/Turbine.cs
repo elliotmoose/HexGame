@@ -5,19 +5,13 @@ using UnityEngine;
 public class Turbine : Building
 {
     public GameObject blades;
-    public float energyOutput = 2;
+    public float energyOutput = 5;
     float bladeRotationSpeed = 50;
 
     // Start is called before the first frame update
     void Start()
     {
         
-    }
-
-    protected override void InitializeResourceNeeds()
-    {
-        SetNeedsResource(ResourceIdentifiers.OIL);
-        AddResourceIndicator(ResourceIdentifiers.OIL, "Needs oil to generate energy!");
     }
 
     // Update is called once per frame
@@ -39,7 +33,6 @@ public class Turbine : Building
                 neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
             }
         }
-
 
         blades.transform.Rotate(0,0,bladeRotationSpeed*Time.deltaTime);
     }

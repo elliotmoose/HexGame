@@ -1208,8 +1208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5cb32e91db1c45e5bb4ce54ab0ff0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minerals: 2000
-  oil: 500
+  minerals: 5000
+  oil: 5000
 --- !u!114 &1273203206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1240,6 +1240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b532c99e3534749158d04de1013ce60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTimeDayLength: 300
   currentCO2: 82
 --- !u!114 &1273203208
 MonoBehaviour:

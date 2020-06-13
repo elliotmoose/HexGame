@@ -5,14 +5,21 @@ using UnityEngine;
 public class ResourceConsumer : MonoBehaviour
 {
     protected Dictionary<ResourceIdentifiers, float> resources = new Dictionary<ResourceIdentifiers, float>();
+    protected Dictionary<ResourceIdentifiers, float> idealResources = new Dictionary<ResourceIdentifiers, float>();
     protected GameObject resourceIndicatorSet = null;
+    public int resourceCalculationOrder = 0;
 
     protected virtual void InitializeResourceNeeds() {}
     
-    public void SetNeedsResource(ResourceIdentifiers resourceId) 
+    public void SetNeedsResource(ResourceIdentifiers resourceId, float ideal) 
     {
         resources.Add(resourceId, 0);
-        // Debug.Log($"{id} now needs {resourceId}");
+        idealResources.Add(resourceId, ideal);
+    }
+
+    public void SetResourceIdeal(ResourceIdentifiers resourceId, float ideal) 
+    {
+        idealResources[resourceId] = ideal;
     }
 
     public bool NeedsResource(ResourceIdentifiers resourceId) 
@@ -35,6 +42,33 @@ public class ResourceConsumer : MonoBehaviour
         return resource;
     }
     
+    protected float GetResourceIdeal(ResourceIdentifiers resourceId) 
+    {
+        float resourceIdeal = 0;
+        idealResources.TryGetValue(resourceId, out resourceIdeal);
+        return resourceIdeal;
+    }
+    
+    protected float GetResourceFulfillFactor(ResourceIdentifiers resourceId) 
+    {
+        if(!resources.ContainsKey(resourceId))
+        {
+            Debug.LogError($"This consumer does not have resource: {resourceId}");
+            return 0;
+        }
+        float resource = 0;
+        float resourceIdeal = 0;
+        resources.TryGetValue(resourceId, out resource);
+        idealResources.TryGetValue(resourceId, out resourceIdeal);
+
+        return resource/resourceIdeal;
+    }
+
+    protected float ScaledOutputByResource(ResourceIdentifiers resourceId, float output)
+    {
+        return output * GetResourceFulfillFactor(resourceId);
+    }
+    
     protected float ExpendAllResource(ResourceIdentifiers resourceId) 
     {
         float resource = 0;
@@ -54,6 +88,18 @@ public class ResourceConsumer : MonoBehaviour
         {
             // Debug.Log($"{id} does not need {resourceId}");
         }
+    }
+
+    public virtual void ResetResources() {
+        List<ResourceIdentifiers> resourceIds = new List<ResourceIdentifiers>(resources.Keys);
+        foreach(ResourceIdentifiers resourceId in resourceIds) 
+        {
+            ExpendAllResource(resourceId);
+        }
+    }
+
+    public virtual void RecalculateResources() {
+        UpdateResourceIndicators();
     }
 
     private void CreateIndicatorSetIfNeeded() 

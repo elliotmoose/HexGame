@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class OilPump : Building
 {
+    private float oilAmount = 50;
+    private float idealEnergyInput = 10;
 
-    public float oilAmount = 15;
-    public float oilInterval = 1;
-    private float _curOilInterval = 0;
 
     // Start is called before the first frame update
     protected override void InitializeResourceNeeds() 
     {
-        SetNeedsResource(ResourceIdentifiers.ENERGY);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "This building needs energy to work!");
     }
 
@@ -22,20 +21,5 @@ public class OilPump : Building
         {
             Player.GetInstance().TransactResource(ResourceIdentifiers.OIL, oilAmount);
         }
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        _curOilInterval += Time.deltaTime;
-        if(_curOilInterval >= oilInterval)
-        {
-            Trigger();
-            _curOilInterval = 0;
-        }
-    }
-
-    void Trigger() 
-    {
     }
 }

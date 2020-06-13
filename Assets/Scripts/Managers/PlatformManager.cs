@@ -14,6 +14,8 @@ public class PlatformManager : MonoBehaviour
     const int TILEMAP_SIZE = 30;
     // HexPlatform[,] platforms = new HexPlatform[TILEMAP_SIZE, TILEMAP_SIZE];
     Dictionary<Vector2Int, HexPlatform> platforms = new Dictionary<Vector2Int, HexPlatform>();
+    
+    List<ResourceConsumer> resourceConsumers = new List<ResourceConsumer>();
 
     // Start is called before the first frame update
     void Start()
@@ -88,6 +90,7 @@ public class PlatformManager : MonoBehaviour
         if (platform)
         {
             platforms.Remove(coordinate);
+            resourceConsumers.Remove(platform);
             GameObject.Destroy(platform.gameObject);
         }
         
@@ -95,11 +98,11 @@ public class PlatformManager : MonoBehaviour
         GameObject newtile = GameObject.Instantiate(metaData.prefab, position, Quaternion.identity, platformParent);
         HexPlatform hexTile = newtile.GetComponent<HexPlatform>();
         platforms.Add(coordinate, hexTile);
+        resourceConsumers.Add(platform);
         hexTile.Initialize(metaData, coordinate);
-        
 
         UpdatePlaceHolders();
-        OnSystemUpdate();
+        RecalculateResources();
         return newtile;
     }
 
@@ -117,48 +120,13 @@ public class PlatformManager : MonoBehaviour
         building.Initialize(metaData, coordinate);
 
         platform.building = building;
-        OnSystemUpdate();
+        resourceConsumers.Add(building);
+        RecalculateResources();
         return buildingObject;
     }
 
-
-    // public bool CanBuild(Identifiers id, Vector2Int coordinate) 
-    // {
-    //     HexPlatform targetPlatform = PlatformAtCoordinate(coordinate);
-    //     Identifiers platformId = targetPlatform.metaData.id;
-    //     bool isPlaceholder = targetPlatform.metaData.id == Identifiers.PLACEHOLDER_PLATFORM;
-    //     switch (id)
-    //     {
-    //         //platforms
-    //         case Identifiers.STONE_PLATFORM:
-    //         case Identifiers.SOIL_PLATFORM:
-    //         case Identifiers.MINING_PLATFORM:
-    //         case Identifiers.DIG_SITE_PLATFORM:
-    //             return isPlaceholder;
-    //         //buildings
-    //         case Identifiers.TREE_BUILDING:
-    //             return platformId == Identifiers.SOIL_PLATFORM;
-    //         case Identifiers.CONDENSER_BUILDING:
-    //         case Identifiers.LIGHTSOURCE_BUILDING:
-    //         case Identifiers.GENERATOR_BUILDING:
-    //         case Identifiers.TURBINE_BUILDING:
-    //             return platformId == Identifiers.STONE_PLATFORM;
-    //         case Identifiers.MINERAL_MINER_BUILDING:
-    //         case Identifiers.OIL_PUMP_BUILDING:
-    //             return platformId == Identifiers.DIG_SITE_PLATFORM;
-    //         default:
-    //             return false;
-    //     }
-    // }
-
     public GameObject Build(ObjectMetaData shopItemScriptable, Vector2Int coordinate) 
-    {
-        // if(!CanBuild(shopItemScriptable.id, coordinate)) 
-        // {
-        //     Debug.LogWarning($"Cannot build {shopItemScriptable.id} at {coordinate}");
-        //     return null;
-        // }
-        
+    {       
         if(shopItemScriptable.type == ShopItemType.BUILDING)
         {
             return BuildBuilding(shopItemScriptable, coordinate);
@@ -172,15 +140,30 @@ public class PlatformManager : MonoBehaviour
     /// <summary>
     /// we want to update building's effects on each other
     /// </summary>
-    public void OnSystemUpdate() 
+    public void RecalculateResources() 
     {
-        //TODO: update only nearby buildings?
-        foreach(HexPlatform platform in platforms.Values) 
+        resourceConsumers.Sort((x, y) => x.resourceCalculationOrder.CompareTo(y.resourceCalculationOrder));
+        foreach(var consumer in resourceConsumers) 
         {
-            if(platform.metaData.id != Identifiers.EMPTY_PLATFORM)
+            consumer.ResetResources();
+        }
+
+        //GLOBAL RESOURCE DISTRIBUTION FIRST
+        foreach(var consumer in resourceConsumers) 
+        {
+            Generator generator = consumer as Generator;
+            if(generator != null)
             {
-                platform.OnSystemUpdate();
+                if(Player.GetInstance().oil != 0)
+                {
+                    generator.ReceiveResource(ResourceIdentifiers.OIL, 1);
+                }
             }
+        }
+
+        foreach(var consumer in resourceConsumers) 
+        {
+            consumer.RecalculateResources();
         }
     }
 
