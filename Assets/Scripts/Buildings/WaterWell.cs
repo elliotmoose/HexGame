@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class WaterWell : Building
 {
-    float idealWaterOutput = 10;
-    float waterCapacity = 5000;
+    float idealWaterOutput;
+    float waterCapacity;
     int split = 0;
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    protected override void InitializeResourceNeeds()
+    {
+        metaData.MapParameterForKey("WATER_OUTPUT_IDEAL", out idealWaterOutput);
+        metaData.MapParameterForKey("WATER_CAPACITY", out waterCapacity);
 
     }
 

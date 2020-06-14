@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[System.Serializable]
+public struct MetaDataParameter 
+{
+    public string key;
+    public float value;
+}
+
 [System.Serializable]
 [CreateAssetMenu(fileName ="ObjectMetaData", menuName ="Scriptables/Object Meta Data",order=1)]
 public class ObjectMetaData : ScriptableObject
@@ -15,6 +23,7 @@ public class ObjectMetaData : ScriptableObject
     public ShopItemType type;
     public int resourceRecalculationOrder;
     public List<ObjectMetaData> availableShopItems = new List<ObjectMetaData>();
+    public List<MetaDataParameter> parameters = new List<MetaDataParameter>();
 
     //custom logic for shop items 
     public List<ObjectMetaData> GetContextualAvailableShopItems(Vector2Int coordinate)
@@ -44,8 +53,22 @@ public class ObjectMetaData : ScriptableObject
         }
         return availableShopItems;
     }
-}
 
+    public void MapParameterForKey(string key, out float value) 
+    {
+        foreach(MetaDataParameter param in parameters)
+        {
+            if(param.key == key)
+            {
+                value = param.value;
+                return;
+            }
+        }
+        
+        Debug.LogWarning($"No parameter for {key} on {id}");
+        value = 0;
+    }
+}
 
 public enum ShopItemType 
 {

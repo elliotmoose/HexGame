@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Generator : Building
 {
-    float oilInput = 10;
-    float idealEnergyOutput = 10;
+    float oilInput;
+    float idealEnergyOutput;
         
     int split = 0;
 
@@ -17,6 +17,8 @@ public class Generator : Building
 
     protected override void InitializeResourceNeeds()
     {
+        metaData.MapParameterForKey("ENERGY_OUTPUT_IDEAL", out idealEnergyOutput);
+        metaData.MapParameterForKey("OIL_INPUT", out oilInput);
         SetNeedsResource(ResourceIdentifiers.OIL, oilInput);
         AddResourceIndicator(ResourceIdentifiers.OIL, "Needs oil to generate energy!");
     }

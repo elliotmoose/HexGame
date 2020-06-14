@@ -22,3 +22,8 @@ MonoBehaviour:
   type: 0
   resourceRecalculationOrder: 1
   availableShopItems: []
+  parameters:
+  - key: ENERGY_INPUT_IDEAL
+    value: 30
+  - key: LIGHT_OUTPUT_IDEAL
+    value: 10

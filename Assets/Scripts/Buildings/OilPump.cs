@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class OilPump : Building
 {
-    private float idealEnergyInput = 10;
-    private float idealOilOutput = 50;
+    private float idealEnergyInput;
+    private float idealOilOutput;
 
 
     // Start is called before the first frame update
     protected override void InitializeResourceNeeds() 
     {
+        metaData.MapParameterForKey("ENERGY_INPUT_IDEAL", out idealEnergyInput);
+        metaData.MapParameterForKey("OIL_OUTPUT_IDEAL", out idealOilOutput);
         SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "This building needs energy to work!");
     }

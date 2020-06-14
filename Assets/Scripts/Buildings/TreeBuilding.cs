@@ -143,7 +143,7 @@ public class TreeBuilding : Building
     {        
         if(HasResource(ResourceIdentifiers.COOL))
         {
-            _coolFactorTemp = -GetResource(ResourceIdentifiers.COOL);
+            _coolFactorTemp = -GetResource(ResourceIdentifiers.COOL).value;
         }
 
         //environment base temp

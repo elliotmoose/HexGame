@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct ResourceMetaData 
+public class ResourceMetaData 
 {
-    bool active;
-    float value;
-    float ideal;
-    
-    ResourceMetaData(float value, float ideal) 
+    public bool active = true;
+    public float value = 0;
+    public float ideal = 0;
+    public float fulfillFactor {
+        get {
+            if(ideal == 0)
+            {
+                Debug.Log("No ideal");
+                return 1;
+            }
+            return value/ideal;
+        }
+    }
+    public ResourceMetaData(float value, float ideal) 
     {
         active = true;
         this.value = value;
@@ -18,8 +27,9 @@ public struct ResourceMetaData
 
 public class ResourceConsumer : MonoBehaviour
 {
-    protected Dictionary<ResourceIdentifiers, float> resources = new Dictionary<ResourceIdentifiers, float>();
-    protected Dictionary<ResourceIdentifiers, float> idealResources = new Dictionary<ResourceIdentifiers, float>();
+    protected Dictionary<ResourceIdentifiers, ResourceMetaData> resources = new Dictionary<ResourceIdentifiers, ResourceMetaData>();
+
+
     protected GameObject resourceIndicatorSet = null;
     public int resourceCalculationOrder = 0;
 
@@ -27,13 +37,12 @@ public class ResourceConsumer : MonoBehaviour
     
     public void SetNeedsResource(ResourceIdentifiers resourceId, float ideal) 
     {
-        resources.Add(resourceId, 0);
-        idealResources.Add(resourceId, ideal);
+        resources.Add(resourceId, new ResourceMetaData(0, ideal));
     }
 
     public void SetResourceIdeal(ResourceIdentifiers resourceId, float ideal) 
     {
-        idealResources[resourceId] = ideal;
+        resources[resourceId].ideal = ideal;
     }
 
     public bool NeedsResource(ResourceIdentifiers resourceId) 
@@ -44,51 +53,39 @@ public class ResourceConsumer : MonoBehaviour
 
     protected bool HasResource(ResourceIdentifiers resourceId) 
     {
-        float resource = 0;
-        resources.TryGetValue(resourceId, out resource);
-        return resource != 0;
+        return GetResource(resourceId).value != 0;
     }
     
-    protected float GetResource(ResourceIdentifiers resourceId) 
+    protected ResourceMetaData GetResource(ResourceIdentifiers resourceId) 
     {
-        float resource = 0;
+        ResourceMetaData resource = new ResourceMetaData(0, 0);
         resources.TryGetValue(resourceId, out resource);
         return resource;
     }
-    
-    protected float GetResourceIdeal(ResourceIdentifiers resourceId) 
-    {
-        float resourceIdeal = 0;
-        idealResources.TryGetValue(resourceId, out resourceIdeal);
-        return resourceIdeal;
-    }
-    
-    protected float GetResourceFulfillFactor(ResourceIdentifiers resourceId) 
-    {
-        if(!resources.ContainsKey(resourceId))
-        {
-            Debug.LogError($"This consumer does not have resource: {resourceId}");
-            return 0;
-        }
-        float resource = 0;
-        float resourceIdeal = 0;
-        resources.TryGetValue(resourceId, out resource);
-        idealResources.TryGetValue(resourceId, out resourceIdeal);
 
-        return resource/resourceIdeal;
-    }
 
     protected float ScaledOutputByResource(ResourceIdentifiers resourceId, float output)
     {
-        return output * GetResourceFulfillFactor(resourceId);
+        ResourceMetaData resource = GetResource(resourceId);
+        if(resource == null)
+        {
+            Debug.Log($"Could not scale resource {resourceId} as it is not needed on this consumer");
+            return 0;
+        }
+        return output * resource.fulfillFactor;
     }
     
     protected float ExpendAllResource(ResourceIdentifiers resourceId) 
     {
-        float resource = 0;
-        resources.TryGetValue(resourceId, out resource);
-        resources[resourceId] = 0;
-        return resource;
+        ResourceMetaData resource = GetResource(resourceId);
+        if(resource == null)
+        {
+            Debug.Log($"Could not expend resource {resourceId} as it is not needed on this consumer");
+            return 0;
+        }
+        
+        resource.value = 0;
+        return resource.value;
     }
 
 
@@ -96,7 +93,8 @@ public class ResourceConsumer : MonoBehaviour
     {
         if(NeedsResource(resourceId))
         {
-            resources[resourceId] += amount;
+            ResourceMetaData resource = GetResource(resourceId);
+            resource.value += amount;
         }
         // else 
         // {

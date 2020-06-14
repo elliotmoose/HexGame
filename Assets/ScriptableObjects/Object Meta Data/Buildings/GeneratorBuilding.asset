@@ -20,4 +20,10 @@ MonoBehaviour:
   displayPrefab: {fileID: 8650658793903192494, guid: 733797a2bc7b94348b1249f3f558942f,
     type: 3}
   type: 0
+  resourceRecalculationOrder: 0
   availableShopItems: []
+  parameters:
+  - key: ENERGY_OUTPUT_IDEAL
+    value: 20
+  - key: OIL_INPUT
+    value: 10

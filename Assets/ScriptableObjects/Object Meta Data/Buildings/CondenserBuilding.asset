@@ -22,3 +22,10 @@ MonoBehaviour:
   type: 0
   resourceRecalculationOrder: 2
   availableShopItems: []
+  parameters:
+  - key: ENERGY_INPUT_IDEAL
+    value: 15
+  - key: WATER_OUTPUT_IDEAL
+    value: 10
+  - key: COOL_FACTOR_IDEAL
+    value: 7

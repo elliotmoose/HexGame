@@ -22,3 +22,8 @@ MonoBehaviour:
   type: 0
   resourceRecalculationOrder: 2
   availableShopItems: []
+  parameters:
+  - key: WATER_OUTPUT_IDEAL
+    value: 10
+  - key: WATER_CAPACITY
+    value: 5000

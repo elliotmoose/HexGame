@@ -8,12 +8,15 @@ public class Lightsource : Building
     private float _turnonDuration = 1.6f;
     private float _curIntensity = 0;
     private float _maxIntensity = 4;
-    private float idealEnergyInput = 30;
+    private float idealEnergyInput;
+    private float idealLightOutput;
     private bool _on = false;
     private int axis = 0;
     
     protected override void InitializeResourceNeeds()
     {
+        metaData.MapParameterForKey("ENERGY_INPUT_IDEAL", out idealEnergyInput);
+        metaData.MapParameterForKey("LIGHT_OUTPUT_IDEAL", out idealLightOutput);
         SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "Light source needs energy!");
     }
@@ -26,13 +29,12 @@ public class Lightsource : Building
     public override void RecalculateResources()
     {
         if(HasResource(ResourceIdentifiers.ENERGY))
-        {
-            
+        {            
             foreach(Building neighbour in GetNeighbourBuildingsWithAxis(axis))
             {
                 if(neighbour)
                 {
-                    neighbour.ReceiveResource(ResourceIdentifiers.LIGHT, _curIntensity);
+                    neighbour.ReceiveResource(ResourceIdentifiers.LIGHT, ScaledOutputByResource(ResourceIdentifiers.ENERGY, idealLightOutput));
                 }
             }
         }
@@ -56,9 +58,16 @@ public class Lightsource : Building
         {
             TriggerBrightnessUpdate(isOn);
             _on = isOn;
-        }
 
-        
+            if(isOn)
+            {
+                GetResource(ResourceIdentifiers.LIGHT).active = true;
+            }
+            else 
+            {
+                GetResource(ResourceIdentifiers.LIGHT).active = false;
+            }
+        }
     }
     
 
@@ -104,6 +113,6 @@ public class Lightsource : Building
 
     public override string GetDescription()
     {                
-        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY)}\nLight Output: {_curIntensity}\nEnergy Fulfillment: {GetResourceFulfillFactor(ResourceIdentifiers.ENERGY)}";
+        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY)}\nLight Output: {_curIntensity}\nEnergy Fulfillment: {GetResource(ResourceIdentifiers.ENERGY).fulfillFactor}";
     }
 }

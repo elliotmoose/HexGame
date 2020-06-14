@@ -5,7 +5,7 @@ using UnityEngine;
 public class Turbine : Building
 {
     public GameObject blades;
-    public float energyOutput = 5;
+    public float energyOutput = 15;
     float bladeRotationSpeed = 50;
 
     // Start is called before the first frame update

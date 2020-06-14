@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Condenser : Building
 {
-    float idealEnergyInput = 15;
-    float idealWaterOutput = 10;
-    float idealCoolFactor = 7;
+    float idealEnergyInput;
+    float idealWaterOutput;
+    float idealCoolFactor;
     float waterOutput {
         get {
             return ScaledOutputByResource(ResourceIdentifiers.ENERGY, idealWaterOutput);
@@ -24,7 +24,10 @@ public class Condenser : Building
     }
     
     protected override void InitializeResourceNeeds()
-    {
+    {        
+        metaData.MapParameterForKey("ENERGY_INPUT_IDEAL", out idealEnergyInput);
+        metaData.MapParameterForKey("WATER_OUTPUT_IDEAL", out idealWaterOutput);
+        metaData.MapParameterForKey("COOL_FACTOR_IDEAL", out idealCoolFactor);
         SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "Condenser needs energy to produce water!");
     }
@@ -60,6 +63,6 @@ public class Condenser : Building
 
     public override string GetDescription()
     {
-        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY)}/{GetResourceIdeal(ResourceIdentifiers.ENERGY)}\nWater Output: {waterOutput}\nCool Output: {coolFactor}";
+        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY)}/{GetResource(ResourceIdentifiers.ENERGY).ideal}\nWater Output: {waterOutput}\nCool Output: {coolFactor}";
     }
 }
