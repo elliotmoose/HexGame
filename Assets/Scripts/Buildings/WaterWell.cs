@@ -17,7 +17,6 @@ public class WaterWell : Building
     {
         metaData.MapParameterForKey("WATER_OUTPUT_IDEAL", out idealWaterOutput);
         metaData.MapParameterForKey("WATER_CAPACITY", out waterCapacity);
-
     }
 
     // Update is called once per frame
@@ -55,6 +54,6 @@ public class WaterWell : Building
 
     public override string GetDescription()
     {
-        return $"nWater Remainding: {waterCapacity}\n";
+        return $"Water Remainding: {(int)waterCapacity}\n";
     }
 }

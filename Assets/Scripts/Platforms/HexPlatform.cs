@@ -33,6 +33,13 @@ public class HexPlatform : ResourceConsumer
         }
     }
 
+    protected List<HexPlatform> neighbourPlatforms {
+        get {
+            HexPlatform buildingPlatform = PlatformManager.GetInstance().PlatformAtCoordinate(this.coordinate);
+            return PlatformManager.GetInstance().NeighboursOfPlatform(buildingPlatform);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -94,6 +101,11 @@ public class HexPlatform : ResourceConsumer
         
     }
 
+    public virtual void OnBuildUpdate() 
+    {
+
+    }
+
     public virtual void Reselect() 
     {
         if(building)
@@ -104,7 +116,7 @@ public class HexPlatform : ResourceConsumer
 
     public virtual string GetDescription()
     {
-        string description = $"{metaData.id}\n";
+        string description = $"{metaData.id}\n{coordinate}\n";
         if(building)
         {
             description += building.GetDescription();

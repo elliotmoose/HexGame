@@ -106,7 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbca33bf68f624afd800f4fa79a354c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 4
+  resourceCalculationOrder: 0
+  metaData: {fileID: 0}
   coordinate: {x: 0, y: 0}
   defaultMaterial: {fileID: 0}
   hoverMaterial: {fileID: 0}
+  selectedMaterial: {fileID: 0}

@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\Managers\PrefabManager.cs" />
      <Compile Include="Assets\Scripts\Managers\Shop.cs" />
      <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
+     <Compile Include="Assets\Scripts\Platforms\DigSitePlatform.cs" />
      <Compile Include="Assets\Scripts\Platforms\HexPlatform.cs" />
      <Compile Include="Assets\Scripts\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\UI\Indicator.cs" />

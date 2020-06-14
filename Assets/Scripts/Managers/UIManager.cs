@@ -29,16 +29,16 @@ public class UIManager : MonoBehaviour
     {        
         UpdateUI();
         UpdateDetailsPanel();
-        timeText.text = $"{Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().timeOfDay/EnvironmentManager.DAY_IN_SECONDS)}";
+        timeText.text = $"{Numbers.TwoDP(EnvironmentManager.GetInstance().timeOfDay/EnvironmentManager.DAY_IN_SECONDS)}";
     }
 
     public void UpdateUI() 
     {
-        mineralsText.text = $"{Numbers.TwoDecimalPlace(Player.GetInstance().minerals)}";
-        oilText.text = $"{Numbers.TwoDecimalPlace(Player.GetInstance().oil)}";
+        mineralsText.text = $"{Numbers.TwoDP(Player.GetInstance().minerals)}";
+        oilText.text = $"{Numbers.TwoDP(Player.GetInstance().oil)}";
         
-        temperatureText.text = Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().currentTemperature)+"°C";
-        co2Text.text = Numbers.TwoDecimalPlace(EnvironmentManager.GetInstance().currentCO2)+"%";
+        temperatureText.text = Numbers.TwoDP(EnvironmentManager.GetInstance().currentTemperature)+"°C";
+        co2Text.text = Numbers.TwoDP(EnvironmentManager.GetInstance().currentCO2)+"%";
     }
 
     private void UpdateDetailsPanel()

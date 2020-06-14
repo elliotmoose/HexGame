@@ -103,6 +103,7 @@ public class PlatformManager : MonoBehaviour
 
         UpdatePlaceHolders();
         RecalculateResources();
+        OnBuildUpdate();
         return newtile;
     }
 
@@ -122,6 +123,7 @@ public class PlatformManager : MonoBehaviour
         platform.building = building;
         resourceConsumers.Add(building);
         RecalculateResources();
+        OnBuildUpdate();
         return buildingObject;
     }
 
@@ -134,6 +136,17 @@ public class PlatformManager : MonoBehaviour
         else 
         {
             return BuildPlatform(shopItemScriptable, coordinate);
+        }
+    }
+
+    public void OnBuildUpdate() 
+    {
+        foreach(HexPlatform platform in platforms.Values)
+        {
+            if(platform.metaData.id != Identifiers.EMPTY_PLATFORM)
+            {
+                platform.OnBuildUpdate();
+            }
         }
     }
 

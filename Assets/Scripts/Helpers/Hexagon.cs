@@ -100,5 +100,35 @@ public class Hexagon
         return neighbours;
     }
 
-    
+    public static Vector2Int NeighbourAtIndex(Vector2Int coord, int index) 
+    {
+        var isOdd = ((coord.x % 2) == 0);
+        if(isOdd)
+        {
+            int[] offset = new int [][]{
+                new int[]{-1, -1},
+                new int[]{-1, 0},
+                new int[]{0, 1}, 
+                new int[]{1, 0},
+                new int[]{1, -1},
+                new int[]{0, -1},
+            }[index];
+
+            return new Vector2Int(coord.x + offset[0], coord.y + offset[1]);
+        }
+        else 
+        {
+            int[] offset = new int [][]{
+                new int[]{-1, 0},
+                new int[]{-1, 1},
+                new int[]{0, 1}, 
+                new int[]{1, 1},
+                new int[]{1, 0},
+                new int[]{0, -1},
+            }[index];
+
+            return new Vector2Int(coord.x + offset[0], coord.y + offset[1]);
+
+        }
+    }
 }
