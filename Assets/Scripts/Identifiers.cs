@@ -15,6 +15,7 @@ public enum Identifiers
     MINERAL_HARVESTER_BUILDING,
     MINERAL_MINER_BUILDING,    
     OIL_PUMP_BUILDING,    
+    WATER_WELL_BUILDING
 }
 
 public enum ResourceIdentifiers

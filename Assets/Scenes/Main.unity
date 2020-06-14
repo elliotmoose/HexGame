@@ -315,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a6f7b98769845678ef284cae1a0f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupTextPrefab: {fileID: 5784688914017786225, guid: 0f02f946bc9154ad9b9dba2071bacf35,
+    type: 3}
   timeText: {fileID: 1974090455}
   mineralsText: {fileID: 2146989490}
   oilText: {fileID: 1895031434}
@@ -821,7 +823,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0.3125, z: 0.03125, w: -0.09375}
+  m_BoundingSphereOverride: {x: 8.125e-42, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1208,8 +1210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5cb32e91db1c45e5bb4ce54ab0ff0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minerals: 5000
-  oil: 5000
+  minerals: 1500
+  oil: 1000
 --- !u!114 &1273203206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1240,7 +1242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b532c99e3534749158d04de1013ce60c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeDayLength: 60
+  gameTimeDayLength: 20
   currentCO2: 82
 --- !u!114 &1273203208
 MonoBehaviour:

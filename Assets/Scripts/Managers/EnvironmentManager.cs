@@ -6,10 +6,11 @@ public class EnvironmentManager : MonoBehaviour
 {
     public const float DAY_IN_SECONDS = 24*60*60;
     [System.NonSerialized]
-    public float timeOfDay = 0 * DAY_IN_SECONDS;
+    public float timeOfDay = 400 * 0.25f * DAY_IN_SECONDS;
     [System.NonSerialized]
     public float dayLength = 400 * DAY_IN_SECONDS; //a day on this planet is 400 earth days: 400 * 24 * 60 * 60 = 34560000
     public float gameTimeDayLength = 60; //a day in the game should last about 25mins
+    
     public float timeOfDayFraction {
         get {
             return (timeOfDay % dayLength)/dayLength;
@@ -51,6 +52,37 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
+
+    #region Seasons
+    private int seasonLengthInDays = 1;//7 days per season
+    private float gameTimeSeasonLength {
+        get {
+            return seasonLengthInDays * gameTimeDayLength;
+        }
+    }
+    private float timeInSeasons = 0;
+    private float timeInSeasonsFraction {
+        get {
+            float totalSeasonsLength = gameTimeSeasonLength * 4;
+            return (timeInSeasons % totalSeasonsLength)/totalSeasonsLength;
+        }
+    }
+    private string seasonName {
+        get {
+            return new string[]{"Spring", "Summer", "Autumn", "Winter"}[(int)(timeInSeasonsFraction * 4)];
+        }
+    }
+
+    #endregion
+
+    #region temperature
+    private float seasonTemp {
+        get {            
+            float maxSeasonalTemp = 5;
+            return Mathf.Sin(2*(timeInSeasonsFraction - 0.125f)*Mathf.PI) * maxSeasonalTemp;
+        }
+    }
+
     private float maxTemp {
         get {
             return Mathf.Lerp(35, 65, co2Factor);
@@ -67,9 +99,11 @@ public class EnvironmentManager : MonoBehaviour
         get {
             //compute temperature based on ratio and time of day
             float timeOfDaySinFactor = (-Mathf.Sin(2 * Mathf.PI * (timeOfDayFraction + 0.25f)) + 1)/2;
-            return Mathf.Lerp(minTemp, maxTemp, timeOfDaySinFactor);
+            return Mathf.Lerp(minTemp, maxTemp, timeOfDaySinFactor) + seasonTemp;
         }
     }
+
+    #endregion
 
     public void ProduceO2(float amount)
     {
@@ -85,6 +119,7 @@ public class EnvironmentManager : MonoBehaviour
     void Update()
     {
         timeOfDay += (Time.deltaTime * dayLength/gameTimeDayLength);
+        timeInSeasons += Time.deltaTime;
     }
 
     IEnumerator EnvironmentTick() 

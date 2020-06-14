@@ -32,7 +32,7 @@ public class Condenser : Building
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
+        
     }
 
     public override void RecalculateResources()

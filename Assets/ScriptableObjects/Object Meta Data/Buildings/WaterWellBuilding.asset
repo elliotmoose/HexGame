@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
-  m_Name: TurbineBuilding
+  m_Name: WaterWellBuilding
   m_EditorClassIdentifier: 
-  id: 10
-  title: Wind Turbine
-  description: Blow wind blow
-  price: 900
-  prefab: {fileID: 8694968302174946980, guid: 23bea9f85848a472da146c0afb3c6c9e, type: 3}
-  displayPrefab: {fileID: 8694968302174946980, guid: 11943c782d1e043b090866c047023d30,
+  id: 14
+  title: Water Well
+  description: A limited water source
+  price: 250
+  prefab: {fileID: 8650658793903192494, guid: 46d06c23b31184779bcdc523113068dd, type: 3}
+  displayPrefab: {fileID: 8650658793903192494, guid: 670860690fcf94ebb87c90fcf538df63,
     type: 3}
   type: 0
-  resourceRecalculationOrder: 0
+  resourceRecalculationOrder: 2
   availableShopItems: []

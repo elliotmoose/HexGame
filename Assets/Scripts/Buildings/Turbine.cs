@@ -17,7 +17,6 @@ public class Turbine : Building
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
         foreach (Building neighbour in neighbourBuildings)
         {
             if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))

@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Buildings\OilPump.cs" />
      <Compile Include="Assets\Scripts\Buildings\TreeBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\Turbine.cs" />
+     <Compile Include="Assets\Scripts\Buildings\WaterWell.cs" />
      <Compile Include="Assets\Scripts\Controls\Controls.cs" />
      <Compile Include="Assets\Scripts\Environment\LightingManager.cs" />
      <Compile Include="Assets\Scripts\Environment\LightingPreset.cs" />
@@ -74,6 +75,7 @@
      <Compile Include="Assets\Scripts\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\UI\Indicator.cs" />
      <Compile Include="Assets\Scripts\UI\IndicatorSet.cs" />
+     <Compile Include="Assets\Scripts\UI\PopupText.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItemUI.cs" />
      <Compile Include="Assets\Scripts\UI\UIFollow.cs" />
      <None Include="Assets\Materials\Fire.shader" />

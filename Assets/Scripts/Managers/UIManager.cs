@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject popupTextPrefab;
+
     public Text timeText;
     public Text mineralsText;
     public Text oilText;
@@ -59,6 +61,13 @@ public class UIManager : MonoBehaviour
     {
         detailsPanel.SetActive(true);
         detailsPanel.GetComponentInChildren<Text>().text = $"{platform.GetDescription()}";
+    }
+
+    public static void PopupText(string text, GameObject target) 
+    {
+        GameObject popupTextGo = GameObject.Instantiate(_singleton.popupTextPrefab, Vector3.zero, Quaternion.identity, GetCanvas().transform);
+        popupTextGo.GetComponent<PopupText>().Initialize(text, target);
+        
     }
 
     private static UIManager _singleton;

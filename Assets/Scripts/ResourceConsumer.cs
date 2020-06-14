@@ -84,10 +84,10 @@ public class ResourceConsumer : MonoBehaviour
         {
             resources[resourceId] += amount;
         }
-        else 
-        {
-            // Debug.Log($"{id} does not need {resourceId}");
-        }
+        // else 
+        // {
+        //     Debug.Log($"{id} does not need {resourceId}");
+        // }
     }
 
     public virtual void ResetResources() {
@@ -107,7 +107,8 @@ public class ResourceConsumer : MonoBehaviour
         //create if needed   
         if(resourceIndicatorSet == null)
         {
-            resourceIndicatorSet = GameObject.Instantiate(PrefabManager.GetInstance().indicatorSet, UIManager.WorldToUISpace(this.transform.position), Quaternion.identity, UIManager.GetCanvas().transform);            
+            resourceIndicatorSet = GameObject.Instantiate(PrefabManager.GetInstance().indicatorSet, UIManager.WorldToUISpace(this.transform.position), Quaternion.identity, UIManager.GetCanvas().transform);
+            resourceIndicatorSet.GetComponent<IndicatorSet>().owner = this.gameObject;            
         }
     }
     
@@ -138,14 +139,5 @@ public class ResourceConsumer : MonoBehaviour
         {
             SetResourceIndicator(resourceId, !HasResource(resourceId));
         }
-    }
-
-    protected void UpdateIndicatorsPosition() 
-    {
-        if(!resourceIndicatorSet)
-        {
-            return;
-        }
-        resourceIndicatorSet.transform.position = UIManager.WorldToUISpace(this.transform.position);
     }
 }

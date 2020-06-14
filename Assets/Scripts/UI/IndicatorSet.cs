@@ -5,10 +5,19 @@ using UnityEngine;
 
 public class IndicatorSet : MonoBehaviour
 {
+    public GameObject owner;
     public GameObject indicatorPrefab;
     public Dictionary<ResourceIdentifiers, string> displayedResources = new Dictionary<ResourceIdentifiers, string>();
     private Dictionary<ResourceIdentifiers, GameObject> indicators = new Dictionary<ResourceIdentifiers, GameObject>();    
 
+
+    void Update()
+    {
+        if(owner)
+        {
+            this.transform.position = UIManager.WorldToUISpace(owner.transform.position);
+        }
+    }
     // Start is called before the first frame update
     public void AddIndicator(ResourceIdentifiers resourceID, string message)
     {

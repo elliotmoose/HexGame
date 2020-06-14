@@ -27,14 +27,18 @@ public class Lightsource : Building
     {
         if(HasResource(ResourceIdentifiers.ENERGY))
         {
-            foreach(var building in neighbourBuildings)
+            
+            foreach(Building neighbour in GetNeighbourBuildingsWithAxis(axis))
             {
-                building.ReceiveResource(ResourceIdentifiers.LIGHT, 1);
+                if(neighbour)
+                {
+                    neighbour.ReceiveResource(ResourceIdentifiers.LIGHT, _curIntensity);
+                }
             }
         }
 
         //update brightness
-        SetTurnOn(_on);
+        TriggerBrightnessUpdate(_on);
         base.RecalculateResources();
     }
 
@@ -50,25 +54,16 @@ public class Lightsource : Building
         bool isOn = !EnvironmentManager.GetInstance().isDay && HasResource(ResourceIdentifiers.ENERGY);
         if(isOn != _on)
         {
-            // light.SetActive(isOn);
-            SetTurnOn(isOn);
+            TriggerBrightnessUpdate(isOn);
             _on = isOn;
         }
 
-        foreach(Building neighbour in GetNeighbourBuildingsWithAxis(axis))
-        {
-            if(neighbour)
-            {
-                neighbour.ReceiveResource(ResourceIdentifiers.LIGHT, _curIntensity);
-            }
-        }
-
-        base.Update();
+        
     }
     
 
     Coroutine lightCoroutine = null;
-    private void SetTurnOn(bool isOn)
+    private void TriggerBrightnessUpdate(bool isOn)
     {
         if(lightCoroutine != null)
         {

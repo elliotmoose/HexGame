@@ -35,7 +35,7 @@ public class TreeBuilding : Building
 
     private float _health = 100;
     private float _maxHealth = 100;
-    private float _healthRegenRate = 1;
+    private float _healthRegenRate = 2;
     public bool alive = true;
     
     private float _coolFactorTemp = 0;
@@ -87,23 +87,21 @@ public class TreeBuilding : Building
 
     protected override void Update() 
     {        
-        base.Update();
         
         if(!hasLight)
         {
-            Decay(4);
+            Decay(2);
         }
         
         if(!hasWater)
         {
-            Decay(4);
+            Decay(2);
         }
 
-        if(hasLight && hasWater) {
+        if(hasLight && hasWater && alive) {
             Grow();
         }
             
-        
         UpdateLeaveAndHealthbarColors();
         UpdateInternalTemperature();
         CheckBurn();     
@@ -136,7 +134,7 @@ public class TreeBuilding : Building
         {   
             if( _health <= _maxHealth)
             {
-                _health += _healthRegenRate;
+                _health += _healthRegenRate * Time.deltaTime;
             }
         }
     }
@@ -216,7 +214,9 @@ public class TreeBuilding : Building
     {
         if(alive && _burnStage == 0 && hasLight)
         {
-            EnvironmentManager.GetInstance().ProduceO2(_maxO2Production * (_curAge/_maxAge));
+            float o2Produced = _maxO2Production * (_curAge/_maxAge);
+            EnvironmentManager.GetInstance().ProduceO2(o2Produced);
+            UIManager.PopupText($"{o2Produced}", this.gameObject);
         }
     }
 

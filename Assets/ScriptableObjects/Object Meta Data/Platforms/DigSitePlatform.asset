@@ -20,6 +20,8 @@ MonoBehaviour:
   displayPrefab: {fileID: 929065651996833225, guid: bf7aecec38eba4b66beec07ee736bf92,
     type: 3}
   type: 1
+  resourceRecalculationOrder: 0
   availableShopItems:
+  - {fileID: 11400000, guid: 0b0fceda1b2bc4c18bf4bcc49d605322, type: 2}
   - {fileID: 11400000, guid: fb34caba970e943989460d1bf6f39c3b, type: 2}
   - {fileID: 11400000, guid: aff01392bad7f4815ac50a923bc01711, type: 2}

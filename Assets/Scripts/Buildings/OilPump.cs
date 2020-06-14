@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class OilPump : Building
 {
-    private float oilAmount = 50;
     private float idealEnergyInput = 10;
+    private float idealOilOutput = 50;
 
 
     // Start is called before the first frame update
@@ -19,7 +19,9 @@ public class OilPump : Building
     {
         if(HasResource(ResourceIdentifiers.ENERGY))
         {
-            Player.GetInstance().TransactResource(ResourceIdentifiers.OIL, oilAmount);
+            float oilOutput = ScaledOutputByResource(ResourceIdentifiers.ENERGY, idealOilOutput);
+            Player.GetInstance().TransactResource(ResourceIdentifiers.OIL, oilOutput);
+            UIManager.PopupText($"{oilOutput}", this.gameObject);
         }
     }
 }
