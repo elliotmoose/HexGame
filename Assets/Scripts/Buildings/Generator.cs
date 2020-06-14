@@ -35,6 +35,10 @@ public class Generator : Building
     //they are turned on/off when player has no oil
     public void ConsumeOil() 
     {
+        if(split == 0)
+        {
+            return;
+        }
         //draw oil from player source
         Player player = Player.GetInstance();
         float consumedThisFrame = Mathf.Min(oilInput * Time.deltaTime, player.oil);

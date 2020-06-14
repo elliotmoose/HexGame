@@ -54,7 +54,7 @@ public class EnvironmentManager : MonoBehaviour
 
 
     #region Seasons
-    private int seasonLengthInDays = 1;//7 days per season
+    private int seasonLengthInDays = 7;//7 days per season
     private float gameTimeSeasonLength {
         get {
             return seasonLengthInDays * gameTimeDayLength;

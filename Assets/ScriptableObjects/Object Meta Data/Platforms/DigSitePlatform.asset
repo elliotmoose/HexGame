@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 5
   title: Dig Site
   description: A demarcated site for all your digging needs!
-  price: 300
+  price: 50
   prefab: {fileID: 929065651996833225, guid: 8af25c7dab4344d0b9a5bc253ea6470e, type: 3}
   displayPrefab: {fileID: 929065651996833225, guid: bf7aecec38eba4b66beec07ee736bf92,
     type: 3}

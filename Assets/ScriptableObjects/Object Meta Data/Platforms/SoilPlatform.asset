@@ -15,10 +15,11 @@ MonoBehaviour:
   id: 4
   title: Soil
   description: A block of soil to grow things on
-  price: 300
+  price: 100
   prefab: {fileID: 929065651996833225, guid: 62af020c4702a4f41b357e40d776bd2b, type: 3}
   displayPrefab: {fileID: 929065651996833225, guid: 3fd48b45cc04b49689c02fff6ce11170,
     type: 3}
   type: 1
+  resourceRecalculationOrder: 0
   availableShopItems:
   - {fileID: 11400000, guid: 1ede8b7bbfdd34220972634cd32b3b1b, type: 2}

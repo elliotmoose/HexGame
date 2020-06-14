@@ -2,6 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct ResourceMetaData 
+{
+    bool active;
+    float value;
+    float ideal;
+    
+    ResourceMetaData(float value, float ideal) 
+    {
+        active = true;
+        this.value = value;
+        this.ideal = ideal;
+    }
+}
+
 public class ResourceConsumer : MonoBehaviour
 {
     protected Dictionary<ResourceIdentifiers, float> resources = new Dictionary<ResourceIdentifiers, float>();
