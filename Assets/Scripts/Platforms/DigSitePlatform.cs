@@ -12,8 +12,6 @@ public class DigSitePlatform : HexPlatform
         {
             Vector2Int coord = Hexagon.NeighbourAtIndex(this.coordinate, i);
             HexPlatform platform = PlatformManager.GetInstance().PlatformAtCoordinate(coord);
-            Debug.Log(platform.metaData.id);
-            
             if(platform.metaData.id == Identifiers.DIG_SITE_PLATFORM)
             {
                 walls[i].SetActive(false);

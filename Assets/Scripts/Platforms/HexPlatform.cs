@@ -116,7 +116,7 @@ public class HexPlatform : ResourceConsumer
 
     public virtual string GetDescription()
     {
-        string description = $"{metaData.id}\n{coordinate}\n";
+        string description = $"{metaData.id}\n";
         if(building)
         {
             description += building.GetDescription();

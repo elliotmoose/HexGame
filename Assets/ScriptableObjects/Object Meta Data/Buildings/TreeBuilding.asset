@@ -22,3 +22,24 @@ MonoBehaviour:
   type: 0
   resourceRecalculationOrder: 5
   availableShopItems: []
+  parameters:
+  - key: WATER_INPUT_IDEAL
+    value: 5
+  - key: LIGHT_INPUT_IDEAL
+    value: 8
+  - key: COOLING_RATE
+    value: 2
+  - key: SMOKING_HEAT_RATE
+    value: 1.5
+  - key: BURNING_HEAT_RATE
+    value: 10
+  - key: SMOKE_POINT
+    value: 48
+  - key: BURN_POINT
+    value: 65
+  - key: NO_WATER_DAMAGE
+    value: 1
+  - key: NO_LIGHT_DAMAGE
+    value: 1
+  - key: BURN_DAMAGE
+    value: 10

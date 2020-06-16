@@ -39,11 +39,16 @@ public class TreeBuilding : Building
     public bool alive = true;
     
     private float _coolFactorTemp = 0;
-    private float _baseTemp  = 25;
+    private float _baseTemp = 25;
     private float _burnTemp = 0;
-    private float _burnTempCoolRate = 1;
-    private float _smokeTempHeatRate = 1.5f;
-    private float _burnTempHeatRate = 10;
+    private int _burnStage = 0; //0 = not burning, 1 = smoking, 2 = burn
+
+    private float _coolingRate;
+    private float _smokingHeatRate;
+    private float _burningHeatRate;
+    private float _noLightDamage;
+    private float _noWaterDamage;
+    private float _burnDamage;
     private float _internalTemperature {
         get {                        
             return _baseTemp + _burnTemp + _coolFactorTemp;
@@ -56,12 +61,11 @@ public class TreeBuilding : Building
         }
     }
 
-    private float _smokePoint = 48;    
-    private float _flashPoint = 65;    
-    private int _burnStage = 0; //0 = not burning, 1 = smoking, 2 = burn
+    private float _smokePoint;    
+    private float _burnPoint;    
 
-    private float idealWaterInput = 5;
-    private float idealLightInput = 5;
+    private float idealWaterInput;
+    private float idealLightInput;
 
     void Awake()
     {
@@ -77,6 +81,17 @@ public class TreeBuilding : Building
 
     protected override void InitializeResourceNeeds()
     {
+        metaData.MapParameterForKey("WATER_INPUT_IDEAL", out idealWaterInput);
+        metaData.MapParameterForKey("LIGHT_INPUT_IDEAL", out idealLightInput);
+        metaData.MapParameterForKey("COOLING_RATE", out _coolingRate);
+        metaData.MapParameterForKey("SMOKING_HEAT_RATE", out _smokingHeatRate);
+        metaData.MapParameterForKey("BURNING_HEAT_RATE", out _burningHeatRate);
+        metaData.MapParameterForKey("SMOKE_POINT", out _smokePoint);
+        metaData.MapParameterForKey("BURN_POINT", out _burnPoint);
+        metaData.MapParameterForKey("NO_WATER_DAMAGE", out _noWaterDamage);
+        metaData.MapParameterForKey("NO_LIGHT_DAMAGE", out _noLightDamage);
+        metaData.MapParameterForKey("BURN_DAMAGE", out _burnDamage);
+
         SetNeedsResource(ResourceIdentifiers.WATER, idealWaterInput);
         SetNeedsResource(ResourceIdentifiers.LIGHT, idealLightInput);
         SetNeedsResource(ResourceIdentifiers.COOL, 1);
@@ -90,12 +105,12 @@ public class TreeBuilding : Building
         
         if(!hasLight)
         {
-            Decay(2);
+            Decay(_noLightDamage);
         }
         
         if(!hasWater)
         {
-            Decay(2);
+            Decay(_noWaterDamage);
         }
 
         if(hasLight && hasWater && alive) {
@@ -155,22 +170,15 @@ public class TreeBuilding : Building
         switch (_burnStage)
         {
             case 0:
-                if(_burnTemp > 0)
-                {
-                    _burnTemp -= (Time.deltaTime * _burnTempCoolRate);
-                }
-                else 
-                {
-                    _burnTemp = 0;
-                }
+                _burnTemp = Mathf.Max(_burnTemp - (Time.deltaTime * _coolingRate), 0);
                 break;
             
             case 1:
-                _burnTemp += (Time.deltaTime * _smokeTempHeatRate);
+                _burnTemp += (Time.deltaTime * _smokingHeatRate);
                 break;
             
             case 2:
-                _burnTemp += (Time.deltaTime * _burnTempHeatRate);
+                _burnTemp += (Time.deltaTime * _burningHeatRate);
                 break;
 
             default:
@@ -195,13 +203,13 @@ public class TreeBuilding : Building
                 }
                 break;
             case 1:
-                if(_internalTemperature >= _flashPoint) 
+                if(_internalTemperature >= _burnPoint) 
                 {
                     SetBurnStage(2);
                 }
                 break;
             case 2:
-                Decay(10);
+                Decay(_burnDamage);
                 break;
             default:
                 break;
@@ -286,6 +294,6 @@ public class TreeBuilding : Building
 
     public override string GetDescription() 
     {        
-        return $"Health: {_health}\nInternal Temp: {_internalTemperature}\nBurning: {_burnStage}\nSmokePt: {_smokePoint}\nFlashPt: {_flashPoint}\nProducing O2: {alive && _burnStage == 0 && hasLight}\nCool Factor: {_coolFactorTemp}";
+        return $"Health: {_health}\nInternal Temp: {_internalTemperature}\nBurning: {_burnStage}\nSmokePt: {_smokePoint}\nFlashPt: {_burnPoint}\nProducing O2: {alive && _burnStage == 0 && hasLight}\nCool Factor: {_coolFactorTemp}";
     }
 }

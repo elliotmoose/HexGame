@@ -22,3 +22,6 @@ MonoBehaviour:
   type: 0
   resourceRecalculationOrder: 0
   availableShopItems: []
+  parameters:
+  - key: ENERGY_OUTPUT_IDEAL
+    value: 15

@@ -58,8 +58,12 @@ public class ResourceConsumer : MonoBehaviour
     
     protected ResourceMetaData GetResource(ResourceIdentifiers resourceId) 
     {
-        ResourceMetaData resource = new ResourceMetaData(0, 0);
+        ResourceMetaData resource = null;
         resources.TryGetValue(resourceId, out resource);
+        if(resource == null)
+        {
+            return new ResourceMetaData(0, 0);
+        }
         return resource;
     }
 

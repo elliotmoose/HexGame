@@ -26,4 +26,4 @@ MonoBehaviour:
   - key: ENERGY_INPUT_IDEAL
     value: 30
   - key: LIGHT_OUTPUT_IDEAL
-    value: 10
+    value: 0.2

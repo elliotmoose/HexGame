@@ -30,9 +30,11 @@ public class EnvironmentManager : MonoBehaviour
                 return 0;
             } 
 
+            float maxDaylight = 10; //Global Light resource output
+
             //peak is at 0.5
             //y = -(4x-2)^2 + 1
-            return -Mathf.Pow((4*timeOfDayFraction - 2), 2) + 1;
+            return (-Mathf.Pow((4*timeOfDayFraction - 2), 2) + 1) * maxDaylight;
         }
     }
 
@@ -78,14 +80,14 @@ public class EnvironmentManager : MonoBehaviour
     #region temperature
     private float seasonTemp {
         get {            
-            float maxSeasonalTemp = 5;
+            float maxSeasonalTemp = 8;
             return Mathf.Sin(2*(timeInSeasonsFraction - 0.125f)*Mathf.PI) * maxSeasonalTemp;
         }
     }
 
     private float maxTemp {
         get {
-            return Mathf.Lerp(35, 65, co2Factor);
+            return Mathf.Lerp(35, 62, co2Factor);
         }
     }
     

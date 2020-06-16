@@ -24,6 +24,6 @@ MonoBehaviour:
   availableShopItems: []
   parameters:
   - key: ENERGY_OUTPUT_IDEAL
-    value: 20
+    value: 30
   - key: OIL_INPUT
     value: 10
