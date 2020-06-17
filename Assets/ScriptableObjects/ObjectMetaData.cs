@@ -54,6 +54,19 @@ public class ObjectMetaData : ScriptableObject
         return availableShopItems;
     }
 
+    public bool HasParameterForKey(string key) 
+    {
+        foreach(MetaDataParameter param in parameters)
+        {
+            if(param.key == key)
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     public void MapParameterForKey(string key, out float value) 
     {
         foreach(MetaDataParameter param in parameters)

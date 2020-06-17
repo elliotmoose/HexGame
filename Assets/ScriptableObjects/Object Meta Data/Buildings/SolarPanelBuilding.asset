@@ -23,7 +23,7 @@ MonoBehaviour:
   resourceRecalculationOrder: 0
   availableShopItems: []
   parameters:
-  - key: LIGHT_INPUT_IDEAL
+  - key: INPUT_IDEAL
     value: 10
-  - key: ENERGY_OUTPUT_IDEAL
+  - key: OUTPUT_IDEAL
     value: 20

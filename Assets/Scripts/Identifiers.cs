@@ -21,10 +21,11 @@ public enum Identifiers : int
 
 public enum ResourceIdentifiers
 {
-    WATER,
-    ENERGY,
-    LIGHT,
-    COOL,
-    OIL,
-    MINERALS
+    NULL = 0,
+    WATER = 1,
+    ENERGY = 2,
+    LIGHT = 3,
+    COOL = 4,
+    OIL = 5,
+    MINERALS = 6
 }

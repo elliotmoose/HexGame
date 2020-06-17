@@ -63,6 +63,6 @@ public class Condenser : Building
 
     public override string GetDescription()
     {
-        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY)}/{GetResource(ResourceIdentifiers.ENERGY).ideal}\nWater Output: {waterOutput}\nCool Output: {coolFactor}";
+        return $"Energy Input: {GetResource(ResourceIdentifiers.ENERGY).value}/{GetResource(ResourceIdentifiers.ENERGY).ideal}\nWater Output: {waterOutput}\nCool Output: {coolFactor}";
     }
 }

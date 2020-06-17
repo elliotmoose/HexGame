@@ -390,7 +390,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5878546d45f7849239bedecc15647168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  resourceCalculationOrder: 0
+  metaData: {fileID: 0}
   coordinate: {x: 0, y: 0}
-  energyOutput: 1
+  inputResource: 0
+  outputResource: 2
+  inputResourceMessage: 
+  inputIdealParameterKey: INPUT_IDEAL
+  outputIdealParameterKey: OUTPUT_IDEAL
+  resourceCapacityParameterKey: RESOURCE_LIMIT
+  resourceOutputSplit: 1
   blades: {fileID: 5315186020739795603}
