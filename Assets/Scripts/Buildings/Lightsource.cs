@@ -54,20 +54,16 @@ public class Lightsource : Building
     protected override void Update()
     {
         bool isOn = !EnvironmentManager.GetInstance().isDay && HasResource(ResourceIdentifiers.ENERGY);
+        
         if(isOn != _on)
         {
             TriggerBrightnessUpdate(isOn);
             _on = isOn;
-
-            if(isOn)
-            {
-                GetResource(ResourceIdentifiers.LIGHT).active = true;
-            }
-            else 
-            {
-                GetResource(ResourceIdentifiers.LIGHT).active = false;
-            }
         }
+
+        
+        //tells buildings that I don't need to consume energy resource
+        GetResource(ResourceIdentifiers.ENERGY).active = isOn;
     }
     
 

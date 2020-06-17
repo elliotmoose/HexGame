@@ -47,8 +47,8 @@ public class ResourceConsumer : MonoBehaviour
 
     public bool NeedsResource(ResourceIdentifiers resourceId) 
     {
-        //if a resource has the key it needs the resource
-        return resources.ContainsKey(resourceId);
+        //if a resource has the key it needs the resource        
+        return resources.ContainsKey(resourceId) && GetResource(resourceId).active;
     }
 
     protected bool HasResource(ResourceIdentifiers resourceId) 
@@ -153,7 +153,7 @@ public class ResourceConsumer : MonoBehaviour
 
         foreach(ResourceIdentifiers resourceId in resourceIndicatorSet.GetComponent<IndicatorSet>().displayedResources.Keys)
         {
-            SetResourceIndicator(resourceId, !HasResource(resourceId));
+            SetResourceIndicator(resourceId, !HasResource(resourceId) && NeedsResource(resourceId));
         }
     }
 }
