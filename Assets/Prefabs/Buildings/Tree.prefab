@@ -9785,8 +9785,8 @@ MonoBehaviour:
   treeObject: {fileID: 7686897920099045532}
   smokeObject: {fileID: 2233541161886716005}
   fireObject: {fileID: 3776485923149408753}
-  leavesObject: {fileID: 7232496539917195968}
-  trunkObject: {fileID: 6555168279459078440}
+  leavesObject: {fileID: 8312074583564129982}
+  trunkObject: {fileID: 6148325571728295412}
   leaveColors:
     serializedVersion: 2
     key0: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
@@ -9908,15 +9908,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2884825968768506183}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7232496539917195968 stripped
+--- !u!1 &8312074583564129982 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5500593511424410503, guid: 89401373e182d401bb2d464ed7e5ba21,
+  m_CorrespondingSourceObject: {fileID: -2642876152772800519, guid: 89401373e182d401bb2d464ed7e5ba21,
     type: 3}
   m_PrefabInstance: {fileID: 2884825968768506183}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6555168279459078440 stripped
+--- !u!1 &6148325571728295412 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 8282215642415102063, guid: 89401373e182d401bb2d464ed7e5ba21,
+  m_CorrespondingSourceObject: {fileID: -190338212897219405, guid: 89401373e182d401bb2d464ed7e5ba21,
     type: 3}
   m_PrefabInstance: {fileID: 2884825968768506183}
   m_PrefabAsset: {fileID: 0}

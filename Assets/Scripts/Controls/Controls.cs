@@ -184,6 +184,10 @@ public class Controls : MonoBehaviour
                     Shop.GetInstance().selectedPlatform = platform;
                     Shop.GetInstance().Purchase(_selectedShopItem);
                 }
+                else 
+                {
+                    Debug.Log("Can't build here");
+                }
                 
                 _selectedShopItem = null;
                 GameObject.Destroy(_dragDropObject);

@@ -141,7 +141,23 @@ public class PlatformManager : MonoBehaviour
 
     public bool CanBuild(ObjectMetaData objectMetaData, Vector2Int coord)
     {
-        return true;
+        HexPlatform platform = PlatformAtCoordinate(coord);
+
+        if(platform == null || objectMetaData == null)
+        {
+            return false;
+        }
+
+        List<ObjectMetaData> availableBuilds = platform.metaData.GetContextualAvailableShopItems(coord);
+
+        foreach(ObjectMetaData build in availableBuilds)
+        {
+            if(build.id == objectMetaData.id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void OnBuildUpdate() 
