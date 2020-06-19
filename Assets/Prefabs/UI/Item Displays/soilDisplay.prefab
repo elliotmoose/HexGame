@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4233363382580758490}
   - component: {fileID: 5180524055141318124}
   - component: {fileID: 1502058526197645589}
-  - component: {fileID: 9206863281856406228}
-  - component: {fileID: 3921894020624290631}
   m_Layer: 0
   m_Name: soilDisplay
   m_TagString: Untagged
@@ -80,34 +78,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &9206863281856406228
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929065651996833225}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 2534964839176971238, guid: a16f0a21473e64a2a83f2e323d49477b, type: 3}
---- !u!114 &3921894020624290631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 929065651996833225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbca33bf68f624afd800f4fa79a354c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  metaData: {fileID: 0}
-  coordinate: {x: 0, y: 0}
-  defaultMaterial: {fileID: 0}
-  hoverMaterial: {fileID: 2100000, guid: b0ef6090573b5433481311c4d8257caa, type: 2}
-  selectedMaterial: {fileID: 2100000, guid: 214904c0b16c14402aed06d68cb8abb4, type: 2}

@@ -139,6 +139,11 @@ public class PlatformManager : MonoBehaviour
         }
     }
 
+    public bool CanBuild(ObjectMetaData objectMetaData, Vector2Int coord)
+    {
+        return true;
+    }
+
     public void OnBuildUpdate() 
     {
         foreach(HexPlatform platform in platforms.Values)

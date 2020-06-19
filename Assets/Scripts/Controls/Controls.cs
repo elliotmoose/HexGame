@@ -8,16 +8,19 @@ public class Controls : MonoBehaviour
 {
     HexPlatform lastHovered;
     
+    private ObjectMetaData _selectedShopItem;
+    private GameObject _dragDropObject;
 
     private bool _isManualPanning = false;
     private float panSpeed = 14;
-    private int tabSize = 128;
+    private int tabSize = 45;
 
     void Update()
     {
         UpdatePlatformSelection();
         UpdateScreenFocus();
-        UpdateScreenMovement();      
+        // UpdateScreenMovement();      
+        UpdateDragAndDrop();
     }
 
     void UpdatePlatformSelection()
@@ -150,6 +153,68 @@ public class Controls : MonoBehaviour
         float speed = Mathf.Max(4 * delta.magnitude, 1);
         Camera.main.transform.position += deltaXZ * Time.deltaTime * speed;
     }
+
+    void UpdateDragAndDrop()
+    {        
+        if(_dragDropObject)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(ray, out hit);
+
+            HexPlatform platform = null;
+            if (hasHit)
+            {
+                platform = hit.transform.gameObject.GetComponent<HexPlatform>();
+                float distanceTowardCamera = 1;
+                Vector3 offsetTowardCamera = (Camera.main.transform.position - hit.point).normalized * distanceTowardCamera;
+                _dragDropObject.transform.position = hit.point + offsetTowardCamera;
+                _dragDropObject.transform.Rotate(0, 75 * Time.deltaTime, 0);            
+            }
+            else 
+            {
+               _dragDropObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 8));
+            }
+
+
+            if(Input.GetMouseButtonUp(0) && _selectedShopItem != null)
+            {
+                if(platform != null && PlatformManager.GetInstance().CanBuild(_selectedShopItem, platform.coordinate))
+                {
+                    Shop.GetInstance().selectedPlatform = platform;
+                    Shop.GetInstance().Purchase(_selectedShopItem);
+                }
+                
+                _selectedShopItem = null;
+                GameObject.Destroy(_dragDropObject);
+            }
+
+        }
+    }
+    public void BeginDragAndDrop(ObjectMetaData shopItem) 
+    {
+        if(!_dragDropObject)
+        {
+            _selectedShopItem = shopItem;
+            _dragDropObject = GameObject.Instantiate(shopItem.displayPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            _dragDropObject.layer = 0;
+            foreach (Transform child in _dragDropObject.GetComponentsInChildren<Transform>(true)) {
+                child.gameObject.layer = 0;
+            }
+        }
+    }
+   
+    private static Controls _singleton;
+
+    Controls() {
+        _singleton = this;
+    }
+
+    public static Controls GetInstance() 
+    {
+        return _singleton;
+    }
+
 }
  
  

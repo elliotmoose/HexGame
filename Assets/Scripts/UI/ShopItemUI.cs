@@ -10,10 +10,12 @@ public class ShopItemUI : MonoBehaviour
     public Text descriptionText;
     public Text priceText;
     public Transform itemDisplaySlot;
+    public Button button;
 
     private ObjectMetaData _item;
 
     private GameObject _displayObject;
+    private GameObject _dragDropObject;
     
     public void LoadData(ObjectMetaData item)
     {
@@ -45,5 +47,10 @@ public class ShopItemUI : MonoBehaviour
     public void Purchase() 
     {
         Shop.GetInstance().Purchase(_item);
+    }
+
+    public void StartDrag() 
+    {
+        Controls.GetInstance().BeginDragAndDrop(_item);        
     }
 }
