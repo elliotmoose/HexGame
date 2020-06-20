@@ -1,7 +1,7 @@
 public class Numbers
 {
-    public static string TwoDP(float number)
+    public static string OneDP(float number)
     {
-        return string.Format("{0:0.00}", number);
+        return string.Format("{0:0.0}", number);
     }
 }

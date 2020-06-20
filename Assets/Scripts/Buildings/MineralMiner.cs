@@ -31,6 +31,6 @@ public class MineralMiner : Building
     public override string GetDescription() 
     {
         ResourceMetaData resource = GetResource(ResourceIdentifiers.ENERGY);
-        return $"Energy Input: {resource.value} ({Numbers.TwoDP(resource.fulfillFactor*100)}%)";
+        return $"Energy Input: {resource.value} ({Numbers.OneDP(resource.fulfillFactor*100)}%)";
     }
 }

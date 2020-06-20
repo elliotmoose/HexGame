@@ -178,7 +178,10 @@ public class Controls : MonoBehaviour
                 
                 float distanceTowardCamera = 1;
                 Vector3 offsetTowardCamera = (Camera.main.transform.position - hit.point).normalized * distanceTowardCamera;
-                _dragDropObject.transform.position = hit.point + offsetTowardCamera;
+                Vector3 targetPositionInMainCamera = hit.point + offsetTowardCamera;
+                // Vector3 intermediatePosition = Camera.main.WorldToViewportPoint(targetPositionInMainCamera);
+                // Vector3 targetPositionInUICamera = UIManager.GetInstance().UICamera.ViewportToWorldPoint(intermediatePosition);
+                _dragDropObject.transform.position = targetPositionInMainCamera;
                 _dragDropObject.transform.Rotate(0, 75 * Time.deltaTime, 0);            
             }
             else 
@@ -238,6 +241,7 @@ public class Controls : MonoBehaviour
         {
             _selectedShopItem = shopItem;
             _dragDropObject = GameObject.Instantiate(shopItem.displayPrefab, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            // LayerMask layer = LayerMask.NameToLayer("UI");
             _dragDropObject.layer = 0;
             foreach (Transform child in _dragDropObject.GetComponentsInChildren<Transform>(true)) {
                 child.gameObject.layer = 0;

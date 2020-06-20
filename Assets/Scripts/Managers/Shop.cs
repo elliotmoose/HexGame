@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class Shop : MonoBehaviour
 {
     public GameObject shopItemUIPrefab;
     public Transform shopItemsContainer;
+    public Transform categoriesContainer;
     
     public Material validBuildMaterial;
     public Material invalidBuildMaterial;
-
+    
     public bool isOpen {
         get {
             return this.gameObject.activeSelf;
@@ -19,7 +21,36 @@ public class Shop : MonoBehaviour
     }
 
     public HexPlatform selectedPlatform;
+
+
+    public List<ObjectMetaData> resourcesShopItems = new List<ObjectMetaData>();
+    public List<ObjectMetaData> platformsShopItems = new List<ObjectMetaData>();
+    public List<ObjectMetaData> energyShopItems = new List<ObjectMetaData>();
+    public List<ObjectMetaData> organicShopItems = new List<ObjectMetaData>();
     
+    void Start()
+    {
+        DisplayCategory(1);
+        SubscribeCategoryButtonsEvents();
+    }
+
+    public void SubscribeCategoryButtonsEvents()
+    {
+        for(int i=0; i<categoriesContainer.childCount; i++)
+        {
+            int index = i;
+            categoriesContainer.GetChild(i).GetComponent<Button>().onClick.AddListener(()=>{
+                DisplayCategory(index);
+            });
+        }
+    }
+
+    public void DisplayCategory(int index)
+    {
+        List<ObjectMetaData>[] categories = new List<ObjectMetaData>[]{resourcesShopItems, platformsShopItems, energyShopItems, organicShopItems};
+        UpdateShopItems(categories[index]);
+    }
+
     public void Open(HexPlatform platform) 
     {
         if(isOpen && platform == selectedPlatform)
@@ -42,7 +73,7 @@ public class Shop : MonoBehaviour
        selectedPlatform = platform;
     //    platform.SetSelected(true);
 
-        UpdateShopItems();
+        // UpdateShopItems();
     }
 
     public void Close() 
@@ -68,14 +99,14 @@ public class Shop : MonoBehaviour
         return platform.metaData.GetContextualAvailableShopItems(platform.coordinate);
     }
 
-    public void UpdateShopItems()
+    public void UpdateShopItems(List<ObjectMetaData> metaDatas)
     {
-        if(!selectedPlatform) 
-        {
-            return;
-        }
+        // if(!selectedPlatform) 
+        // {
+        //     return;
+        // }
 
-        List<ObjectMetaData> metaDatas = AvailableShopItemsForPlatform(selectedPlatform);
+        // List<ObjectMetaData> metaDatas = AvailableShopItemsForPlatform(selectedPlatform);
                          
        //clear shop item uis
        for (int i = 0; i < shopItemsContainer.childCount; i++)
@@ -119,7 +150,7 @@ public class Shop : MonoBehaviour
         }
 
 
-        UpdateShopItems();
+        // UpdateShopItems();
     }
 
     private static Shop _singleton;

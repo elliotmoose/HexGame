@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class ShopItemUI : MonoBehaviour
 {
 
-    public Text titleText;
-    public Text descriptionText;
-    public Text priceText;
+    // public Text titleText;
+    // public Text descriptionText;
+    // public Text priceText;
     public Transform itemDisplaySlot;
-    public Button button;
+    // public Button button;
 
     private ObjectMetaData _item;
 
@@ -21,9 +21,9 @@ public class ShopItemUI : MonoBehaviour
     {
         this._item = item;
 
-        titleText.text = item.title;
-        descriptionText.text = item.description;
-        priceText.text = $"{item.price}";
+        // titleText.text = item.title;
+        // descriptionText.text = item.description;
+        // priceText.text = $"{item.price}";
 
         _displayObject = GameObject.Instantiate(item.displayPrefab, itemDisplaySlot, false);
         _displayObject.transform.localPosition = Vector3.zero;
