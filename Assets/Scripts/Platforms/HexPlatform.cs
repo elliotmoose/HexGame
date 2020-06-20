@@ -12,9 +12,7 @@ public class HexPlatform : ResourceConsumer
     public ObjectMetaData metaData;
     public Vector2Int coordinate;
 
-    public Material defaultMaterial;
-    public Material hoverMaterial;
-    public Material selectedMaterial;
+    private Material defaultMaterial;
 
     private Building _building;
     public Building building {
@@ -56,29 +54,13 @@ public class HexPlatform : ResourceConsumer
         InitializeResourceNeeds();
     }
 
-    public void SetHovered(bool isHovered) {
+    public void SetValidation(bool isOn, bool isValid) {
         if(metaData.id == Identifiers.NULL) 
         {
             return;
         }
         
-
-        
-        Material material = isHovered ? hoverMaterial : (isSelected ? selectedMaterial : defaultMaterial);
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers)
-        {
-            renderer.material = material;
-        }
-    }
-
-    public virtual void SetSelected(bool isHovered) {
-        if(metaData.id == Identifiers.NULL) 
-        {
-            return;
-        }
-        
-        Material material = isHovered ? hoverMaterial : defaultMaterial;
+        Material material = isOn ? (isValid ? Shop.GetInstance().validBuildMaterial : Shop.GetInstance().invalidBuildMaterial) : defaultMaterial;
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {

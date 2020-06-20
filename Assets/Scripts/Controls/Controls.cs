@@ -57,24 +57,24 @@ public class Controls : MonoBehaviour
                 }
             }
 
-            HexPlatform lastLastHovered = null;
-            if (lastHovered != platform && platform != null)
-            {
-                lastLastHovered = lastHovered;
-                platform.SetHovered(true);
-                lastHovered = platform;
+            // HexPlatform lastLastHovered = null;
+            // if (lastHovered != platform && platform != null)
+            // {
+            //     lastLastHovered = lastHovered;
+            //     // platform.SetHovered(true);
+            //     lastHovered = platform;
 
-                if (lastLastHovered)
-                {
-                    lastLastHovered.SetHovered(false);
-                }
-            }
+            //     if (lastLastHovered)
+            //     {
+            //         // lastLastHovered.SetHovered(false);
+            //     }
+            // }
 
-        }
-        else if (lastHovered)
-        {
-            lastHovered.SetHovered(false);
-            lastHovered = null;
+        // }
+        // else if (lastHovered)
+        // {
+        //     lastHovered.SetHovered(false);
+        //     lastHovered = null;
         }
     }
 
@@ -133,7 +133,6 @@ public class Controls : MonoBehaviour
         // }
     }
     
-
     void UpdateScreenFocus()
     {
         if(!Shop.GetInstance().selectedPlatform || _isManualPanning) 
@@ -156,16 +155,27 @@ public class Controls : MonoBehaviour
 
     void UpdateDragAndDrop()
     {        
-        if(_dragDropObject)
+        //1. if there is something to drag and drop, update its position
+        //1b: if theres no hit, just position the object close to camera
+        //2. if it is hovering a platform, validate if that platform is a plausible place to build this item
+        //3. if let go
+        //3a: reset drag and drop
+        //3b: purchase
+        bool isDragAndDropping = (_dragDropObject != null && _selectedShopItem != null);
+
+        if(isDragAndDropping)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             bool hasHit = Physics.Raycast(ray, out hit);
 
             HexPlatform platform = null;
+
+            #region update drag drop position
             if (hasHit)
             {
                 platform = hit.transform.gameObject.GetComponent<HexPlatform>();
+                
                 float distanceTowardCamera = 1;
                 Vector3 offsetTowardCamera = (Camera.main.transform.position - hit.point).normalized * distanceTowardCamera;
                 _dragDropObject.transform.position = hit.point + offsetTowardCamera;
@@ -173,13 +183,34 @@ public class Controls : MonoBehaviour
             }
             else 
             {
-               _dragDropObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 8));
+                _dragDropObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 8));
+            }
+
+            #endregion
+
+            #region validation
+            bool canBuildHere = (platform != null && PlatformManager.GetInstance().CanBuild(_selectedShopItem, platform.coordinate));
+
+            //validation 1: must update currently hovered platform indicator
+            //validation 2: must update previous hovered platform indicator, if any
+            if(platform)
+            {
+                platform.SetValidation(true, canBuildHere);
+            }
+
+            if(lastHovered && lastHovered != platform)
+            {
+                lastHovered.SetValidation(false, false);
             }
 
 
-            if(Input.GetMouseButtonUp(0) && _selectedShopItem != null)
+            #endregion
+
+            #region drop event
+            bool triggerDropAttempt = Input.GetMouseButtonUp(0);
+            if(triggerDropAttempt)
             {
-                if(platform != null && PlatformManager.GetInstance().CanBuild(_selectedShopItem, platform.coordinate))
+                if(canBuildHere)
                 {
                     Shop.GetInstance().selectedPlatform = platform;
                     Shop.GetInstance().Purchase(_selectedShopItem);
@@ -189,12 +220,18 @@ public class Controls : MonoBehaviour
                     Debug.Log("Can't build here");
                 }
                 
+                //release
                 _selectedShopItem = null;
                 GameObject.Destroy(_dragDropObject);
             }
+            #endregion
 
+            lastHovered = platform;
         }
+
+
     }
+    
     public void BeginDragAndDrop(ObjectMetaData shopItem) 
     {
         if(!_dragDropObject)

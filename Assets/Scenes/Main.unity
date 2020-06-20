@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -207.89941}
+  m_AnchoredPosition: {x: 30, y: -207.90039}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &60883493
@@ -634,7 +634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.016793555, y: 0.23055668}
   m_AnchorMax: {x: 0.21110895, y: 0.7234652}
-  m_AnchoredPosition: {x: 0, y: -55.899414}
+  m_AnchoredPosition: {x: 0, y: -55.90039}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &601927670
@@ -1833,6 +1833,9 @@ MonoBehaviour:
   shopItemUIPrefab: {fileID: 9000562033378227831, guid: 64075e3cb5a0c454b9fb41b64945813c,
     type: 3}
   shopItemsContainer: {fileID: 2071331563}
+  validBuildMaterial: {fileID: 2100000, guid: b5f05a944276c4f588e9586f2c76fd67, type: 2}
+  invalidBuildMaterial: {fileID: 2100000, guid: 4e59180630f3c4763b27d299acbb3cb9,
+    type: 2}
   selectedPlatform: {fileID: 0}
 --- !u!1 &1919079621
 GameObject:

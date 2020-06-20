@@ -8,6 +8,9 @@ public class Shop : MonoBehaviour
 {
     public GameObject shopItemUIPrefab;
     public Transform shopItemsContainer;
+    
+    public Material validBuildMaterial;
+    public Material invalidBuildMaterial;
 
     public bool isOpen {
         get {
@@ -34,10 +37,10 @@ public class Shop : MonoBehaviour
        //set state to be selecting this tile 
        if(selectedPlatform) 
        {
-           selectedPlatform.SetSelected(false);
+        //    selectedPlatform.SetSelected(false);
        }
        selectedPlatform = platform;
-       platform.SetSelected(true);
+    //    platform.SetSelected(true);
 
         UpdateShopItems();
     }
@@ -46,7 +49,7 @@ public class Shop : MonoBehaviour
     {
         if(selectedPlatform) 
         {
-            selectedPlatform.SetSelected(false);
+            // selectedPlatform.SetSelected(false);
         }
 
         this.gameObject.SetActive(false);
@@ -114,6 +117,7 @@ public class Shop : MonoBehaviour
                 selectedPlatform = hex;
             }
         }
+
 
         UpdateShopItems();
     }
