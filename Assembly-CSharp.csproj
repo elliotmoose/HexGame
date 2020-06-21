@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Helpers\Hexagon.cs" />
      <Compile Include="Assets\Scripts\Helpers\MapTextureGenerator.cs" />
      <Compile Include="Assets\Scripts\Helpers\Numbers.cs" />
+     <Compile Include="Assets\Scripts\Helpers\UIHelper.cs" />
      <Compile Include="Assets\Scripts\Identifiers.cs" />
      <Compile Include="Assets\Scripts\Managers\EnvironmentManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
@@ -76,6 +77,7 @@
      <Compile Include="Assets\Scripts\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\UI\Indicator.cs" />
      <Compile Include="Assets\Scripts\UI\IndicatorSet.cs" />
+     <Compile Include="Assets\Scripts\UI\ItemDetail.cs" />
      <Compile Include="Assets\Scripts\UI\PopupText.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItemUI.cs" />
      <Compile Include="Assets\Scripts\UI\UIFollow.cs" />

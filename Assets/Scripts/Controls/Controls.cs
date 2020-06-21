@@ -19,7 +19,7 @@ public class Controls : MonoBehaviour
     {
         UpdatePlatformSelection();
         UpdateScreenFocus();
-        // UpdateScreenMovement();      
+        UpdateScreenMovement();      
         UpdateDragAndDrop();
     }
 
@@ -49,7 +49,7 @@ public class Controls : MonoBehaviour
                 _isManualPanning = false;
                 if(platform.metaData.id != Identifiers.NULL) 
                 {
-                    Shop.GetInstance().Open(platform);    
+                    // Shop.GetInstance().Open(platform);    
                 }
                 else 
                 {
@@ -223,9 +223,7 @@ public class Controls : MonoBehaviour
                     Debug.Log("Can't build here");
                 }
                 
-                //release
-                _selectedShopItem = null;
-                GameObject.Destroy(_dragDropObject);
+                EndDragAndDrop();
             }
             #endregion
 
@@ -246,6 +244,22 @@ public class Controls : MonoBehaviour
             foreach (Transform child in _dragDropObject.GetComponentsInChildren<Transform>(true)) {
                 child.gameObject.layer = 0;
             }
+
+            Shop.GetInstance().shopItemsDisplay.SetActive(false);
+            //close details
+            UIManager.GetInstance().HoverDetailsExit(UIManager.GetInstance().currentShopItemData);
+        }
+    }
+
+    private void EndDragAndDrop() 
+    {
+        _selectedShopItem = null;
+        GameObject.Destroy(_dragDropObject);
+
+        if(Shop.GetInstance().isOpen)
+        {
+            //close shop
+            Shop.GetInstance().shopItemsDisplay.SetActive(true);
         }
     }
    

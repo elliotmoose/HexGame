@@ -10,27 +10,28 @@ public class Shop : MonoBehaviour
     public GameObject shopItemUIPrefab;
     public Transform shopItemsContainer;
     public Transform categoriesContainer;
+    public GameObject shopItemsDisplay;
     
     public Material validBuildMaterial;
     public Material invalidBuildMaterial;
     
-    public bool isOpen {
-        get {
-            return this.gameObject.activeSelf;
-        }
-    }
+    public bool isOpen = false;
 
     public HexPlatform selectedPlatform;
-
-
+    
     public List<ObjectMetaData> resourcesShopItems = new List<ObjectMetaData>();
     public List<ObjectMetaData> platformsShopItems = new List<ObjectMetaData>();
     public List<ObjectMetaData> energyShopItems = new List<ObjectMetaData>();
     public List<ObjectMetaData> organicShopItems = new List<ObjectMetaData>();
-    
+
+    private int _selectedCategory = 0;
+
+    public Color buttonDark;
+    public Color buttonDarkSelected;
+
     void Start()
     {
-        DisplayCategory(1);
+        // DisplayCategory(0);
         SubscribeCategoryButtonsEvents();
     }
 
@@ -47,44 +48,49 @@ public class Shop : MonoBehaviour
 
     public void DisplayCategory(int index)
     {
-        List<ObjectMetaData>[] categories = new List<ObjectMetaData>[]{resourcesShopItems, platformsShopItems, energyShopItems, organicShopItems};
-        UpdateShopItems(categories[index]);
-    }
-
-    public void Open(HexPlatform platform) 
-    {
-        if(isOpen && platform == selectedPlatform)
+        if(_selectedCategory == index && isOpen) 
         {
-            platform.Reselect();
-            // Close();
+            SetOpen(false);
             return;
         }
 
-        if(!this.gameObject.activeSelf)
+        SetOpen(true);
+        _selectedCategory = index;
+        
+        for(int i=0; i<categoriesContainer.childCount; i++)
         {
-            this.gameObject.SetActive(true);
+            Button button = categoriesContainer.GetChild(i).GetComponent<Button>();
+            bool isSelected = (i == index);
+            ColorBlock colors = button.colors;
+            colors.normalColor = isSelected ? buttonDarkSelected : buttonDark;
+            button.colors = colors;            
         }
-       
-       //set state to be selecting this tile 
-       if(selectedPlatform) 
-       {
-        //    selectedPlatform.SetSelected(false);
-       }
-       selectedPlatform = platform;
-    //    platform.SetSelected(true);
 
-        // UpdateShopItems();
+        List<ObjectMetaData>[] categories = new List<ObjectMetaData>[]{resourcesShopItems, platformsShopItems, energyShopItems, organicShopItems};
+        UpdateShopItems(categories[index]);
     }
-
-    public void Close() 
+    public void SetOpen(bool open) 
     {
-        if(selectedPlatform) 
+        isOpen = open;
+        if(!open)
         {
-            // selectedPlatform.SetSelected(false);
+            _selectedCategory = -1;
         }
 
-        this.gameObject.SetActive(false);
-        selectedPlatform = null;
+        //update ui panel
+        shopItemsDisplay.SetActive(open);
+
+        //category ui update
+        if(!open)
+        {
+            for(int i=0; i<categoriesContainer.childCount; i++)
+            {
+                Button button = categoriesContainer.GetChild(i).GetComponent<Button>();
+                ColorBlock colors = button.colors;
+                colors.normalColor = buttonDark;
+                button.colors = colors;            
+            }
+        }
     }
 
 

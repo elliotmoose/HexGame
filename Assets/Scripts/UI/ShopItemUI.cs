@@ -53,4 +53,14 @@ public class ShopItemUI : MonoBehaviour
     {
         Controls.GetInstance().BeginDragAndDrop(_item);        
     }
+
+    public void ShowDetails()
+    {
+        UIManager.GetInstance().HoverDetailsEnter(this._item, this.transform.position);
+    }
+
+    public void HideDetails()
+    {
+        UIManager.GetInstance().HoverDetailsExit(this._item);
+    }
 }
