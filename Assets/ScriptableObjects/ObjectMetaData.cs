@@ -4,9 +4,26 @@ using UnityEngine;
 
 
 [System.Serializable]
+public struct Metric
+{
+    public string title;
+    public float current;
+    public float max;
+
+    public Metric(string title, float current, float max)
+    {
+        this.title = title;
+        this.current = current;
+        this.max = max;
+    }
+}
+
+[System.Serializable]
 public struct MetaDataParameter 
 {
     public string key;
+    public bool metricDisplay;
+    public string readableKey;
     public float value;
 }
 
@@ -22,6 +39,7 @@ public class ObjectMetaData : ScriptableObject
     public GameObject displayPrefab;
     public ShopItemType type;
     public int resourceRecalculationOrder;
+    public ObjectMetaData upgrade;
     public List<ObjectMetaData> availableShopItems = new List<ObjectMetaData>();
     public List<MetaDataParameter> parameters = new List<MetaDataParameter>();
 
@@ -65,6 +83,19 @@ public class ObjectMetaData : ScriptableObject
         }
         
         return false;
+    }
+
+    public MetaDataParameter GetParameterForKey(string key) 
+    {
+        foreach(MetaDataParameter param in parameters)
+        {
+            if(param.key == key)
+            {
+                return param;
+            }
+        }
+        
+        return new MetaDataParameter();
     }
 
     public void MapParameterForKey(string key, out float value) 

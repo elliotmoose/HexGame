@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemDetail : MonoBehaviour
+public class ShopItemDetail : MonoBehaviour
 {
     public GameObject shopItemDescriptionContainer;
     public GameObject metricsDetailsContainer;

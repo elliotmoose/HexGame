@@ -24,6 +24,10 @@ MonoBehaviour:
   availableShopItems: []
   parameters:
   - key: ENERGY_INPUT_IDEAL
+    metricDisplay: 0
+    readableKey: Max Energy Input
     value: 20
   - key: MINERAL_OUTPUT_IDEAL
+    metricDisplay: 0
+    readableKey: Max Mineral Output
     value: 50

@@ -24,6 +24,10 @@ MonoBehaviour:
   availableShopItems: []
   parameters:
   - key: ENERGY_INPUT_IDEAL
+    metricDisplay: 1
+    readableKey: Max Energy Input
     value: 30
   - key: LIGHT_OUTPUT_IDEAL
+    metricDisplay: 1
+    readableKey: Max Light Output
     value: 0.2

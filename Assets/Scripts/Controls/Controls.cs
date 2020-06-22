@@ -19,7 +19,7 @@ public class Controls : MonoBehaviour
     {
         UpdatePlatformSelection();
         UpdateScreenFocus();
-        UpdateScreenMovement();      
+        // UpdateScreenMovement();      
         UpdateDragAndDrop();
     }
 
@@ -48,7 +48,11 @@ public class Controls : MonoBehaviour
                 var coord = platform.coordinate;
                 _isManualPanning = false;
                 if(platform.metaData.id != Identifiers.NULL) 
-                {
+                {   
+                    if(platform.building)
+                    {
+                        InfoDetail.GetInstance().LoadData(platform.building);
+                    }
                     // Shop.GetInstance().Open(platform);    
                 }
                 else 

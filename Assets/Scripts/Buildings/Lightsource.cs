@@ -44,10 +44,15 @@ public class Lightsource : Building
         base.RecalculateResources();
     }
 
-    public override void Reselect()
+    public override void Action()
     {
         axis = (axis + 1) % 3;
         this.transform.rotation = Quaternion.Euler(0, axis * 120, 0);
+    }
+    
+    public override string GetActionText()
+    {
+        return "Rotate";
     }
 
     // Update is called once per frame

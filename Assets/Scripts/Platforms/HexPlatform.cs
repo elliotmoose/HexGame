@@ -88,13 +88,6 @@ public class HexPlatform : ResourceConsumer
 
     }
 
-    public virtual void Reselect() 
-    {
-        if(building)
-        {
-            building.Reselect();
-        }
-    }
 
     public virtual string GetDescription()
     {

@@ -21,9 +21,14 @@ MonoBehaviour:
     type: 3}
   type: 0
   resourceRecalculationOrder: 0
+  upgrade: {fileID: 0}
   availableShopItems: []
   parameters:
   - key: INPUT_IDEAL
+    metricDisplay: 1
+    readableKey: Max Light Input
     value: 10
   - key: OUTPUT_IDEAL
+    metricDisplay: 1
+    readableKey: Max Energy Output
     value: 20

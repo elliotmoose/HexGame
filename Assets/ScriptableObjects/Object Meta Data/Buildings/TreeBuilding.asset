@@ -24,22 +24,42 @@ MonoBehaviour:
   availableShopItems: []
   parameters:
   - key: WATER_INPUT_IDEAL
+    metricDisplay: 1
+    readableKey: Water Needed
     value: 5
   - key: LIGHT_INPUT_IDEAL
+    metricDisplay: 1
+    readableKey: Light Needed
     value: 8
   - key: COOLING_RATE
+    metricDisplay: 0
+    readableKey: 
     value: 2
   - key: SMOKING_HEAT_RATE
+    metricDisplay: 0
+    readableKey: 
     value: 1.5
   - key: BURNING_HEAT_RATE
+    metricDisplay: 0
+    readableKey: 
     value: 10
   - key: SMOKE_POINT
+    metricDisplay: 0
+    readableKey: 
     value: 48
   - key: BURN_POINT
+    metricDisplay: 0
+    readableKey: 
     value: 65
   - key: NO_WATER_DAMAGE
+    metricDisplay: 0
+    readableKey: 
     value: 1
   - key: NO_LIGHT_DAMAGE
+    metricDisplay: 0
+    readableKey: 
     value: 1
   - key: BURN_DAMAGE
+    metricDisplay: 0
+    readableKey: 
     value: 10

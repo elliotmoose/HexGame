@@ -12,6 +12,7 @@ public class LinearConverter : Building
     private string resourceCapacityParameterKey = "RESOURCE_CAPACITY";
     
     private float _resourceCapacity;
+    private float _resourceCapacityMax;
     private bool _resourceCapacityEnabled = false;
 
     private float idealInput;
@@ -29,7 +30,8 @@ public class LinearConverter : Building
     {        
         if(metaData.HasParameterForKey(resourceCapacityParameterKey))
         {
-            metaData.MapParameterForKey(resourceCapacityParameterKey, out _resourceCapacity);
+            metaData.MapParameterForKey(resourceCapacityParameterKey, out _resourceCapacityMax);
+            _resourceCapacity = _resourceCapacityMax;
             _resourceCapacityEnabled = true;
         }
         
@@ -39,7 +41,8 @@ public class LinearConverter : Building
         }
 
         metaData.MapParameterForKey(outputIdealParameterKey, out idealOutput);
-        SetNeedsResource(inputResource, idealInput);
+        MetaDataParameter inputParameter = metaData.GetParameterForKey(inputIdealParameterKey);
+        SetNeedsResource(inputResource, idealInput, inputParameter.key, inputParameter.readableKey);
         if(inputResourceMessage != "")
         {
             AddResourceIndicator(inputResource, inputResourceMessage);
@@ -139,5 +142,35 @@ public class LinearConverter : Building
         }
         
         return output;
+    }
+
+    public override List<Metric> GetMetrics() 
+    {
+        List<Metric> metrics = new List<Metric>();
+            
+        if(inputResource != ResourceIdentifiers.NULL)
+        {
+            ResourceMetaData inputResourceData = GetResource(inputResource);        
+            Metric inputMetric = new Metric($"{inputResourceData.readableKey}:", inputResourceData.value, inputResourceData.ideal);
+            metrics.Add(inputMetric);
+        }
+
+        if(outputResource != ResourceIdentifiers.NULL)
+        {
+            //wrong: output resource doesn't reside on object. need to find a way to get meta data from scriptable metadata parameter directly
+            float output = ScaledOutputByResource(inputResource, idealOutput);                       
+            string outputReadable = metaData.GetParameterForKey(outputIdealParameterKey).readableKey;
+            Metric outputMetric = new Metric($"{outputReadable}:", output, idealOutput);
+            
+            metrics.Add(outputMetric);
+        }
+
+        if(_resourceCapacityEnabled)
+        {
+            Metric durabilityMetric = new Metric("Durability:", _resourceCapacity, _resourceCapacityMax);            
+            metrics.Add(durabilityMetric);
+        }
+
+        return metrics;
     }
 }

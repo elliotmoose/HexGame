@@ -62,7 +62,13 @@ public class Building : ResourceConsumer
         
     }
 
-    public virtual void Reselect() {}
+    public virtual string GetActionText() {return "Action";}
+    public virtual void Action() {}
+    
+    public virtual List<Metric> GetMetrics() {
+        return new List<Metric>();
+    }
+    
 
     public virtual void BuildingTick() {}
 

@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
     {
         detailsContainer.SetActive(true);
         currentShopItemData = shopItem;
-        detailsContainer.GetComponent<ItemDetail>().LoadData(shopItem);
+        detailsContainer.GetComponent<ShopItemDetail>().LoadData(shopItem);
 
         // Vector2 movePos;    
         

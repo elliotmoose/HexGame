@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ResourceMetaData 
 {
+    public string key = "NULL";
+    public string readableKey = "NULL";
     public bool active = true;
     public float value = 0;
     public float ideal = 0;
@@ -17,11 +19,13 @@ public class ResourceMetaData
             return value/ideal;
         }
     }
-    public ResourceMetaData(float value, float ideal) 
+    public ResourceMetaData(float value, float ideal, string key="NULL", string readableKey="NULL") 
     {
         active = true;
         this.value = value;
         this.ideal = ideal;
+        this.key = key;
+        this.readableKey = readableKey;
     }
 }
 
@@ -35,9 +39,9 @@ public class ResourceConsumer : MonoBehaviour
 
     protected virtual void InitializeResourceNeeds() {}
     
-    public void SetNeedsResource(ResourceIdentifiers resourceId, float ideal) 
+    public void SetNeedsResource(ResourceIdentifiers resourceId, float ideal, string key="NULL", string readableKey="NULL") 
     {
-        resources.Add(resourceId, new ResourceMetaData(0, ideal));
+        resources.Add(resourceId, new ResourceMetaData(0, ideal, key, readableKey));
     }
 
     public void SetResourceIdeal(ResourceIdentifiers resourceId, float ideal) 
