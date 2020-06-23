@@ -81,8 +81,11 @@ public class TreeBuilding : Building
 
     protected override void InitializeResourceNeeds()
     {
-        metaData.MapParameterForKey("WATER_INPUT_IDEAL", out idealWaterInput);
-        metaData.MapParameterForKey("LIGHT_INPUT_IDEAL", out idealLightInput);
+        MetaDataParameter waterInputParameter = metaData.GetParameterForKey("WATER_INPUT_IDEAL");
+        idealWaterInput = waterInputParameter.value;
+        MetaDataParameter lightInputParameter = metaData.GetParameterForKey("LIGHT_INPUT_IDEAL");
+        idealLightInput = lightInputParameter.value;
+        MetaDataParameter coolInputParameter = metaData.GetParameterForKey("COOL_FACTOR");
         metaData.MapParameterForKey("COOLING_RATE", out _coolingRate);
         metaData.MapParameterForKey("SMOKING_HEAT_RATE", out _smokingHeatRate);
         metaData.MapParameterForKey("BURNING_HEAT_RATE", out _burningHeatRate);
@@ -92,9 +95,9 @@ public class TreeBuilding : Building
         metaData.MapParameterForKey("NO_LIGHT_DAMAGE", out _noLightDamage);
         metaData.MapParameterForKey("BURN_DAMAGE", out _burnDamage);
 
-        SetNeedsResource(ResourceIdentifiers.WATER, idealWaterInput);
-        SetNeedsResource(ResourceIdentifiers.LIGHT, idealLightInput);
-        SetNeedsResource(ResourceIdentifiers.COOL, 1);
+        SetNeedsResource(ResourceIdentifiers.WATER, waterInputParameter);
+        SetNeedsResource(ResourceIdentifiers.LIGHT, lightInputParameter);
+        SetNeedsResource(ResourceIdentifiers.COOL, coolInputParameter);
 
         AddResourceIndicator(ResourceIdentifiers.WATER, "This tree needs water!!");
         AddResourceIndicator(ResourceIdentifiers.LIGHT, "This tree needs light!!");

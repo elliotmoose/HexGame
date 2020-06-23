@@ -21,11 +21,18 @@ MonoBehaviour:
     type: 3}
   type: 0
   resourceRecalculationOrder: 2
+  upgrade: {fileID: 0}
   availableShopItems: []
   parameters:
   - key: ENERGY_INPUT_IDEAL
+    displayType: 1
+    readableKey: Energy Input Rate
     value: 15
   - key: WATER_OUTPUT_IDEAL
+    displayType: 1
+    readableKey: Water Output Rate
     value: 10
   - key: COOL_FACTOR_IDEAL
+    displayType: 0
+    readableKey: 
     value: 7

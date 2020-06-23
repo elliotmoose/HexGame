@@ -11,9 +11,10 @@ public class OilPump : Building
     // Start is called before the first frame update
     protected override void InitializeResourceNeeds() 
     {
-        metaData.MapParameterForKey("ENERGY_INPUT_IDEAL", out idealEnergyInput);
+        MetaDataParameter energyInputParameter = metaData.GetParameterForKey("ENERGY_INPUT_IDEAL");
+        idealEnergyInput = energyInputParameter.value;
         metaData.MapParameterForKey("OIL_OUTPUT_IDEAL", out idealOilOutput);
-        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, energyInputParameter);
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "This building needs energy to work!");
     }
 

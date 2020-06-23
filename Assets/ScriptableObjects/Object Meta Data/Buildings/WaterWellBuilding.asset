@@ -21,9 +21,14 @@ MonoBehaviour:
     type: 3}
   type: 0
   resourceRecalculationOrder: 2
+  upgrade: {fileID: 0}
   availableShopItems: []
   parameters:
   - key: OUTPUT_IDEAL
+    displayType: 0
+    readableKey: 
     value: 10
   - key: RESOURCE_CAPACITY
+    displayType: 1
+    readableKey: Water Amount Left
     value: 5000

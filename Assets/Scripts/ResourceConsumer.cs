@@ -2,32 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceMetaData 
-{
-    public string key = "NULL";
-    public string readableKey = "NULL";
-    public bool active = true;
-    public float value = 0;
-    public float ideal = 0;
-    public float fulfillFactor {
-        get {
-            if(ideal == 0)
-            {
-                Debug.Log("No ideal");
-                return 1;
-            }
-            return value/ideal;
-        }
-    }
-    public ResourceMetaData(float value, float ideal, string key="NULL", string readableKey="NULL") 
-    {
-        active = true;
-        this.value = value;
-        this.ideal = ideal;
-        this.key = key;
-        this.readableKey = readableKey;
-    }
-}
 
 public class ResourceConsumer : MonoBehaviour
 {
@@ -39,9 +13,9 @@ public class ResourceConsumer : MonoBehaviour
 
     protected virtual void InitializeResourceNeeds() {}
     
-    public void SetNeedsResource(ResourceIdentifiers resourceId, float ideal, string key="NULL", string readableKey="NULL") 
+    public void SetNeedsResource(ResourceIdentifiers resourceId, MetaDataParameter parameter) 
     {
-        resources.Add(resourceId, new ResourceMetaData(0, ideal, key, readableKey));
+        resources.Add(resourceId, new ResourceMetaData(parameter));
     }
 
     public void SetResourceIdeal(ResourceIdentifiers resourceId, float ideal) 
@@ -66,7 +40,7 @@ public class ResourceConsumer : MonoBehaviour
         resources.TryGetValue(resourceId, out resource);
         if(resource == null)
         {
-            return new ResourceMetaData(0, 0);
+            return new ResourceMetaData();
         }
         return resource;
     }

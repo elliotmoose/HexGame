@@ -8,16 +8,14 @@ public class Lightsource : Building
     private float _turnonDuration = 1.6f;
     private float _curIntensity = 0;
     private float _maxIntensity = 4;
-    private float idealEnergyInput;
     private float idealLightOutput;
     private bool _on = false;
     private int axis = 0;
     
     protected override void InitializeResourceNeeds()
     {
-        metaData.MapParameterForKey("ENERGY_INPUT_IDEAL", out idealEnergyInput);
         metaData.MapParameterForKey("LIGHT_OUTPUT_IDEAL", out idealLightOutput);
-        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, metaData.GetParameterForKey("ENERGY_INPUT_IDEAL"));
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "Light source needs energy!");
     }
     
@@ -58,17 +56,15 @@ public class Lightsource : Building
     // Update is called once per frame
     protected override void Update()
     {
-        bool isOn = !EnvironmentManager.GetInstance().isDay && HasResource(ResourceIdentifiers.ENERGY);
+        //tells buildings that I don't need to consume energy resource
+        GetResource(ResourceIdentifiers.ENERGY).active = !EnvironmentManager.GetInstance().isDay;
         
+        bool isOn = !EnvironmentManager.GetInstance().isDay && HasResource(ResourceIdentifiers.ENERGY);
         if(isOn != _on)
         {
             TriggerBrightnessUpdate(isOn);
             _on = isOn;
         }
-
-        
-        //tells buildings that I don't need to consume energy resource
-        GetResource(ResourceIdentifiers.ENERGY).active = isOn;
     }
     
 

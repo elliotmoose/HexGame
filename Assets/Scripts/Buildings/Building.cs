@@ -66,7 +66,18 @@ public class Building : ResourceConsumer
     public virtual void Action() {}
     
     public virtual List<Metric> GetMetrics() {
-        return new List<Metric>();
+        List<Metric> metrics = new List<Metric>();
+
+        foreach(ResourceMetaData resource in resources.Values)
+        {
+            if(resource.displayType != MetricDisplayType.None)
+            {
+                Metric metric = new Metric($"{resource.readableKey}:", resource.value, resource.ideal, resource.displayType);
+                metrics.Add(metric);    
+            }
+        }
+
+        return metrics;
     }
     
 

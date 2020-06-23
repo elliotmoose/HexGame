@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class MineralMiner : Building
 {
-    private float idealEnergyInput;
     public float mineralOutputIdeal;
 
     // Start is called before the first frame update
     protected override void InitializeResourceNeeds() 
     {
-        metaData.MapParameterForKey("ENERGY_INPUT_IDEAL", out idealEnergyInput);
         metaData.MapParameterForKey("MINERAL_OUTPUT_IDEAL", out mineralOutputIdeal);
-        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, metaData.GetParameterForKey("ENERGY_INPUT_IDEAL"));
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "This building needs energy to work!");
 
     }

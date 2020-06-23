@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee58bfd23c5b24cf1ae91f9e5d6cdfb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceCalculationOrder: 0
   metaData: {fileID: 0}
   coordinate: {x: 0, y: 0}
 --- !u!1 &7608237702927980601

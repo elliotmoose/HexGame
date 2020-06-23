@@ -57,6 +57,10 @@
      <Compile Include="Assets\Scripts\Buildings\TreeBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\Turbine.cs" />
      <Compile Include="Assets\Scripts\Controls\Controls.cs" />
+     <Compile Include="Assets\Scripts\Data\MetaDataParameter.cs" />
+     <Compile Include="Assets\Scripts\Data\Metric.cs" />
+     <Compile Include="Assets\Scripts\Data\MetricDisplayType.cs" />
+     <Compile Include="Assets\Scripts\Data\ResourceMetaData.cs" />
      <Compile Include="Assets\Scripts\Environment\LightingManager.cs" />
      <Compile Include="Assets\Scripts\Environment\LightingPreset.cs" />
      <Compile Include="Assets\Scripts\Helpers\Hexagon.cs" />

@@ -21,9 +21,14 @@ MonoBehaviour:
     type: 3}
   type: 0
   resourceRecalculationOrder: 0
+  upgrade: {fileID: 0}
   availableShopItems: []
   parameters:
   - key: ENERGY_OUTPUT_IDEAL
+    displayType: 1
+    readableKey: Energy Output Rate
     value: 30
   - key: OIL_INPUT
+    displayType: 1
+    readableKey: Oil Consumption Rate
     value: 10

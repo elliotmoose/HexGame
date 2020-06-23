@@ -21,13 +21,14 @@ MonoBehaviour:
     type: 3}
   type: 0
   resourceRecalculationOrder: 1
+  upgrade: {fileID: 0}
   availableShopItems: []
   parameters:
   - key: ENERGY_INPUT_IDEAL
-    metricDisplay: 0
+    displayType: 1
     readableKey: Max Energy Input
     value: 20
   - key: MINERAL_OUTPUT_IDEAL
-    metricDisplay: 0
+    displayType: 1
     readableKey: Max Mineral Output
     value: 50

@@ -25,10 +25,9 @@ public class Condenser : Building
     
     protected override void InitializeResourceNeeds()
     {        
-        metaData.MapParameterForKey("ENERGY_INPUT_IDEAL", out idealEnergyInput);
         metaData.MapParameterForKey("WATER_OUTPUT_IDEAL", out idealWaterOutput);
         metaData.MapParameterForKey("COOL_FACTOR_IDEAL", out idealCoolFactor);
-        SetNeedsResource(ResourceIdentifiers.ENERGY, idealEnergyInput);
+        SetNeedsResource(ResourceIdentifiers.ENERGY, metaData.GetParameterForKey("ENERGY_INPUT_IDEAL"));
         AddResourceIndicator(ResourceIdentifiers.ENERGY, "Condenser needs energy to produce water!");
     }
 

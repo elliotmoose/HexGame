@@ -18,8 +18,10 @@ public class Generator : Building
     protected override void InitializeResourceNeeds()
     {
         metaData.MapParameterForKey("ENERGY_OUTPUT_IDEAL", out idealEnergyOutput);
-        metaData.MapParameterForKey("OIL_INPUT", out oilInput);
-        SetNeedsResource(ResourceIdentifiers.OIL, oilInput);
+        // metaData.MapParameterForKey("OIL_INPUT", out oilInput);
+        MetaDataParameter oilInputParameter = metaData.GetParameterForKey("OIL_INPUT");
+        oilInput = oilInputParameter.value;
+        SetNeedsResource(ResourceIdentifiers.OIL, oilInputParameter);
         AddResourceIndicator(ResourceIdentifiers.OIL, "Needs oil to generate energy!");
     }
 
@@ -63,17 +65,16 @@ public class Generator : Building
                 split += 1;
             }
         }
-    
         
         //if someone needs the energy
         if(split != 0)
         {
             foreach (Building neighbour in neighbourBuildings)
-            {
+            {                
                 if(neighbour.NeedsResource(ResourceIdentifiers.ENERGY))
                 {
                     float energyOutput = idealEnergyOutput/split;
-                    neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);
+                    neighbour.ReceiveResource(ResourceIdentifiers.ENERGY, energyOutput);                    
                 }
             }
         }        

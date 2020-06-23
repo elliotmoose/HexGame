@@ -37,12 +37,11 @@ public class LinearConverter : Building
         
         if(metaData.HasParameterForKey(inputIdealParameterKey))
         {
-            metaData.MapParameterForKey(inputIdealParameterKey, out idealInput);
+            SetNeedsResource(inputResource, metaData.GetParameterForKey(inputIdealParameterKey));
         }
-
+        
         metaData.MapParameterForKey(outputIdealParameterKey, out idealOutput);
-        MetaDataParameter inputParameter = metaData.GetParameterForKey(inputIdealParameterKey);
-        SetNeedsResource(inputResource, idealInput, inputParameter.key, inputParameter.readableKey);
+
         if(inputResourceMessage != "")
         {
             AddResourceIndicator(inputResource, inputResourceMessage);
@@ -147,27 +146,19 @@ public class LinearConverter : Building
     public override List<Metric> GetMetrics() 
     {
         List<Metric> metrics = new List<Metric>();
-            
-        if(inputResource != ResourceIdentifiers.NULL)
-        {
-            ResourceMetaData inputResourceData = GetResource(inputResource);        
-            Metric inputMetric = new Metric($"{inputResourceData.readableKey}:", inputResourceData.value, inputResourceData.ideal);
-            metrics.Add(inputMetric);
-        }
 
-        if(outputResource != ResourceIdentifiers.NULL)
+        foreach(ResourceMetaData resource in resources.Values)
         {
-            //wrong: output resource doesn't reside on object. need to find a way to get meta data from scriptable metadata parameter directly
-            float output = ScaledOutputByResource(inputResource, idealOutput);                       
-            string outputReadable = metaData.GetParameterForKey(outputIdealParameterKey).readableKey;
-            Metric outputMetric = new Metric($"{outputReadable}:", output, idealOutput);
-            
-            metrics.Add(outputMetric);
+            if(resource.displayType != MetricDisplayType.None)
+            {
+                Metric metric = new Metric($"{resource.readableKey}:", resource.value, resource.ideal, resource.displayType);
+                metrics.Add(metric);    
+            }
         }
 
         if(_resourceCapacityEnabled)
         {
-            Metric durabilityMetric = new Metric("Durability:", _resourceCapacity, _resourceCapacityMax);            
+            Metric durabilityMetric = new Metric("Durability:", _resourceCapacity, _resourceCapacityMax, MetricDisplayType.BarMetric);            
             metrics.Add(durabilityMetric);
         }
 

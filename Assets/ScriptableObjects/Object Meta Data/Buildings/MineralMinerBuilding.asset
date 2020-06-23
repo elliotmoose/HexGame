@@ -21,9 +21,14 @@ MonoBehaviour:
     type: 3}
   type: 0
   resourceRecalculationOrder: 1
+  upgrade: {fileID: 0}
   availableShopItems: []
   parameters:
   - key: ENERGY_INPUT_IDEAL
+    displayType: 1
+    readableKey: Energy Input Rate
     value: 10
   - key: MINERAL_OUTPUT_IDEAL
+    displayType: 1
+    readableKey: Mineral Output Rate
     value: 15

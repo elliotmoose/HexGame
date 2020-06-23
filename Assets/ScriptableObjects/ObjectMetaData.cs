@@ -2,31 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[System.Serializable]
-public struct Metric
-{
-    public string title;
-    public float current;
-    public float max;
-
-    public Metric(string title, float current, float max)
-    {
-        this.title = title;
-        this.current = current;
-        this.max = max;
-    }
-}
-
-[System.Serializable]
-public struct MetaDataParameter 
-{
-    public string key;
-    public bool metricDisplay;
-    public string readableKey;
-    public float value;
-}
-
 [System.Serializable]
 [CreateAssetMenu(fileName ="ObjectMetaData", menuName ="Scriptables/Object Meta Data",order=1)]
 public class ObjectMetaData : ScriptableObject
