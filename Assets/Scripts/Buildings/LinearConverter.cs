@@ -9,11 +9,7 @@ public class LinearConverter : Building
     public string inputResourceMessage = "";
     private string inputIdealParameterKey = "INPUT_IDEAL";
     private string outputIdealParameterKey = "OUTPUT_IDEAL";
-    private string resourceCapacityParameterKey = "RESOURCE_CAPACITY";
-    
-    private float _resourceCapacity;
-    private float _resourceCapacityMax;
-    private bool _resourceCapacityEnabled = false;
+    private string durabilityParameterKey = "DURABILITY";
 
     private float idealInput;
     private float idealOutput;
@@ -28,11 +24,9 @@ public class LinearConverter : Building
 
     protected override void InitializeResourceNeeds()
     {        
-        if(metaData.HasParameterForKey(resourceCapacityParameterKey))
+        if(metaData.HasParameterForKey(durabilityParameterKey))
         {
-            metaData.MapParameterForKey(resourceCapacityParameterKey, out _resourceCapacityMax);
-            _resourceCapacity = _resourceCapacityMax;
-            _resourceCapacityEnabled = true;
+            SetNeedsResource(ResourceIdentifiers.DURABILITY, metaData.GetParameterForKey(durabilityParameterKey), true, true);            
         }
         
         if(metaData.HasParameterForKey(inputIdealParameterKey))
@@ -52,21 +46,20 @@ public class LinearConverter : Building
     {
         base.Update();
 
-        if(_resourceCapacityEnabled && _resourceCapacity > 0)
+        if(NeedsResource(ResourceIdentifiers.DURABILITY) && HasResource(ResourceIdentifiers.DURABILITY))
         {
-            _resourceCapacity -= GetScaledSplitOutput() * split * Time.deltaTime;
-            if(_resourceCapacity <= 0)
+            ReceiveResource(ResourceIdentifiers.DURABILITY, -GetScaledSplitOutput() * split * Time.deltaTime);
+            if(!HasResource(ResourceIdentifiers.DURABILITY))
             {
                 PlatformManager.GetInstance().RecalculateResources();
             }
         }
-        
     }
 
     public override void RecalculateResources()
     {
         
-        if(_resourceCapacityEnabled && _resourceCapacity <= 0)
+        if(NeedsResource(ResourceIdentifiers.DURABILITY) && !HasResource(ResourceIdentifiers.DURABILITY))
         {
             return;
         }
@@ -135,10 +128,10 @@ public class LinearConverter : Building
             output += $" (Split amongst {split})";
         }
 
-        if(_resourceCapacityEnabled)
-        {
-            output += $"\nCapacity: {_resourceCapacity}";
-        }
+        // if(_resourceCapacityEnabled)
+        // {
+        //     output += $"\nCapacity: {_resourceCapacity}";
+        // }
         
         return output;
     }
@@ -156,11 +149,11 @@ public class LinearConverter : Building
             }
         }
 
-        if(_resourceCapacityEnabled)
-        {
-            Metric durabilityMetric = new Metric("Durability:", _resourceCapacity, _resourceCapacityMax, MetricDisplayType.BarMetric);            
-            metrics.Add(durabilityMetric);
-        }
+        // if(_resourceCapacityEnabled)
+        // {
+        //     Metric durabilityMetric = new Metric("Durability:", _resourceCapacity, _resourceCapacityMax, MetricDisplayType.BarMetric);            
+        //     metrics.Add(durabilityMetric);
+        // }
 
         return metrics;
     }

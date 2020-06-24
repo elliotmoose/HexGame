@@ -13,9 +13,9 @@ public class ResourceConsumer : MonoBehaviour
 
     protected virtual void InitializeResourceNeeds() {}
     
-    public void SetNeedsResource(ResourceIdentifiers resourceId, MetaDataParameter parameter) 
+    public void SetNeedsResource(ResourceIdentifiers resourceId, MetaDataParameter parameter, bool startMax=false, bool persist=false) 
     {
-        resources.Add(resourceId, new ResourceMetaData(parameter));
+        resources.Add(resourceId, new ResourceMetaData(parameter, startMax ? parameter.value : 0, persist));
     }
 
     public void SetResourceIdeal(ResourceIdentifiers resourceId, float ideal) 
@@ -88,6 +88,11 @@ public class ResourceConsumer : MonoBehaviour
         List<ResourceIdentifiers> resourceIds = new List<ResourceIdentifiers>(resources.Keys);
         foreach(ResourceIdentifiers resourceId in resourceIds) 
         {
+            //don't reset persist resources
+            if(GetResource(resourceId).persist)
+            {
+                continue;
+            }
             ExpendAllResource(resourceId);
         }
     }

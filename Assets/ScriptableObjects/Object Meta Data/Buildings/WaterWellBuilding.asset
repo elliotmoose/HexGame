@@ -28,7 +28,7 @@ MonoBehaviour:
     displayType: 0
     readableKey: 
     value: 10
-  - key: RESOURCE_CAPACITY
+  - key: DURABILITY
     displayType: 1
     readableKey: Water Amount Left
     value: 5000

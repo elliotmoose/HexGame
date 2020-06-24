@@ -9,6 +9,7 @@ public class ResourceMetaData
     
     public MetricDisplayType displayType = MetricDisplayType.None;
     public bool active = true;
+    public bool persist = false; //value persists through reset
     public float value = 0;
     public float ideal = 0;
 
@@ -34,7 +35,7 @@ public class ResourceMetaData
 
     public ResourceMetaData() {}
 
-    public ResourceMetaData(MetaDataParameter parameter, float initialValue=0)
+    public  ResourceMetaData(MetaDataParameter parameter, float initialValue=0, bool persist=false)
     {
         active = true;
         this.value = initialValue;
@@ -42,5 +43,6 @@ public class ResourceMetaData
         this.key = parameter.key;
         this.readableKey = parameter.readableKey;
         this.displayType = parameter.displayType;
+        this.persist = persist;
     }
 }

@@ -27,5 +27,6 @@ public enum ResourceIdentifiers
     LIGHT = 3,
     COOL = 4,
     OIL = 5,
-    MINERALS = 6
+    MINERALS = 6,
+    DURABILITY = 7
 }
