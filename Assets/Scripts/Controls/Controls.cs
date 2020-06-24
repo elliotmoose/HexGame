@@ -186,7 +186,7 @@ public class Controls : MonoBehaviour
                 // Vector3 intermediatePosition = Camera.main.WorldToViewportPoint(targetPositionInMainCamera);
                 // Vector3 targetPositionInUICamera = UIManager.GetInstance().UICamera.ViewportToWorldPoint(intermediatePosition);
                 _dragDropObject.transform.position = targetPositionInMainCamera;
-                _dragDropObject.transform.Rotate(0, 75 * Time.deltaTime, 0);            
+                _dragDropObject.transform.Rotate(0, UIManager.ITEM_DISPLAY_ROTATION_SPEED * Time.deltaTime, 0);            
             }
             else 
             {

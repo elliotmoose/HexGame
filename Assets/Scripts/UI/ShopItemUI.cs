@@ -34,13 +34,12 @@ public class ShopItemUI : MonoBehaviour
         }
     }
 
-    float rotateSpeed = 75;
     
     void Update()
     {
         if(_displayObject)
         {
-            _displayObject.transform.Rotate(0, rotateSpeed * Time.deltaTime, 0);
+            _displayObject.transform.Rotate(0, UIManager.ITEM_DISPLAY_ROTATION_SPEED * Time.deltaTime, 0);
         }
     }   
 

@@ -56,7 +56,7 @@ public class ShopItemDetail : MonoBehaviour
     {
         if(_displayObject)
         {
-            _displayObject.transform.Rotate(0, 75 * Time.deltaTime, 0);
+            _displayObject.transform.Rotate(0, UIManager.ITEM_DISPLAY_ROTATION_SPEED * Time.deltaTime, 0);
         }
     }
 }

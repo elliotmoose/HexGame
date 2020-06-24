@@ -2012,7 +2012,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 4e-45}
+  m_BoundingSphereOverride: {x: 6.983e-42, y: 6e-44, z: 1e-45, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2278,11 +2278,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barMetricPrefab: {fileID: 640345499050324175, guid: b239898ebf88d4690a8774a295a17304,
     type: 3}
+  displaySlot: {fileID: 725537958}
   metricTitleText: {fileID: 736484241}
   metricDescriptionText: {fileID: 1296392023}
   metricsContainer: {fileID: 1806435239}
   actionButton: {fileID: 1356262034}
   actionButtonText: {fileID: 899127729}
+  ugpradeDisplaySlot: {fileID: 18151509}
   upgradeDetailContainer: {fileID: 1841563305}
   upgradeTitleText: {fileID: 1271294124}
   upgradeCostText: {fileID: 1837223844}

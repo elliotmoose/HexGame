@@ -62,7 +62,7 @@ public class Building : ResourceConsumer
         
     }
 
-    public virtual string GetActionText() {return "Action";}
+    public virtual string GetActionText() {return "";}
     public virtual void Action() {}
     
     public virtual List<Metric> GetMetrics() {

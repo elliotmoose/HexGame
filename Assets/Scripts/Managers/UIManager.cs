@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static float ITEM_DISPLAY_ROTATION_SPEED = 75;
     public GameObject popupTextPrefab;
 
     public Text timeText;
