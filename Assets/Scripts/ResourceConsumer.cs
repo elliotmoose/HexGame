@@ -34,7 +34,7 @@ public class ResourceConsumer : MonoBehaviour
         return GetResource(resourceId).value != 0;
     }
     
-    protected ResourceMetaData GetResource(ResourceIdentifiers resourceId) 
+    public ResourceMetaData GetResource(ResourceIdentifiers resourceId) 
     {
         ResourceMetaData resource = null;
         resources.TryGetValue(resourceId, out resource);
@@ -57,7 +57,7 @@ public class ResourceConsumer : MonoBehaviour
         return output * resource.fulfillFactor;
     }
     
-    protected float ExpendAllResource(ResourceIdentifiers resourceId) 
+    public float ExpendAllResource(ResourceIdentifiers resourceId) 
     {
         ResourceMetaData resource = GetResource(resourceId);
         if(resource == null)
@@ -66,8 +66,9 @@ public class ResourceConsumer : MonoBehaviour
             return 0;
         }
         
+        float oldValue = resource.value;
         resource.value = 0;
-        return resource.value;
+        return oldValue;
     }
 
 

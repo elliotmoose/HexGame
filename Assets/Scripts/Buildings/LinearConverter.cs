@@ -100,6 +100,16 @@ public class LinearConverter : Building
         return splitOutput;
     }
 
+    public override void UpgradeHandoverFrom(Building oldBuilding)
+    {
+        if(NeedsResource(ResourceIdentifiers.DURABILITY))
+        {
+            ResourceMetaData oldResource = oldBuilding.GetResource(ResourceIdentifiers.DURABILITY);
+            float previouslyConsumed = oldResource.ideal - oldResource.value;
+            ReceiveResource(ResourceIdentifiers.DURABILITY, -previouslyConsumed);
+        }
+    }
+
     public override string GetDescription()
     {        
         
