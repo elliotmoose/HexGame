@@ -9,6 +9,7 @@ public class PlatformManager : MonoBehaviour
     // public GameObject mineralPlatformPrefab;
     // public GameObject emptyPlatformPrefab;
     // public GameObject placeholderPlatformPrefab;
+    public  HexPlatform selectedPlatform;
     public Transform platformParent;
     private float _tickRate = 0.5f;
     const int TILEMAP_SIZE = 30;
@@ -57,8 +58,7 @@ public class PlatformManager : MonoBehaviour
                 {
                     GameObject building = BuildBuilding(MetaDataManager.GetMetaDataForId(Identifiers.TREE_BUILDING), coord);
                     building.GetComponent<TreeBuilding>().GrowUp();
-                    Shop.GetInstance().selectedPlatform = platformGo.GetComponent<HexPlatform>();                
-
+                    selectedPlatform = platformGo.GetComponent<HexPlatform>();                
                 }
             }
         }
@@ -110,20 +110,36 @@ public class PlatformManager : MonoBehaviour
     private GameObject BuildBuilding(ObjectMetaData metaData, Vector2Int coordinate)
     {
         HexPlatform platform = PlatformAtCoordinate(coordinate);
-
+        bool isUpgrade = false;
         if(platform.building != null)  
         {
-            return null;
+            //check upgrade
+            if(platform.building.metaData.id == metaData.id)
+            {
+                //is upgrade
+                isUpgrade = true;
+            }
+            else 
+            {
+                return null;
+            }
         }
 
         GameObject buildingObject = GameObject.Instantiate(metaData.prefab, platform.transform.position, platform.transform.rotation);
         Building building = buildingObject.GetComponent<Building>();
         building.Initialize(metaData, coordinate);
+        
+        if(isUpgrade)
+        {
+            building.UpgradeHandoverFrom(platform.building);
+            GameObject.Destroy(platform.building.gameObject);
+        }
 
         platform.building = building;
         resourceConsumers.Add(building);
         RecalculateResources();
-        OnBuildUpdate();
+        OnBuildUpdate();        
+        InfoDetail.GetInstance().LoadData(platform.building);
         return buildingObject;
     }
 

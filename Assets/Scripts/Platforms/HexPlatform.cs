@@ -25,12 +25,6 @@ public class HexPlatform : ResourceConsumer
         }
     }
 
-    public bool isSelected {
-        get {
-            return Shop.GetInstance().selectedPlatform == this;
-        }
-    }
-
     protected List<HexPlatform> neighbourPlatforms {
         get {
             HexPlatform buildingPlatform = PlatformManager.GetInstance().PlatformAtCoordinate(this.coordinate);

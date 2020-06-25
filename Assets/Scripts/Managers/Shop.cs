@@ -16,8 +16,6 @@ public class Shop : MonoBehaviour
     public Material invalidBuildMaterial;
     
     public bool isOpen = false;
-
-    public HexPlatform selectedPlatform;
     
     public List<ObjectMetaData> resourcesShopItems = new List<ObjectMetaData>();
     public List<ObjectMetaData> platformsShopItems = new List<ObjectMetaData>();
@@ -107,12 +105,6 @@ public class Shop : MonoBehaviour
 
     public void UpdateShopItems(List<ObjectMetaData> metaDatas)
     {
-        // if(!selectedPlatform) 
-        // {
-        //     return;
-        // }
-
-        // List<ObjectMetaData> metaDatas = AvailableShopItemsForPlatform(selectedPlatform);
                          
        //clear shop item uis
        for (int i = 0; i < shopItemsContainer.childCount; i++)
@@ -129,11 +121,11 @@ public class Shop : MonoBehaviour
        }
     }
 
-    public void Purchase(ObjectMetaData item) 
-    {
-        if(selectedPlatform == null) 
+    public void Purchase(ObjectMetaData item, Vector2Int coord) 
+    {        
+        if(PlatformManager.GetInstance().PlatformAtCoordinate(coord) == null) 
         {            
-            Debug.LogError("Tried to purchase but no selected platform");
+            Debug.LogError("Tried to purchase but no target platform");
             return; 
         }
 
@@ -143,16 +135,9 @@ public class Shop : MonoBehaviour
             return;
         }
 
-        GameObject platform = PlatformManager.GetInstance().Build(item, selectedPlatform.coordinate);
+        GameObject platform = PlatformManager.GetInstance().Build(item, coord);
         if(platform != null) {
             Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, -item.price);            
-
-            HexPlatform hex = platform.GetComponent<HexPlatform>();
-
-            if (hex != null)
-            {
-                selectedPlatform = hex;
-            }
         }
 
 

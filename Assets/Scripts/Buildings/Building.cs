@@ -57,6 +57,11 @@ public class Building : ResourceConsumer
         InitializeResourceNeeds();
     }
 
+    public virtual void UpgradeHandoverFrom(Building oldBuilding)
+    {
+        Debug.Log("No handover!");
+    }
+
     protected virtual void Update() 
     {
         

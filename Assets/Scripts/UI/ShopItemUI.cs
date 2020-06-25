@@ -43,11 +43,6 @@ public class ShopItemUI : MonoBehaviour
         }
     }   
 
-    public void Purchase() 
-    {
-        Shop.GetInstance().Purchase(_item);
-    }
-
     public void StartDrag() 
     {
         Controls.GetInstance().BeginDragAndDrop(_item);        

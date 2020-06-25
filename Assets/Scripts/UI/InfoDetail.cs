@@ -20,7 +20,15 @@ public class InfoDetail : MonoBehaviour
     public Transform ugpradeDisplaySlot;
     private GameObject _upgradeDisplayObject;
     private Building selectedBuilding;
-    private ObjectMetaData upgradeData;
+    private ObjectMetaData upgradeData {
+        get {
+            if(!selectedBuilding)
+            {
+                return null;
+            }
+            return selectedBuilding.metaData.upgrade;
+        }
+    }
     public GameObject upgradeDetailContainer;
     public Text upgradeTitleText;
     public Text upgradeCostText;
@@ -44,6 +52,11 @@ public class InfoDetail : MonoBehaviour
         {
             _displayObject.transform.Rotate(0, UIManager.ITEM_DISPLAY_ROTATION_SPEED * Time.deltaTime, 0);
         }
+        
+        if(_upgradeDisplayObject)
+        {
+            _upgradeDisplayObject.transform.Rotate(0, UIManager.ITEM_DISPLAY_ROTATION_SPEED * Time.deltaTime, 0);
+        }
     }
 
     public void LoadData(Building building) 
@@ -52,6 +65,7 @@ public class InfoDetail : MonoBehaviour
         
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(selectedBuilding.Action);
+
         UpdateDisplay();
     }
 
@@ -145,6 +159,18 @@ public class InfoDetail : MonoBehaviour
             Metric metric = metrics[i];
             metricsContainer.GetChild(i).GetComponent<BarMetricUI>().SetMetric(metric);
         }        
+    }
+
+    public void Upgrade()
+    {
+        if(selectedBuilding && upgradeData)
+        {
+            Shop.GetInstance().Purchase(upgradeData, selectedBuilding.coordinate);
+        }
+        else 
+        {
+            Debug.Log("No selected huilding or no upgrade Data");
+        }
     }
 
 

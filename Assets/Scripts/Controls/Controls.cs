@@ -139,7 +139,7 @@ public class Controls : MonoBehaviour
     
     void UpdateScreenFocus()
     {
-        if(!Shop.GetInstance().selectedPlatform || _isManualPanning) 
+        if(!PlatformManager.GetInstance().selectedPlatform || _isManualPanning) 
         {
             return;
         }
@@ -150,7 +150,7 @@ public class Controls : MonoBehaviour
         float horOffset = oppositeOverAdjacent * Camera.main.transform.position.y;
         Vector3 cameraOffset = new Vector3(-horOffset, 0,-1f);
         // Vector3 delta = Vector3.zero - (Camera.main.transform.position + cameraOffset);
-        Vector3 delta = Shop.GetInstance().selectedPlatform.transform.position - (Camera.main.transform.position + cameraOffset);
+        Vector3 delta = PlatformManager.GetInstance().selectedPlatform.transform.position - (Camera.main.transform.position + cameraOffset);
         Vector3 deltaXZ = new Vector3(delta.normalized.x , 0 , delta.normalized.z);
 
         float speed = Mathf.Max(4 * delta.magnitude, 1);
@@ -219,8 +219,7 @@ public class Controls : MonoBehaviour
             {
                 if(canBuildHere)
                 {
-                    Shop.GetInstance().selectedPlatform = platform;
-                    Shop.GetInstance().Purchase(_selectedShopItem);
+                    Shop.GetInstance().Purchase(_selectedShopItem, platform.coordinate);
                 }
                 else 
                 {
