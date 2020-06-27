@@ -69,6 +69,7 @@ public class Building : ResourceConsumer
 
     public virtual string GetActionText() {return "";}
     public virtual void Action() {}
+    public virtual bool CanDestroy() {return true;}
     
     public virtual List<Metric> GetMetrics() {
         List<Metric> metrics = new List<Metric>();

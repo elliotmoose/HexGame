@@ -262,6 +262,10 @@ public class TreeBuilding : Building
         }
     }
 
+    public override bool CanDestroy()
+    {   
+        return !alive;
+    }
 
 
     private void UpdateLeaveAndHealthbarColors() 

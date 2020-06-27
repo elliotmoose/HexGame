@@ -14,6 +14,7 @@ public class InfoDetail : MonoBehaviour
     public Transform metricsContainer;
 
     public Button actionButton;
+    public GameObject destroyButton;
     public Text actionButtonText;
 
     //upgrades
@@ -98,6 +99,8 @@ public class InfoDetail : MonoBehaviour
             child.gameObject.layer = LayerMask.NameToLayer("UI");
         }
 
+        destroyButton.SetActive(selectedBuilding.CanDestroy());
+
         //upgrade display
         if(upgradeData)
         {
@@ -170,6 +173,14 @@ public class InfoDetail : MonoBehaviour
         else 
         {
             Debug.Log("No selected huilding or no upgrade Data");
+        }
+    }
+  
+    public void DestroyBuilding()
+    {
+        if(selectedBuilding)
+        {
+            PlatformManager.GetInstance().DestoryBuildingAtCoordinate(selectedBuilding.coordinate);
         }
     }
 

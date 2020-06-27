@@ -13,6 +13,14 @@ public class ResourceConsumer : MonoBehaviour
 
     protected virtual void InitializeResourceNeeds() {}
     
+    void OnDestroy() 
+    {
+        if(resourceIndicatorSet)
+        {
+            GameObject.Destroy(resourceIndicatorSet);
+        }
+    }
+
     public void SetNeedsResource(ResourceIdentifiers resourceId, MetaDataParameter parameter, bool startMax=false, bool persist=false) 
     {
         resources.Add(resourceId, new ResourceMetaData(parameter, startMax ? parameter.value : 0, persist));
@@ -31,7 +39,7 @@ public class ResourceConsumer : MonoBehaviour
 
     protected bool HasResource(ResourceIdentifiers resourceId) 
     {
-        return GetResource(resourceId).value != 0;
+        return GetResource(resourceId).value > 0;
     }
     
     public ResourceMetaData GetResource(ResourceIdentifiers resourceId) 

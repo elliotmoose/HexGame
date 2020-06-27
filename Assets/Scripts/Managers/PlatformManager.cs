@@ -155,6 +155,17 @@ public class PlatformManager : MonoBehaviour
         }
     }
 
+    public void DestoryBuildingAtCoordinate(Vector2Int coordinate) 
+    {
+        Building building = PlatformAtCoordinate(coordinate).building;
+        if(building && building.CanDestroy())
+        {
+            //destroy indicator set too
+            
+            GameObject.Destroy(building.gameObject);
+        }
+    }
+
     public bool CanBuild(ObjectMetaData objectMetaData, Vector2Int coord)
     {
         HexPlatform platform = PlatformAtCoordinate(coord);
