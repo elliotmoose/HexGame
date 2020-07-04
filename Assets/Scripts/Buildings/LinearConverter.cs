@@ -57,8 +57,7 @@ public class LinearConverter : Building
     }
 
     public override void RecalculateResources()
-    {
-        
+    {        
         if(NeedsResource(ResourceIdentifiers.DURABILITY) && !HasResource(ResourceIdentifiers.DURABILITY))
         {
             return;

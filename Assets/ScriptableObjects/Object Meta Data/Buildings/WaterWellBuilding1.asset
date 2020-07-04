@@ -27,8 +27,8 @@ MonoBehaviour:
   - key: OUTPUT_IDEAL
     displayType: 0
     readableKey: 
-    value: 50
+    value: 5
   - key: DURABILITY
     displayType: 1
     readableKey: Water Amount Left
-    value: 8000
+    value: 700

@@ -15,6 +15,12 @@ public class Controls : MonoBehaviour
     private float panSpeed = 14;
     private int tabSize = 45;
 
+    float maxHeight = 11;
+    float minHeight = 4.5f;
+    float maxAngle = 71;
+    float minAngle = 38.6f;
+    float zoomProgress = 0;
+
     void Update()
     {
         UpdatePlatformSelection();
@@ -143,18 +149,22 @@ public class Controls : MonoBehaviour
         {
             return;
         }
-        
-        // Debug.Log(Camera.main.transform.rotation.eulerAngles);
-        float angleInRadians = (90-Camera.main.transform.rotation.eulerAngles.x)*Mathf.PI/180;
-        float oppositeOverAdjacent = Mathf.Tan(angleInRadians);
-        float horOffset = oppositeOverAdjacent * Camera.main.transform.position.y;
-        Vector3 cameraOffset = new Vector3(-horOffset, 0,-1f);
-        // Vector3 delta = Vector3.zero - (Camera.main.transform.position + cameraOffset);
-        Vector3 delta = PlatformManager.GetInstance().selectedPlatform.transform.position - (Camera.main.transform.position + cameraOffset);
-        Vector3 deltaXZ = new Vector3(delta.normalized.x , 0 , delta.normalized.z);
 
-        float speed = Mathf.Max(4 * delta.magnitude, 1);
-        Camera.main.transform.position += deltaXZ * Time.deltaTime * speed;
+        zoomProgress = Mathf.Clamp(zoomProgress + Input.mouseScrollDelta.y/100, 0, 1);
+
+        float height = Mathf.Lerp(minHeight, maxHeight, zoomProgress);
+        float angle = Mathf.Lerp(minAngle, maxAngle, zoomProgress);
+        float angleInRadians = (90-angle)*Mathf.PI/180;
+        float deltaAngle = angle - Camera.main.transform.rotation.eulerAngles.x;
+        float oppositeOverAdjacent = Mathf.Tan(angleInRadians);
+        float horOffset = oppositeOverAdjacent * height;
+        Vector3 cameraOffset = new Vector3(-horOffset, 0,0);
+        Vector3 targetPosition = PlatformManager.GetInstance().selectedPlatform.transform.position + new Vector3(horOffset,height,0);
+        Vector3 delta = targetPosition - Camera.main.transform.position;
+        
+        float speed = 8;
+        Camera.main.transform.position += delta * Time.deltaTime * speed;
+        Camera.main.transform.rotation = Quaternion.Euler(Camera.main.transform.rotation.eulerAngles.x + deltaAngle * Time.deltaTime * speed, Camera.main.transform.rotation.eulerAngles.y, Camera.main.transform.rotation.eulerAngles.z);        
     }
 
     void UpdateDragAndDrop()

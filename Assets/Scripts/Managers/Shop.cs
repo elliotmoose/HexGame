@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
     public Transform shopItemsContainer;
     public Transform categoriesContainer;
     public GameObject shopItemsDisplay;
+    public Text shopCategoryText;
     
     public Material validBuildMaterial;
     public Material invalidBuildMaterial;
@@ -54,6 +55,7 @@ public class Shop : MonoBehaviour
 
         SetOpen(true);
         _selectedCategory = index;
+        shopCategoryText.text = new string[]{"Resources", "Platforms", "Energy", "Organic"}[index];
         
         for(int i=0; i<categoriesContainer.childCount; i++)
         {

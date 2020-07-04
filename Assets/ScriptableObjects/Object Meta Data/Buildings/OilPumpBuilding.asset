@@ -31,4 +31,4 @@ MonoBehaviour:
   - key: OIL_OUTPUT_IDEAL
     displayType: 1
     readableKey: Oil Output Rate
-    value: 50
+    value: 25

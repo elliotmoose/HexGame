@@ -12,7 +12,7 @@ public class BarMetricUI : MonoBehaviour
     public void SetMetric(Metric metric) 
     {
         metricTitleText.text = $"{metric.title}";
-        metricValueText.text = $"{metric.current}/{metric.max}";
+        metricValueText.text = $"{(int)metric.current}/{metric.max}";
         progressImage.fillAmount = Mathf.Clamp(metric.current/metric.max, 0, 1);        
     }
 }

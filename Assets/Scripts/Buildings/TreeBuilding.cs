@@ -303,4 +303,23 @@ public class TreeBuilding : Building
     {        
         return $"Health: {_health}\nInternal Temp: {_internalTemperature}\nBurning: {_burnStage}\nSmokePt: {_smokePoint}\nFlashPt: {_burnPoint}\nProducing O2: {alive && _burnStage == 0 && hasLight}\nCool Factor: {_coolFactorTemp}";
     }
+
+    public override List<Metric> GetMetrics() {
+        List<Metric> metrics = new List<Metric>();
+
+        Metric healthMetric = new Metric("Health:", _health, _maxHealth, MetricDisplayType.BarMetric);
+        metrics.Add(healthMetric);
+        foreach(ResourceMetaData resource in resources.Values)
+        {
+            if(resource.displayType != MetricDisplayType.None)
+            {
+                Metric metric = new Metric($"{resource.readableKey}:", resource.value, resource.ideal, resource.displayType);
+                metrics.Add(metric);    
+            }
+        }
+
+        
+
+        return metrics;
+    }
 }
