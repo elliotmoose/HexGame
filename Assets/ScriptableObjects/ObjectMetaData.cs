@@ -21,7 +21,8 @@ public class ObjectMetaData : ScriptableObject
     //custom logic for shop items 
     public List<ObjectMetaData> GetContextualAvailableShopItems(Vector2Int coordinate)
     {
-        GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(coordinate);
+        // GameObject feature = MapManager.GetInstance().FeatureAtCoordinate(coordinate);
+        GameObject feature = null;
 
         switch (this.id)
         {

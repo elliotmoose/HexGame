@@ -5,6 +5,8 @@ using UnityEngine;
 public class HexMapManager : MonoBehaviour
 {
     public GameObject tile;
+    public ObjectMetaData stone;
+
     const float HEXAGON_FLAT_WIDTH = 2;
     const int CHUNK_WIDTH = 4;
     const int loadAdjacentChunkThreshold = 6; 
@@ -21,12 +23,13 @@ public class HexMapManager : MonoBehaviour
     public float STONE_THRESHOLD = 1;
 
     public float islandSize = CHUNK_WIDTH * (loadAdjacentChunkThreshold * 2 + 1);
-    public float padding = 0;
 
     public Color waterColor;
     public Color stoneColor;
     public Color soilColor;
     public Color sandColor;
+    public Color metalColor;
+    public Color copperColor;
     
     private Vector2Int currentChunk = new Vector2Int(0,0);
 
@@ -46,7 +49,7 @@ public class HexMapManager : MonoBehaviour
     
     void Update()
     {
-        UpdateHexHeights();
+        // UpdateHexHeights();
     }
 
     void GeneratePerlinOffset() 
@@ -66,7 +69,7 @@ public class HexMapManager : MonoBehaviour
             }
         }
 
-        UpdateHexHeights();
+        // UpdateHexHeights();
     }
 
     void GenerateChunk(Vector2Int chunkCoordinate)
@@ -77,7 +80,7 @@ public class HexMapManager : MonoBehaviour
             {
                 Vector2Int relativeCoordinate = new Vector2Int(i, j);
                 Vector2Int objectiveCoordinate = relativeCoordinate + chunkCoordinate*CHUNK_WIDTH;
-                GenerateChunkUnit(objectiveCoordinate);
+                GenerateChunkUnit(objectiveCoordinate);                
             }
         }
     }
@@ -96,11 +99,12 @@ public class HexMapManager : MonoBehaviour
                         Vector2Int relativeCoordinate = new Vector2Int(x, y);
                         Vector2Int coordinate = relativeCoordinate + chunkCoordinate*CHUNK_WIDTH;
                         GameObject tile = tiles[coordinate];
+                        
 
                         //position and height
                         Vector3 position = Hexagon.PositionForCoordinate(coordinate, HEXAGON_FLAT_WIDTH);
                         float height = HeightMap(coordinate);
-                        float moisture = MoistMap(coordinate);
+                        // float moisture = MoistMap(coordinate);
                         Vector3 heightAdjustedPos = new Vector3(position.x, mapParent.transform.position.y + height/2, position.z);
                         tile.transform.localScale = new Vector3(1, height, 1);
                         tile.transform.position = heightAdjustedPos;
@@ -110,14 +114,7 @@ public class HexMapManager : MonoBehaviour
                         
                         if(height/HEIGHT_CAP < WATER_THRESHOLD)
                         {
-                            if(moisture > MOISTURE_THRESHOLD)
-                            {
-                                color = waterColor;
-                            }
-                            else 
-                            {
-                                color = sandColor;
-                            }
+                            color = waterColor;
                         }
                         else if(height/HEIGHT_CAP < SAND_THRESHOLD)
                         {
@@ -126,10 +123,24 @@ public class HexMapManager : MonoBehaviour
                         else if(height/HEIGHT_CAP < SOIL_THRESHOLD)
                         {
                             color = soilColor;
+                            
+                            Random.InitState(coordinate.x + coordinate.y);
+                            bool isMetal = (Random.value < 0.1f);
+                            bool isCopper = (Random.value < 0.2f);
+
+                            if(isMetal) 
+                            {
+                                color = metalColor;
+                            }
+                            else if (isCopper)
+                            {
+                                color = copperColor;
+                            }
                         }
                         else if(height/HEIGHT_CAP < STONE_THRESHOLD)
                         {
                             color = stoneColor;
+                        
                         }
 
                         tile.GetComponent<Renderer>().material.color = color;
@@ -148,23 +159,69 @@ public class HexMapManager : MonoBehaviour
         //HEIGHT MAP: ALL COMES FROM HERE!!
         float height = HeightMap(coordinate);
 
-        Vector3 heightAdjustedPos = new Vector3(position.x, mapParent.transform.position.y + height/2, position.z);        
-        GameObject feature = GameObject.Instantiate(tile, heightAdjustedPos, Quaternion.identity, mapParent.transform);            
-        feature.transform.localScale = new Vector3(1, height, 1);
-        tiles.Add(coordinate, feature);
+        Vector3 heightAdjustedPos = new Vector3(position.x, mapParent.transform.position.y + height/2, position.z);
+        GameObject tile = GameObject.Instantiate(this.tile, heightAdjustedPos, Quaternion.identity, mapParent.transform);            
+        tiles.Add(coordinate, tile);
+        tile.GetComponent<HexPlatform>().Initialize(stone, coordinate);
+        tile.transform.localScale = new Vector3(1, height, 1);
+        tile.transform.position = heightAdjustedPos;
+
+        //material and tile
+        Color color = stoneColor;
+        
+        bool isWater = (height/HEIGHT_CAP < WATER_THRESHOLD);
+        bool isSand = (height/HEIGHT_CAP < SAND_THRESHOLD) && !isWater;
+        bool isSoil = (height/HEIGHT_CAP < SOIL_THRESHOLD) && !isSand && !isWater;
+        bool isStone = (height/HEIGHT_CAP < STONE_THRESHOLD) && !isSoil && !isSand && !isWater;
+
+        if(isWater)
+        {
+            color = waterColor;
+        }
+        else if(isSand)
+        {
+            color = sandColor;
+        }
+        else if(isSoil)
+        {
+            color = soilColor;
+        }
+        else if(isStone)
+        {
+            color = stoneColor;        
+        }
+
+        bool isMetal = (isSoil || isStone) && (Random.Range(0, 1.0f) < 0.03f);
+        bool isCopper = (isSoil || isStone) && (Random.Range(0,1.0f) < 0.02f) && !isMetal;
+
+        if(isMetal) 
+        {
+            color = metalColor;
+        }
+        else if (isCopper)
+        {
+            color = copperColor;
+        }
+
+        tile.GetComponent<Renderer>().material.color = color;
+    }
+
+    public GameObject TileAtCoordinate(Vector2Int coord) 
+    {
+        return tiles[coord];
     }
 
     float HeightMap(Vector2Int coordinate)
     {
         float perlin = Perlin(coordinate, heightPerlinOffset, PERLIN_SCALE, HEIGHT_SCALE);
-        float island = QuadraticDist(coordinate);        
+        float island = QuadraticDist(coordinate, 0);        
         return Mathf.Clamp(perlin * island, HEIGHT_FLOOR, HEIGHT_CAP);
     }
     
     float MoistMap(Vector2Int coordinate)
     {
         float perlin = Perlin(coordinate, moistPerlinOffset, PERLIN_SCALE, 1);
-        float island = 1-QuadraticDist(coordinate);        
+        float island = 1-QuadraticDist(coordinate, 12);        
         return Mathf.Clamp(perlin*island, 0, 1);
     }
 
@@ -173,7 +230,7 @@ public class HexMapManager : MonoBehaviour
         return Mathf.PerlinNoise(offset.x + coordinate.x/perlinScale, offset.y + coordinate.y/perlinScale) * heightScale;
     }
     
-    float QuadraticDist(Vector2Int coordinate)
+    float QuadraticDist(Vector2Int coordinate, float padding)
     {        
         float distance_x = Mathf.Abs(coordinate.x);
         float distance_y = Mathf.Abs(coordinate.y);
@@ -187,4 +244,14 @@ public class HexMapManager : MonoBehaviour
     }
 
     
+    private static HexMapManager _singleton;
+
+    HexMapManager() {
+        _singleton = this;
+    }
+
+    public static HexMapManager GetInstance() 
+    {
+        return _singleton;
+    }
 }

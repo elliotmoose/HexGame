@@ -63,6 +63,11 @@ public class InfoDetail : MonoBehaviour
     public void LoadData(Building building) 
     {
         selectedBuilding = building;
+        if(building == null)
+        {
+            Debug.Log("Loaded empty building");
+            return;
+        }
         
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(selectedBuilding.Action);
@@ -180,7 +185,7 @@ public class InfoDetail : MonoBehaviour
     {
         if(selectedBuilding)
         {
-            PlatformManager.GetInstance().DestoryBuildingAtCoordinate(selectedBuilding.coordinate);
+            BuildingsManager.GetInstance().DestoryBuildingAtCoordinate(selectedBuilding.coordinate);
         }
     }
 

@@ -24,14 +24,6 @@ public class HexPlatform : ResourceConsumer
             _building = value;
         }
     }
-
-    protected List<HexPlatform> neighbourPlatforms {
-        get {
-            HexPlatform buildingPlatform = PlatformManager.GetInstance().PlatformAtCoordinate(this.coordinate);
-            return PlatformManager.GetInstance().NeighboursOfPlatform(buildingPlatform);
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {

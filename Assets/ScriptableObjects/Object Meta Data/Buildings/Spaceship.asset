@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
+  m_Name: Spaceship
+  m_EditorClassIdentifier: 
+  id: 14
+  title: Water Well
+  description: "\u2022 More water to go around"
+  price: 600
+  prefab: {fileID: 8650658793903192494, guid: 5b5b9900d7e534bebaabb6610a90a2a9, type: 3}
+  displayPrefab: {fileID: 8650658793903192494, guid: 09699e9a6874344afae431be650f8084,
+    type: 3}
+  type: 0
+  resourceRecalculationOrder: 2
+  upgrade: {fileID: 0}
+  availableShopItems: []
+  parameters:
+  - key: OUTPUT_IDEAL
+    displayType: 0
+    readableKey: 
+    value: 5
+  - key: DURABILITY
+    displayType: 1
+    readableKey: Water Amount Left
+    value: 700

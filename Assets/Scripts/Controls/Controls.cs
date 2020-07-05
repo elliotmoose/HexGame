@@ -15,19 +15,26 @@ public class Controls : MonoBehaviour
     private float panSpeed = 14;
     private int tabSize = 45;
 
-    float maxHeight = 11;
-    float minHeight = 4.5f;
+    float maxHeight = 22;
+    float minHeight = 12;
+    // float maxHeight = 11;
+    // float minHeight = 4.5f;
     float maxAngle = 71;
     float minAngle = 38.6f;
-    float zoomProgress = 0;
+    float zoomProgress = 1;
 
     void Update()
     {
         UpdatePlatformSelection();
         UpdateScreenFocus();
+        UpdatePanScreen();
         // UpdateScreenMovement();      
-        UpdateDragAndDrop();
+        UpdateDragAndDrop();        
     }
+
+    private Vector3 touchStart;
+    public float groundZ = 0;
+
 
     void UpdatePlatformSelection()
     {        
@@ -143,12 +150,49 @@ public class Controls : MonoBehaviour
         // }
     }
     
-    void UpdateScreenFocus()
-    {
-        if(!PlatformManager.GetInstance().selectedPlatform || _isManualPanning) 
+    Vector3 mousePos = Vector3.zero;
+    Vector3 focalPoint = Vector3.zero;
+
+
+    private Vector3 GetWorldPosition(float z){
+        Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane ground = new Plane(Vector3.up, new Vector3(0,0,z));
+        float distance;
+        ground.Raycast(mousePos, out distance);
+        return mousePos.GetPoint(distance);
+    }
+
+    void UpdatePanScreen() 
+    {   
+        if(_dragDropObject)
         {
             return;
         }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            touchStart = GetWorldPosition(groundZ);
+        }
+
+        if(Input.GetMouseButton(0))
+        {
+            _isManualPanning = true;
+            Vector3 direction = (touchStart - GetWorldPosition(groundZ));
+            Vector3 delta = new Vector3(direction.x, 0, direction.z);
+            focalPoint += delta;            
+        }
+        else 
+        {
+            _isManualPanning = false;
+        }
+    }
+
+    void UpdateScreenFocus()
+    {
+        // if(PlatformManager.GetInstance().selectedPlatform)
+        // {
+        //     focalPoint = PlatformManager.GetInstance().selectedPlatform.transform.position;
+        // }
 
         zoomProgress = Mathf.Clamp(zoomProgress + Input.mouseScrollDelta.y/100, 0, 1);
 
@@ -159,12 +203,21 @@ public class Controls : MonoBehaviour
         float oppositeOverAdjacent = Mathf.Tan(angleInRadians);
         float horOffset = oppositeOverAdjacent * height;
         Vector3 cameraOffset = new Vector3(-horOffset, 0,0);
-        Vector3 targetPosition = PlatformManager.GetInstance().selectedPlatform.transform.position + new Vector3(horOffset,height,0);
+        Vector3 targetPosition = focalPoint + new Vector3(horOffset,height,0);
         Vector3 delta = targetPosition - Camera.main.transform.position;
         
         float speed = 8;
-        Camera.main.transform.position += delta * Time.deltaTime * speed;
-        Camera.main.transform.rotation = Quaternion.Euler(Camera.main.transform.rotation.eulerAngles.x + deltaAngle * Time.deltaTime * speed, Camera.main.transform.rotation.eulerAngles.y, Camera.main.transform.rotation.eulerAngles.z);        
+        
+        if(_isManualPanning)
+        {
+            Camera.main.transform.position += delta;            
+            Camera.main.transform.rotation = Quaternion.Euler(Camera.main.transform.rotation.eulerAngles.x + deltaAngle, Camera.main.transform.rotation.eulerAngles.y, Camera.main.transform.rotation.eulerAngles.z);        
+        }
+        else 
+        {
+            Camera.main.transform.position += delta * Time.deltaTime * speed;
+            Camera.main.transform.rotation = Quaternion.Euler(Camera.main.transform.rotation.eulerAngles.x + deltaAngle * Time.deltaTime * speed, Camera.main.transform.rotation.eulerAngles.y, Camera.main.transform.rotation.eulerAngles.z);        
+        }
     }
 
     void UpdateDragAndDrop()
@@ -206,7 +259,7 @@ public class Controls : MonoBehaviour
             #endregion
 
             #region validation
-            bool canBuildHere = (platform != null && PlatformManager.GetInstance().CanBuild(_selectedShopItem, platform.coordinate));
+            bool canBuildHere = (platform != null && BuildingsManager.GetInstance().CanBuild(_selectedShopItem, platform.coordinate));
 
             //validation 1: must update currently hovered platform indicator
             //validation 2: must update previous hovered platform indicator, if any

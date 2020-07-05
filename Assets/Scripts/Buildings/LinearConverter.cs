@@ -51,7 +51,7 @@ public class LinearConverter : Building
             ReceiveResource(ResourceIdentifiers.DURABILITY, -GetScaledSplitOutput() * split * Time.deltaTime);
             if(!HasResource(ResourceIdentifiers.DURABILITY)) //ran out
             {
-                PlatformManager.GetInstance().DestoryBuildingAtCoordinate(this.coordinate);
+                BuildingsManager.GetInstance().DestoryBuildingAtCoordinate(this.coordinate);
             }
         }
     }

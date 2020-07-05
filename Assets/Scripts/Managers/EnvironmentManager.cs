@@ -129,7 +129,7 @@ public class EnvironmentManager : MonoBehaviour
         while(true)
         {
             //PERFORMANCE: might not want to recalculate every frame 
-            PlatformManager.GetInstance().RecalculateResources();
+            BuildingsManager.GetInstance().RecalculateResources();
             yield return null;
         }
     }

@@ -125,7 +125,7 @@ public class Shop : MonoBehaviour
 
     public void Purchase(ObjectMetaData item, Vector2Int coord) 
     {        
-        if(PlatformManager.GetInstance().PlatformAtCoordinate(coord) == null) 
+        if(HexMapManager.GetInstance().TileAtCoordinate(coord) == null) 
         {            
             Debug.LogError("Tried to purchase but no target platform");
             return; 
@@ -137,7 +137,7 @@ public class Shop : MonoBehaviour
             return;
         }
 
-        GameObject platform = PlatformManager.GetInstance().Build(item, coord);
+        GameObject platform = BuildingsManager.GetInstance().Build(item, coord);
         if(platform != null) {
             Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, -item.price);            
         }

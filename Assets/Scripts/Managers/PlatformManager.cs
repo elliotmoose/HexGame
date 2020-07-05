@@ -169,9 +169,11 @@ public class PlatformManager : MonoBehaviour
 
     public bool CanBuild(ObjectMetaData objectMetaData, Vector2Int coord)
     {
-        HexPlatform platform = PlatformAtCoordinate(coord);
+        GameObject tile = HexMapManager.GetInstance().TileAtCoordinate(coord);
+        HexPlatform platform = tile.GetComponent<HexPlatform>();
+        // HexPlatform platform = PlatformAtCoordinate(coord);
 
-        if(platform == null || objectMetaData == null)
+        if(tile == null || objectMetaData == null)
         {
             return false;
         }
@@ -300,9 +302,17 @@ public class PlatformManager : MonoBehaviour
     public HexPlatform PlatformAtCoordinate(Vector2Int coordinate)
     {
         //validation
-        HexPlatform tile;
-        platforms.TryGetValue(coordinate, out tile);
-        return tile;
+        // HexPlatform tile;
+        // platforms.TryGetValue(coordinate, out tile);
+        // return tile;
+
+        GameObject tile = HexMapManager.GetInstance().TileAtCoordinate(coordinate);
+        
+        if(tile == null)
+        {
+            return null;
+        }
+        return tile.GetComponent<HexPlatform>();;
     }
 
     private static PlatformManager _singleton;

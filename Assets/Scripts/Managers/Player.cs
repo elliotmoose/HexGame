@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
     private void OilEmptyStatusChanged() 
     {
-        PlatformManager.GetInstance().RecalculateResources();
+        BuildingsManager.GetInstance().RecalculateResources();
     }
 
     private static Player _singleton;

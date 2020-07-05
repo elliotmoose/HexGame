@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Helpers\Numbers.cs" />
      <Compile Include="Assets\Scripts\Helpers\UIHelper.cs" />
      <Compile Include="Assets\Scripts\Identifiers.cs" />
+     <Compile Include="Assets\Scripts\Managers\BuildingsManager.cs" />
      <Compile Include="Assets\Scripts\Managers\EnvironmentManager.cs" />
      <Compile Include="Assets\Scripts\Managers\HexMapManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
