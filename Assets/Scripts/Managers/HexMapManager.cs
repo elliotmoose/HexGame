@@ -45,6 +45,7 @@ public class HexMapManager : MonoBehaviour
     {
         GeneratePerlinOffset();
         GenerateMap();
+        UpdateInBaseHexTiles();
     }
     
     void Update()
@@ -70,6 +71,23 @@ public class HexMapManager : MonoBehaviour
         }
 
         // UpdateHexHeights();
+    }
+
+    void UpdateInBaseHexTiles()
+    {
+        foreach(var tile in tiles.Values)
+        {
+            HexPlatform platform = tile.GetComponent<HexPlatform>();
+            int range = 3;
+            if((platform.coordinate - Vector2Int.zero).magnitude < range)
+            {
+                platform.inBase = true;
+            }
+            else 
+            {
+                platform.inBase = false;
+            }
+        }
     }
 
     void GenerateChunk(Vector2Int chunkCoordinate)

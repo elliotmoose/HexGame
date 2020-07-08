@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HexPlatform : ResourceConsumer
 {
+    public bool inBase = false;
     public ObjectMetaData metaData;
     public Vector2Int coordinate;
 
@@ -27,21 +28,35 @@ public class HexPlatform : ResourceConsumer
             defaultMaterial = GetComponentInChildren<Renderer>().material;
         }
 
-        GenerateBorder();
+        UpdateBorder();
     }
 
-    private void GenerateBorder()
+    private void UpdateBorder()
     {
         Mesh border = new Mesh();
         this.transform.GetChild(0).GetComponent<MeshFilter>().mesh = border;
-        float width = HexMapManager.HEXAGON_FLAT_WIDTH;        
+        if(!inBase)
+        {
+            return;   
+        }
 
+        
+
+        float width = HexMapManager.HEXAGON_FLAT_WIDTH;        
+        
         Vector3[] vertices = new Vector3[24];
         int[] triangles = new int[36];
+
         for(int i=0; i< 6; i++)
         {
-            Vector3[] outer = Hexagon.FlatEdgeVertexPositions(width, i*60);
-            Vector3[] inner = Hexagon.FlatEdgeVertexPositions(width-0.4f, i*60);
+            Vector2Int neighbourCoord = Hexagon.NeighbourAtIndex(this.coordinate, i);
+            GameObject neighbourTileGameObject = HexMapManager.GetInstance().TileAtCoordinate(neighbourCoord);
+            if(neighbourTileGameObject != null && neighbourTileGameObject.GetComponent<HexPlatform>().inBase)
+            {
+                continue;
+            }
+            Vector3[] outer = Hexagon.FlatEdgeVertexPositions(width, i*60 + 60);
+            Vector3[] inner = Hexagon.FlatEdgeVertexPositions(width-0.4f, i*60 + 60);
 
             outer.CopyTo(vertices, i*4);
             inner.CopyTo(vertices, i*4 + 2);
