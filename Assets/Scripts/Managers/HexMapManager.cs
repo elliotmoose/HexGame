@@ -7,7 +7,7 @@ public class HexMapManager : MonoBehaviour
     public GameObject tile;
     public ObjectMetaData stone;
 
-    const float HEXAGON_FLAT_WIDTH = 2;
+    public const float HEXAGON_FLAT_WIDTH = 2;
     const int CHUNK_WIDTH = 4;
     const int loadAdjacentChunkThreshold = 6; 
 

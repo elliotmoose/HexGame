@@ -74,6 +74,11 @@ public class UIManager : MonoBehaviour
         // detailsPanel.GetComponentInChildren<Text>().text = $"{platform.GetDescription()}";
     }
 
+    public static void Message(string message, int style=0)
+    {
+        Debug.Log(message);
+    }
+
     public static void PopupText(string text, GameObject target) 
     {
         GameObject popupTextGo = GameObject.Instantiate(_singleton.popupTextPrefab, Vector3.zero, Quaternion.identity, GetCanvas().transform);

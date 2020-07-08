@@ -131,7 +131,6 @@ public class BuildingsManager : MonoBehaviour
 
     public void GlobalResourceCalculation() 
     {
-        Debug.Log("Update global");
         List<Building> buildingsList = new List<Building>(buildings.Values);
         buildingsList.Sort((x, y) => x.resourceCalculationOrder.CompareTo(y.resourceCalculationOrder));
             

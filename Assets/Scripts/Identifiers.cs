@@ -16,7 +16,8 @@ public enum Identifiers : int
     MINERAL_MINER_BUILDING = 12,    
     OIL_PUMP_BUILDING = 13,    
     WATER_WELL_BUILDING = 14,
-    SOLAR_PANEL_BUILDING = 15
+    SOLAR_PANEL_BUILDING = 15,
+    SPACESHIP_BUILDING = 16,
 }
 
 public enum ResourceIdentifiers
@@ -28,5 +29,6 @@ public enum ResourceIdentifiers
     COOL = 4,
     OIL = 5,
     MINERALS = 6,
-    DURABILITY = 7
+    DURABILITY = 7,
+    WOOD = 8,
 }

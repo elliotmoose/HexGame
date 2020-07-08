@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum AttachmentType {
-    HARVESTER
-}
-
 public class HexPlatform : ResourceConsumer
 {
     public ObjectMetaData metaData;
@@ -31,6 +26,37 @@ public class HexPlatform : ResourceConsumer
         {
             defaultMaterial = GetComponentInChildren<Renderer>().material;
         }
+
+        GenerateBorder();
+    }
+
+    private void GenerateBorder()
+    {
+        Mesh border = new Mesh();
+        this.transform.GetChild(0).GetComponent<MeshFilter>().mesh = border;
+        float width = HexMapManager.HEXAGON_FLAT_WIDTH;        
+
+        Vector3[] vertices = new Vector3[24];
+        int[] triangles = new int[36];
+        for(int i=0; i< 6; i++)
+        {
+            Vector3[] outer = Hexagon.FlatEdgeVertexPositions(width, i*60);
+            Vector3[] inner = Hexagon.FlatEdgeVertexPositions(width-0.4f, i*60);
+
+            outer.CopyTo(vertices, i*4);
+            inner.CopyTo(vertices, i*4 + 2);
+
+            triangles[i*6] = i*4;
+            triangles[i*6+1] = i*4+1;
+            triangles[i*6+2] = i*4+3;
+            triangles[i*6+3] = i*4+0;
+            triangles[i*6+4] = i*4+3;
+            triangles[i*6+5] = i*4+2;
+        }
+
+        border.vertices = vertices;
+        border.triangles = triangles;
+
     }
 
     public void Initialize(ObjectMetaData metaData, Vector2Int coord) {

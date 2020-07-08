@@ -5,6 +5,21 @@ using UnityEngine;
 
 public class Hexagon 
 {
+    public static Vector3[] FlatEdgeVertexPositions(float hexFlatSideToSideWidth, float angle)
+    {
+        Vector3[] vertexPoints = new Vector3[2];
+
+        float radius = hexFlatSideToSideWidth/2;
+        float hexFlatSideWidth = hexFlatSideToSideWidth / (2 * Mathf.Sin(Mathf.PI / 3));
+        vertexPoints[0] = RotatePointAroundPivot(new Vector3(hexFlatSideWidth/2,0, -radius), Vector3.zero, angle);
+        vertexPoints[1] = RotatePointAroundPivot(new Vector3(-hexFlatSideWidth/2,0, -radius), Vector3.zero, angle);
+        return vertexPoints;
+    }
+
+    public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, float angle) {
+        return Quaternion.Euler(0, angle, 0) * (point - pivot) + pivot;
+    }
+
     public static Vector3 PositionForCoordinate(Vector2Int coord, float hexFlatSideToSideWidth)
     {
         var x = coord.x;

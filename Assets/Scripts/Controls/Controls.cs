@@ -4,10 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public delegate void TileEvent(HexPlatform platform);
+
 public class Controls : MonoBehaviour
 {
     HexPlatform lastHovered;
     
+    public TileEvent OnSelectPlatform;
+        
+
     private ObjectMetaData _selectedShopItem;
     private GameObject _dragDropObject;
 
@@ -15,8 +20,8 @@ public class Controls : MonoBehaviour
     private float panSpeed = 14;
     private int tabSize = 45;
 
-    float maxHeight = 22;
-    float minHeight = 12;
+    float maxHeight = 14;
+    float minHeight = 4;
     // float maxHeight = 11;
     // float minHeight = 4.5f;
     float maxAngle = 71;
@@ -58,40 +63,12 @@ public class Controls : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && platform != null)
             {
-                var coord = platform.coordinate;
-                _isManualPanning = false;
-                if(platform.metaData.id != Identifiers.NULL) 
-                {   
-                    if(platform.building)
-                    {
-                        InfoDetail.GetInstance().LoadData(platform.building);
-                    }
-                    // Shop.GetInstance().Open(platform);    
-                }
-                else 
+                _isManualPanning = false;             
+                if(OnSelectPlatform != null)
                 {
-                    // Shop.GetInstance().Close();    
-                }
+                    OnSelectPlatform(platform);
+                }                                
             }
-
-            // HexPlatform lastLastHovered = null;
-            // if (lastHovered != platform && platform != null)
-            // {
-            //     lastLastHovered = lastHovered;
-            //     // platform.SetHovered(true);
-            //     lastHovered = platform;
-
-            //     if (lastLastHovered)
-            //     {
-            //         // lastLastHovered.SetHovered(false);
-            //     }
-            // }
-
-        // }
-        // else if (lastHovered)
-        // {
-        //     lastHovered.SetHovered(false);
-        //     lastHovered = null;
         }
     }
 
@@ -196,6 +173,7 @@ public class Controls : MonoBehaviour
 
         zoomProgress = Mathf.Clamp(zoomProgress + Input.mouseScrollDelta.y/100, 0, 1);
 
+        float avgTileHeight = (HexMapManager.GetInstance().HEIGHT_CAP+HexMapManager.GetInstance().HEIGHT_FLOOR)/2;
         float height = Mathf.Lerp(minHeight, maxHeight, zoomProgress);
         float angle = Mathf.Lerp(minAngle, maxAngle, zoomProgress);
         float angleInRadians = (90-angle)*Mathf.PI/180;
@@ -203,11 +181,10 @@ public class Controls : MonoBehaviour
         float oppositeOverAdjacent = Mathf.Tan(angleInRadians);
         float horOffset = oppositeOverAdjacent * height;
         Vector3 cameraOffset = new Vector3(-horOffset, 0,0);
-        Vector3 targetPosition = focalPoint + new Vector3(horOffset,height,0);
+        Vector3 targetPosition = focalPoint + new Vector3(horOffset,height + avgTileHeight,0);
         Vector3 delta = targetPosition - Camera.main.transform.position;
         
         float speed = 8;
-        
         if(_isManualPanning)
         {
             Camera.main.transform.position += delta;            
@@ -282,7 +259,7 @@ public class Controls : MonoBehaviour
             {
                 if(canBuildHere)
                 {
-                    Shop.GetInstance().Purchase(_selectedShopItem, platform.coordinate);
+                    Shop.GetInstance().Purchase(_selectedShopItem, platform.coordinate);                    
                 }
                 else 
                 {
@@ -326,6 +303,11 @@ public class Controls : MonoBehaviour
         {
             //close shop
             Shop.GetInstance().shopItemsDisplay.SetActive(true);
+        }
+
+        if(lastHovered)
+        {
+            lastHovered.SetValidation(false, false);
         }
     }
    

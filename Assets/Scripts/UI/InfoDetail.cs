@@ -41,7 +41,13 @@ public class InfoDetail : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Controls.GetInstance().OnSelectPlatform += (HexPlatform platform) => {
+            Debug.Log("ok!");
+            Building building = BuildingsManager.GetInstance().BuildingAtCoordinate(platform.coordinate);
+            LoadData(building);
+        };
         
+        SetOpen(false);
     }
 
     // Update is called once per frame
@@ -66,12 +72,14 @@ public class InfoDetail : MonoBehaviour
         if(building == null)
         {
             Debug.Log("Loaded empty building");
+            SetOpen(false);
             return;
         }
         
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(selectedBuilding.Action);
 
+        SetOpen(true);
         UpdateDisplay();
     }
 
@@ -186,6 +194,14 @@ public class InfoDetail : MonoBehaviour
         if(selectedBuilding)
         {
             BuildingsManager.GetInstance().DestoryBuildingAtCoordinate(selectedBuilding.coordinate);
+        }
+    }
+
+    public void SetOpen(bool isOpen)
+    {
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(isOpen);
         }
     }
 
