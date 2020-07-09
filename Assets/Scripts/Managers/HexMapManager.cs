@@ -5,7 +5,13 @@ using UnityEngine;
 public class HexMapManager : MonoBehaviour
 {
     public GameObject tile;
-    public ObjectMetaData stone;
+    public TileMetaData stone;
+    public TileMetaData soil;
+    public TileMetaData sand;
+    public TileMetaData water;
+    
+    public TileMetaData metal;
+    public TileMetaData copper;
 
     public const float HEXAGON_FLAT_WIDTH = 2;
     const int CHUNK_WIDTH = 4;
@@ -38,14 +44,14 @@ public class HexMapManager : MonoBehaviour
 
     public GameObject mapParent;
 
-    Dictionary<Vector2Int, GameObject> tiles = new Dictionary<Vector2Int, GameObject>();
+    public Dictionary<Vector2Int, GameObject> tiles = new Dictionary<Vector2Int, GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         GeneratePerlinOffset();
         GenerateMap();
-        UpdateInBaseHexTiles();
+        // UpdateInBaseHexTiles();
     }
     
     void Update()
@@ -74,26 +80,29 @@ public class HexMapManager : MonoBehaviour
     }
 
     void UpdateInBaseHexTiles()
-    {
+    {                   
         foreach(var tile in tiles.Values)
         {
             HexPlatform platform = tile.GetComponent<HexPlatform>();
-            int range = 3;
-            if((platform.coordinate - Vector2Int.zero).magnitude < range)
-            {
-                platform.inBase = true;
-            }
-            else 
-            {
-                platform.inBase = false;
-            }
+            platform.inBase = false;
+            // int range = 3;
+            // if((platform.coordinate - Vector2Int.zero).magnitude < range)
+            // {
+            //     platform.inBase = true;
+            // }
+            // else 
+            // {
+            //     platform.inBase = false;
+            // }
         }
         
-        foreach(var tile in tiles.Values)
-        {
-            HexPlatform platform = tile.GetComponent<HexPlatform>();
-            platform.UpdateBorder();   
-        }
+        Base.GetInstance().UpdateInBaseTiles();
+
+        // foreach(var tile in tiles.Values)
+        // {
+        //     HexPlatform platform = tile.GetComponent<HexPlatform>();
+        //     platform.UpdateBorder();   
+        // }
     }
 
     void GenerateChunk(Vector2Int chunkCoordinate)
@@ -184,11 +193,11 @@ public class HexMapManager : MonoBehaviour
         float height = HeightMap(coordinate);
 
         Vector3 heightAdjustedPos = new Vector3(position.x, mapParent.transform.position.y + height/2, position.z);
-        GameObject tile = GameObject.Instantiate(this.tile, heightAdjustedPos, Quaternion.identity, mapParent.transform);            
-        tiles.Add(coordinate, tile);
-        tile.GetComponent<HexPlatform>().Initialize(stone, coordinate);
-        tile.transform.localScale = new Vector3(1, height, 1);
-        tile.transform.position = heightAdjustedPos;
+        GameObject tileGameObject = GameObject.Instantiate(this.tile, heightAdjustedPos, Quaternion.identity, mapParent.transform);            
+        tiles.Add(coordinate, tileGameObject);
+        HexPlatform tile = tileGameObject.GetComponent<HexPlatform>();        
+        tileGameObject.transform.localScale = new Vector3(1, height, 1);
+        tileGameObject.transform.position = heightAdjustedPos;
 
         //material and tile
         Color color = stoneColor;
@@ -200,18 +209,22 @@ public class HexMapManager : MonoBehaviour
 
         if(isWater)
         {
+            tile.Initialize(stone, coordinate);
             color = waterColor;
         }
         else if(isSand)
         {
+            tile.Initialize(sand, coordinate);
             color = sandColor;
         }
         else if(isSoil)
         {
+            tile.Initialize(soil, coordinate);
             color = soilColor;
         }
         else if(isStone)
         {
+            tile.Initialize(stone, coordinate);
             color = stoneColor;        
         }
 
@@ -227,7 +240,7 @@ public class HexMapManager : MonoBehaviour
             color = copperColor;
         }
 
-        tile.GetComponent<Renderer>().material.color = color;
+        tileGameObject.GetComponent<Renderer>().material.color = color;
     }
 
     public GameObject TileAtCoordinate(Vector2Int coord) 

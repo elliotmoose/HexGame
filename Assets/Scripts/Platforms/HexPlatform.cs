@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HexPlatform : ResourceConsumer
+public class HexPlatform : MonoBehaviour
 {
     public bool inBase = true;
-    public ObjectMetaData metaData;
+    // public ObjectMetaData metaData;
+    public TileMetaData tileMetaData;
     public Vector2Int coordinate;
 
     private Material defaultMaterial;
@@ -72,25 +73,24 @@ public class HexPlatform : ResourceConsumer
         border.RecalculateNormals();
     }
 
-    public void Initialize(ObjectMetaData metaData, Vector2Int coord) {
-        this.metaData = metaData;
+    public void Initialize(TileMetaData metaData, Vector2Int coord) {
+        this.tileMetaData = metaData;
         coordinate = coord;
-        resourceCalculationOrder = metaData.resourceRecalculationOrder;
-        InitializeResourceNeeds();
     }
 
     public void SetValidation(bool isOn, bool isValid) {
-        if(metaData.id == Identifiers.NULL) 
+        if(tileMetaData.id == Identifiers.NULL) 
         {
             return;
         }
         
         Material material = isOn ? (isValid ? Shop.GetInstance().validBuildMaterial : Shop.GetInstance().invalidBuildMaterial) : defaultMaterial;
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers)
-        {
-            renderer.material = material;
-        }
+        GetComponent<Renderer>().material = material;
+        // Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        // foreach (Renderer renderer in renderers)
+        // {
+        //     renderer.material = material;
+        // }
     }
 
     public void Tick() 
@@ -99,28 +99,6 @@ public class HexPlatform : ResourceConsumer
         {
             building.BuildingTick();
         }
-
-        PlatformTick();
     }
 
-    protected virtual void PlatformTick() 
-    {
-        
-    }
-
-    public virtual void OnBuildUpdate() 
-    {
-
-    }
-
-
-    public virtual string GetDescription()
-    {
-        string description = $"{metaData.id}\n";
-        if(building)
-        {
-            description += building.GetDescription();
-        }
-        return description;
-    }
 }

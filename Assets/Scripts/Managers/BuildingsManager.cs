@@ -86,27 +86,17 @@ public class BuildingsManager : MonoBehaviour
         }
     }
 
-    public bool CanBuild(ObjectMetaData objectMetaData, Vector2Int coord)
+    public bool CanBuild(ObjectMetaData buildingMetaData, Vector2Int coord)
     {
-        GameObject tile = HexMapManager.GetInstance().TileAtCoordinate(coord);
-        HexPlatform platform = tile.GetComponent<HexPlatform>();
-        // HexPlatform platform = PlatformAtCoordinate(coord);
+        GameObject tileGameObject = HexMapManager.GetInstance().TileAtCoordinate(coord);
+        HexPlatform tile = tileGameObject.GetComponent<HexPlatform>();
 
-        if(tile == null || objectMetaData == null)
+        if(tile == null || buildingMetaData == null || !tile.inBase)
         {
             return false;
         }
 
-        List<ObjectMetaData> availableBuilds = platform.metaData.GetContextualAvailableShopItems(coord);
-
-        foreach(ObjectMetaData build in availableBuilds)
-        {
-            if(build.id == objectMetaData.id)
-            {
-                return true;
-            }
-        }
-        return false;
+        return buildingMetaData.CanBuildOn(tile.tileMetaData.id);
     }
 
     /// <summary>

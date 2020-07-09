@@ -93,18 +93,6 @@ public class Shop : MonoBehaviour
         }
     }
 
-
-    public List<ObjectMetaData> AvailableShopItemsForPlatform(HexPlatform platform) 
-    {
-        List<ObjectMetaData> shopItemsIds = new List<ObjectMetaData>();
-        if(platform.building != null)
-        {
-            return shopItemsIds;
-        }
-
-        return platform.metaData.GetContextualAvailableShopItems(platform.coordinate);
-    }
-
     public void UpdateShopItems(List<ObjectMetaData> metaDatas)
     {
                          
