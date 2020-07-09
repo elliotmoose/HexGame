@@ -18,10 +18,10 @@ public class Shop : MonoBehaviour
     
     public bool isOpen = false;
     
-    public List<ObjectMetaData> resourcesShopItems = new List<ObjectMetaData>();
-    public List<ObjectMetaData> platformsShopItems = new List<ObjectMetaData>();
-    public List<ObjectMetaData> energyShopItems = new List<ObjectMetaData>();
-    public List<ObjectMetaData> organicShopItems = new List<ObjectMetaData>();
+    public List<BuildingMetaData> resourcesShopItems = new List<BuildingMetaData>();
+    public List<BuildingMetaData> platformsShopItems = new List<BuildingMetaData>();
+    public List<BuildingMetaData> energyShopItems = new List<BuildingMetaData>();
+    public List<BuildingMetaData> organicShopItems = new List<BuildingMetaData>();
 
     private int _selectedCategory = 0;
 
@@ -66,7 +66,7 @@ public class Shop : MonoBehaviour
             button.colors = colors;            
         }
 
-        List<ObjectMetaData>[] categories = new List<ObjectMetaData>[]{resourcesShopItems, platformsShopItems, energyShopItems, organicShopItems};
+        List<BuildingMetaData>[] categories = new List<BuildingMetaData>[]{resourcesShopItems, platformsShopItems, energyShopItems, organicShopItems};
         UpdateShopItems(categories[index]);
     }
     public void SetOpen(bool open) 
@@ -93,7 +93,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void UpdateShopItems(List<ObjectMetaData> metaDatas)
+    public void UpdateShopItems(List<BuildingMetaData> metaDatas)
     {
                          
        //clear shop item uis
@@ -104,14 +104,14 @@ public class Shop : MonoBehaviour
        }
 
         //rebuild shop item uis
-       foreach (ObjectMetaData shopItemMetaData in metaDatas)
+       foreach (BuildingMetaData shopItemMetaData in metaDatas)
        {
            GameObject shopItemUIObject = GameObject.Instantiate(shopItemUIPrefab, shopItemsContainer, false);           
            shopItemUIObject.GetComponent<ShopItemUI>().LoadData(shopItemMetaData);
        }
     }
 
-    public void Purchase(ObjectMetaData item, Vector2Int coord) 
+    public void Purchase(BuildingMetaData item, Vector2Int coord) 
     {        
         if(HexMapManager.GetInstance().TileAtCoordinate(coord) == null) 
         {            

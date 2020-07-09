@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     public Text co2Text;
     
     public GameObject detailsContainer;
-    public ObjectMetaData currentShopItemData;
+    public BuildingMetaData currentShopItemData;
 
     private HexPlatform _focusedPlatform = null;
     public RectTransform shopScrollViewContentContainer;
@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
         timeText.text = $"{Numbers.OneDP(EnvironmentManager.GetInstance().timeOfDay/EnvironmentManager.DAY_IN_SECONDS)}";
     }
 
-    public void HoverDetailsEnter(ObjectMetaData shopItem, Vector3 targetPos) 
+    public void HoverDetailsEnter(BuildingMetaData shopItem, Vector3 targetPos) 
     {
         detailsContainer.SetActive(true);
         currentShopItemData = shopItem;
@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
         detailsContainer.transform.position = targetPos + new Vector3(-0.3f,-0.3f,-2);
     }
     
-    public void HoverDetailsExit(ObjectMetaData shopItem) 
+    public void HoverDetailsExit(BuildingMetaData shopItem) 
     {
         if(currentShopItemData == shopItem)
         {

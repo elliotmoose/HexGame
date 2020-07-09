@@ -1,12 +1,6 @@
 public enum Identifiers : int
 {
     NULL = 0,
-    EMPTY_PLATFORM = 1,
-    PLACEHOLDER_PLATFORM = 2,
-    STONE_PLATFORM = 3,
-    SOIL_PLATFORM = 4,
-    DIG_SITE_PLATFORM = 5,
-
     TREE_BUILDING = 6,
     LIGHTSOURCE_BUILDING = 7,
     CONDENSER_BUILDING = 8,    
@@ -18,6 +12,16 @@ public enum Identifiers : int
     WATER_WELL_BUILDING = 14,
     SOLAR_PANEL_BUILDING = 15,
     SPACESHIP_BUILDING = 16,
+}
+
+public enum TileIdentifiers : int 
+{
+    STONE = 0,
+    SOIL = 1,
+    SAND = 2,
+    WATER = 3,
+    COPPER = 4,
+    METAL = 5
 }
 
 public enum ResourceIdentifiers

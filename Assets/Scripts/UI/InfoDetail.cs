@@ -21,7 +21,7 @@ public class InfoDetail : MonoBehaviour
     public Transform ugpradeDisplaySlot;
     private GameObject _upgradeDisplayObject;
     private Building selectedBuilding;
-    private ObjectMetaData upgradeData {
+    private BuildingMetaData upgradeData {
         get {
             if(!selectedBuilding)
             {

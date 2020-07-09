@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName ="ObjectMetaData", menuName ="Scriptables/Object Meta Data",order=1)]
-public class ObjectMetaData : ScriptableObject
+[CreateAssetMenu(fileName ="BuildingMetaData", menuName ="Scriptables/Building Meta Data",order=1)]
+public class BuildingMetaData : ScriptableObject
 {
     public Identifiers id;
     public string title;
@@ -14,15 +14,15 @@ public class ObjectMetaData : ScriptableObject
     public GameObject displayPrefab;
     public ShopItemType type;
     public int resourceRecalculationOrder;
-    public ObjectMetaData upgrade;
-    public List<TileMetaData> canBuildOn = new List<TileMetaData>();
+    public BuildingMetaData upgrade;
+    public List<TileIdentifiers> canBuildOn = new List<TileIdentifiers>();
     public List<MetaDataParameter> parameters = new List<MetaDataParameter>();
 
-    public bool CanBuildOn(Identifiers tileId)
+    public bool CanBuildOn(TileIdentifiers tileId)
     {
-        foreach(var tileData in canBuildOn)
+        foreach(var canBuildId in canBuildOn)
         {
-            if(tileData.id == tileId)
+            if(canBuildId == tileId)
             {
                 return true;
             }

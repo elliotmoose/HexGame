@@ -11,9 +11,9 @@ public class Controls : MonoBehaviour
     HexPlatform lastHovered;
     
     public TileEvent OnSelectPlatform;
-        
+    private HexPlatform _tmpSelectPlatform;
 
-    private ObjectMetaData _selectedShopItem;
+    private BuildingMetaData _selectedShopItem;
     private GameObject _dragDropObject;
 
     private bool _isManualPanning = false;
@@ -63,11 +63,20 @@ public class Controls : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && platform != null)
             {
-                _isManualPanning = false;             
-                if(OnSelectPlatform != null)
+                _tmpSelectPlatform = platform;                
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                if(!EventSystem.current.IsPointerOverGameObject() && platform != null && _tmpSelectPlatform == platform) 
                 {
-                    OnSelectPlatform(platform);
-                }                                
+                    if(OnSelectPlatform != null)
+                    {
+                        OnSelectPlatform(platform);
+                    }                                                             
+                }
+
+                _tmpSelectPlatform = null;
             }
         }
     }
@@ -276,7 +285,7 @@ public class Controls : MonoBehaviour
 
     }
     
-    public void BeginDragAndDrop(ObjectMetaData shopItem) 
+    public void BeginDragAndDrop(BuildingMetaData shopItem) 
     {
         if(!_dragDropObject)
         {

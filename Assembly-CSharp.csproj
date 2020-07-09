@@ -45,8 +45,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\ScriptableObjects\ObjectMetaData.cs" />
-     <Compile Include="Assets\ScriptableObjects\TileMetaData.cs" />
+     <Compile Include="Assets\ScriptableObjects\BuildingMetaData.cs" />
      <Compile Include="Assets\Scripts\Attachments\Attachment.cs" />
      <Compile Include="Assets\Scripts\Buildings\Base.cs" />
      <Compile Include="Assets\Scripts\Buildings\Building.cs" />

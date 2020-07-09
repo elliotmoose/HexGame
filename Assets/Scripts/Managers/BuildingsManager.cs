@@ -24,7 +24,7 @@ public class BuildingsManager : MonoBehaviour
         }
     }
     
-    private GameObject BuildBuilding(ObjectMetaData metaData, Vector2Int coordinate)
+    private GameObject BuildBuilding(BuildingMetaData metaData, Vector2Int coordinate)
     {
         GameObject tile = HexMapManager.GetInstance().TileAtCoordinate(coordinate);
 
@@ -63,7 +63,7 @@ public class BuildingsManager : MonoBehaviour
         return buildingObject;
     }
 
-    public GameObject Build(ObjectMetaData shopItemScriptable, Vector2Int coordinate) 
+    public GameObject Build(BuildingMetaData shopItemScriptable, Vector2Int coordinate) 
     {       
         if(shopItemScriptable.type == ShopItemType.BUILDING)
         {
@@ -86,7 +86,7 @@ public class BuildingsManager : MonoBehaviour
         }
     }
 
-    public bool CanBuild(ObjectMetaData buildingMetaData, Vector2Int coord)
+    public bool CanBuild(BuildingMetaData buildingMetaData, Vector2Int coord)
     {
         GameObject tileGameObject = HexMapManager.GetInstance().TileAtCoordinate(coord);
         HexPlatform tile = tileGameObject.GetComponent<HexPlatform>();
@@ -96,7 +96,7 @@ public class BuildingsManager : MonoBehaviour
             return false;
         }
 
-        return buildingMetaData.CanBuildOn(tile.tileMetaData.id);
+        return buildingMetaData.CanBuildOn(tile.id);
     }
 
     /// <summary>

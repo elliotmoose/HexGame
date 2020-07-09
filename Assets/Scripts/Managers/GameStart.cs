@@ -6,8 +6,8 @@ using UnityEngine.Animations;
 //request space drop
 public class GameStart : MonoBehaviour
 {
-    public ObjectMetaData spaceship;
-    public ObjectMetaData tree;
+    public BuildingMetaData spaceship;
+    public BuildingMetaData tree;
 
     // Start is called before the first frame update
     void Start()

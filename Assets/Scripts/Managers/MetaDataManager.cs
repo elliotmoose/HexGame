@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MetaDataManager : MonoBehaviour
 {    
-    public List<ObjectMetaData> buildingMetaData = new List<ObjectMetaData>();
-    public List<ObjectMetaData> platformMetaData = new List<ObjectMetaData>();
+    public List<BuildingMetaData> buildingMetaData = new List<BuildingMetaData>();
+    public List<BuildingMetaData> platformMetaData = new List<BuildingMetaData>();
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +18,9 @@ public class MetaDataManager : MonoBehaviour
         
     }
 
-    public static ObjectMetaData GetMetaDataForId(Identifiers id)
+    public static BuildingMetaData GetMetaDataForId(Identifiers id)
     {
-        foreach(ObjectMetaData item in _singleton.buildingMetaData) 
+        foreach(BuildingMetaData item in _singleton.buildingMetaData) 
         {
             if(item.id == id)
             {
@@ -28,7 +28,7 @@ public class MetaDataManager : MonoBehaviour
             }
         }
         
-        foreach(ObjectMetaData item in _singleton.platformMetaData) 
+        foreach(BuildingMetaData item in _singleton.platformMetaData) 
         {
             if(item.id == id)
             {

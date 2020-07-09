@@ -17,7 +17,7 @@ public class ShopItemDetail : MonoBehaviour
     private GameObject _displayObject;
 
 
-    public void LoadData(ObjectMetaData data)
+    public void LoadData(BuildingMetaData data)
     {
         if(_displayObject)
         {

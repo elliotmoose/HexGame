@@ -4322,12 +4322,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingMetaData:
   - {fileID: 11400000, guid: 1ede8b7bbfdd34220972634cd32b3b1b, type: 2}
-  - {fileID: 11400000, guid: e5808a0e7f92b4fefaf5b915af8d64e7, type: 2}
+  - {fileID: 0}
   platformMetaData:
-  - {fileID: 11400000, guid: f5bafc1b705b349e2be91eb95a91b84e, type: 2}
-  - {fileID: 11400000, guid: d4e86779042ad491f8b284a841fd359c, type: 2}
-  - {fileID: 11400000, guid: a169acdb33197486a9b44f86f37bc752, type: 2}
-  - {fileID: 11400000, guid: 3e9bfc174754442efb99565e01665e73, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1273203211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4645,10 +4645,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 3724963191834855558, guid: 61a1132e70c4043929b366366998efcc, type: 3}
-  stone: {fileID: 11400000, guid: 6bf38e06f98f440108bcbcaa99f8ba77, type: 2}
-  soil: {fileID: 11400000, guid: a169acdb33197486a9b44f86f37bc752, type: 2}
-  sand: {fileID: 11400000, guid: e4ffa3ab978274bfab304be4562266db, type: 2}
-  water: {fileID: 11400000, guid: 040cf4ce73f554849a4465ca7bd40cac, type: 2}
   PERLIN_SCALE: 6.51
   HEIGHT_SCALE: 17.85
   HEIGHT_CAP: 15.53
@@ -4657,7 +4653,7 @@ MonoBehaviour:
   WATER_THRESHOLD: 0.3
   SOIL_THRESHOLD: 0.72
   SAND_THRESHOLD: 0.41
-  STONE_THRESHOLD: 0.85
+  STONE_THRESHOLD: 1
   islandSize: 52
   waterColor: {r: 0.40557134, g: 0.8574522, b: 0.9245283, a: 1}
   stoneColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
@@ -6553,13 +6549,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0b0fceda1b2bc4c18bf4bcc49d605322, type: 2}
   - {fileID: 11400000, guid: aff01392bad7f4815ac50a923bc01711, type: 2}
   - {fileID: 11400000, guid: fb34caba970e943989460d1bf6f39c3b, type: 2}
-  - {fileID: 11400000, guid: e5808a0e7f92b4fefaf5b915af8d64e7, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 20cfccaad7e8348589801fa0afa291a9, type: 2}
   - {fileID: 11400000, guid: a832f217b562e4447b98243b82daaee3, type: 2}
   platformsShopItems:
-  - {fileID: 11400000, guid: 6bf38e06f98f440108bcbcaa99f8ba77, type: 2}
-  - {fileID: 11400000, guid: 3e9bfc174754442efb99565e01665e73, type: 2}
-  - {fileID: 11400000, guid: a169acdb33197486a9b44f86f37bc752, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   energyShopItems:
   - {fileID: 11400000, guid: 9322b948ad21b45898969fe3abcf220a, type: 2}
   - {fileID: 11400000, guid: 10eb07839d45e454a85f614ec28e6767, type: 2}

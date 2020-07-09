@@ -12,12 +12,12 @@ public class ShopItemUI : MonoBehaviour
     public Transform itemDisplaySlot;
     // public Button button;
 
-    private ObjectMetaData _item;
+    private BuildingMetaData _item;
 
     private GameObject _displayObject;
     private GameObject _dragDropObject;
     
-    public void LoadData(ObjectMetaData item)
+    public void LoadData(BuildingMetaData item)
     {
         this._item = item;
 

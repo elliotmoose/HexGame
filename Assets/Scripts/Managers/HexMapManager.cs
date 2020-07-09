@@ -5,13 +5,6 @@ using UnityEngine;
 public class HexMapManager : MonoBehaviour
 {
     public GameObject tile;
-    public TileMetaData stone;
-    public TileMetaData soil;
-    public TileMetaData sand;
-    public TileMetaData water;
-    
-    public TileMetaData metal;
-    public TileMetaData copper;
 
     public const float HEXAGON_FLAT_WIDTH = 2;
     const int CHUNK_WIDTH = 4;
@@ -206,37 +199,36 @@ public class HexMapManager : MonoBehaviour
         bool isSand = (height/HEIGHT_CAP < SAND_THRESHOLD) && !isWater;
         bool isSoil = (height/HEIGHT_CAP < SOIL_THRESHOLD) && !isSand && !isWater;
         bool isStone = (height/HEIGHT_CAP < STONE_THRESHOLD) && !isSoil && !isSand && !isWater;
-
+        bool isMetal = (isSoil || isStone) && (Random.Range(0, 1.0f) < 0.03f);
+        bool isCopper = (isSoil || isStone) && (Random.Range(0,1.0f) < 0.02f) && !isMetal;
         if(isWater)
         {
-            tile.Initialize(stone, coordinate);
+            tile.Initialize(TileIdentifiers.WATER, coordinate);
             color = waterColor;
         }
         else if(isSand)
         {
-            tile.Initialize(sand, coordinate);
+            tile.Initialize(TileIdentifiers.SAND, coordinate);
             color = sandColor;
         }
-        else if(isSoil)
+        else if(isSoil && !(isMetal || isCopper))
         {
-            tile.Initialize(soil, coordinate);
+            tile.Initialize(TileIdentifiers.SOIL, coordinate);
             color = soilColor;
         }
-        else if(isStone)
+        else if(isStone && !(isMetal || isCopper))
         {
-            tile.Initialize(stone, coordinate);
+            tile.Initialize(TileIdentifiers.STONE, coordinate);
             color = stoneColor;        
         }
-
-        bool isMetal = (isSoil || isStone) && (Random.Range(0, 1.0f) < 0.03f);
-        bool isCopper = (isSoil || isStone) && (Random.Range(0,1.0f) < 0.02f) && !isMetal;
-
-        if(isMetal) 
+        else if(isMetal) 
         {
+            tile.Initialize(TileIdentifiers.METAL, coordinate);
             color = metalColor;
         }
         else if (isCopper)
         {
+            tile.Initialize(TileIdentifiers.COPPER, coordinate);
             color = copperColor;
         }
 

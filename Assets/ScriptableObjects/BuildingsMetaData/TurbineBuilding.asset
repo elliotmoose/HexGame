@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a627ff46647a4e1895158f3f06e90a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 4544f9c47d51a406888a525f8dab08af, type: 3}
   m_Name: TurbineBuilding
   m_EditorClassIdentifier: 
   id: 10
@@ -21,7 +21,10 @@ MonoBehaviour:
     type: 3}
   type: 0
   resourceRecalculationOrder: 0
-  availableShopItems: []
+  upgrade: {fileID: 0}
+  canBuildOn: 00000000
   parameters:
   - key: OUTPUT_IDEAL
+    displayType: 0
+    readableKey: 
     value: 15

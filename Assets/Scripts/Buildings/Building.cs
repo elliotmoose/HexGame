@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Building : ResourceConsumer
 {
-    public ObjectMetaData metaData;
+    public BuildingMetaData metaData;
     public Vector2Int coordinate = Vector2Int.zero;
 
     protected List<Building> neighbourBuildings {
@@ -18,7 +18,7 @@ public class Building : ResourceConsumer
         return BuildingsManager.GetInstance().NeighboursOf(this, axis);
     }
 
-    public void Initialize(ObjectMetaData metaData, Vector2Int coord) 
+    public void Initialize(BuildingMetaData metaData, Vector2Int coord) 
     {
         this.metaData = metaData;
         coordinate = coord;
