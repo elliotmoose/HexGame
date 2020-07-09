@@ -4644,7 +4644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b84033d5c24495b852a504973a9e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 4991995693952478382, guid: 61a1132e70c4043929b366366998efcc, type: 3}
+  tile: {fileID: 3724963191834855558, guid: 61a1132e70c4043929b366366998efcc, type: 3}
   stone: {fileID: 11400000, guid: 6bf38e06f98f440108bcbcaa99f8ba77, type: 2}
   PERLIN_SCALE: 6.51
   HEIGHT_SCALE: 17.85

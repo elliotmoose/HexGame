@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8761910824519130491, guid: 3c77a2bf8285e468c85176d4e6efd520, type: 3}
+  - {fileID: 2100000, guid: 214904c0b16c14402aed06d68cb8abb4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,6 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceCalculationOrder: 0
-  borderParent: {fileID: 2249635707648021414}
+  inBase: 1
   metaData: {fileID: 11400000, guid: 6bf38e06f98f440108bcbcaa99f8ba77, type: 2}
   coordinate: {x: 0, y: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HexPlatform : ResourceConsumer
 {
-    public bool inBase = false;
+    public bool inBase = true;
     public ObjectMetaData metaData;
     public Vector2Int coordinate;
 
@@ -27,11 +27,9 @@ public class HexPlatform : ResourceConsumer
         {
             defaultMaterial = GetComponentInChildren<Renderer>().material;
         }
-
-        UpdateBorder();
     }
 
-    private void UpdateBorder()
+    public void UpdateBorder()
     {
         Mesh border = new Mesh();
         this.transform.GetChild(0).GetComponent<MeshFilter>().mesh = border;
@@ -39,7 +37,6 @@ public class HexPlatform : ResourceConsumer
         {
             return;   
         }
-
         
 
         float width = HexMapManager.HEXAGON_FLAT_WIDTH;        
@@ -56,7 +53,8 @@ public class HexPlatform : ResourceConsumer
                 continue;
             }
             Vector3[] outer = Hexagon.FlatEdgeVertexPositions(width, i*60 + 60);
-            Vector3[] inner = Hexagon.FlatEdgeVertexPositions(width-0.4f, i*60 + 60);
+            // Vector3[] inner = Hexagon.FlatEdgeVertexPositions(width-0.4f, i*60 + 60);
+            Vector3[] inner = Hexagon.WideFlatEdgeVertexPositions(width, width-0.4f, i*60 + 60);
 
             outer.CopyTo(vertices, i*4);
             inner.CopyTo(vertices, i*4 + 2);
@@ -71,7 +69,7 @@ public class HexPlatform : ResourceConsumer
 
         border.vertices = vertices;
         border.triangles = triangles;
-
+        border.RecalculateNormals();
     }
 
     public void Initialize(ObjectMetaData metaData, Vector2Int coord) {

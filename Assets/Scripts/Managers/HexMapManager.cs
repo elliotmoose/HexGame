@@ -88,6 +88,12 @@ public class HexMapManager : MonoBehaviour
                 platform.inBase = false;
             }
         }
+        
+        foreach(var tile in tiles.Values)
+        {
+            HexPlatform platform = tile.GetComponent<HexPlatform>();
+            platform.UpdateBorder();   
+        }
     }
 
     void GenerateChunk(Vector2Int chunkCoordinate)
@@ -226,7 +232,9 @@ public class HexMapManager : MonoBehaviour
 
     public GameObject TileAtCoordinate(Vector2Int coord) 
     {
-        return tiles[coord];
+        GameObject output;
+        tiles.TryGetValue(coord, out output);
+        return output;
     }
 
     float HeightMap(Vector2Int coordinate)
