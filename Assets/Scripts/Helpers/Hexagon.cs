@@ -11,8 +11,8 @@ public class Hexagon
 
         float radius = hexFlatSideToSideWidth/2;
         float hexFlatSideWidth = hexFlatSideToSideWidth / (2 * Mathf.Sin(Mathf.PI / 3));
-        vertexPoints[0] = RotatePointAroundPivot(new Vector3(hexFlatSideWidth/2,0, -radius), Vector3.zero, angle);
-        vertexPoints[1] = RotatePointAroundPivot(new Vector3(-hexFlatSideWidth/2,0, -radius), Vector3.zero, angle);
+        vertexPoints[0] = RotatePointAroundPivot(new Vector3(hexFlatSideWidth/2,0.001f, -radius), Vector3.zero, angle);
+        vertexPoints[1] = RotatePointAroundPivot(new Vector3(-hexFlatSideWidth/2,0.001f, -radius), Vector3.zero, angle);
         return vertexPoints;
     }
     
@@ -25,8 +25,8 @@ public class Hexagon
         float hexFlatSideWidth = hexFlatSideToSideWidth / (2 * Mathf.Sin(Mathf.PI / 3));
 
         float edgeWidth = Mathf.Lerp(hexFlatSideWidth, hexFlatSideWidth*2, 1-fraction);
-        vertexPoints[0] = RotatePointAroundPivot(new Vector3(edgeWidth/2,0, -radius), Vector3.zero, angle);
-        vertexPoints[1] = RotatePointAroundPivot(new Vector3(-edgeWidth/2,0, -radius), Vector3.zero, angle);
+        vertexPoints[0] = RotatePointAroundPivot(new Vector3(edgeWidth/2,0.001f, -radius), Vector3.zero, angle);
+        vertexPoints[1] = RotatePointAroundPivot(new Vector3(-edgeWidth/2,0.001f, -radius), Vector3.zero, angle);
         return vertexPoints;
     }
 

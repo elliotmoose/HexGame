@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     public GameObject detailsContainer;
     public BuildingMetaData currentShopItemData;
 
-    private HexPlatform _focusedPlatform = null;
+    private HexTile _focusedPlatform = null;
     public RectTransform shopScrollViewContentContainer;
 
     public Camera UICamera;
@@ -61,14 +61,14 @@ public class UIManager : MonoBehaviour
     {
         // mineralsText.text = $"{Numbers.TwoDP(Player.GetInstance().minerals)}";
         // oilText.text = $"{Numbers.TwoDP(Player.GetInstance().oil)}";
-        mineralsText.text = $"{(int)Player.GetInstance().minerals}";
-        oilText.text = $"{(int)Player.GetInstance().oil}";
+        mineralsText.text = $"{(int)Player.GetInstance().GetResource(ResourceIdentifiers.MINERALS)}";
+        oilText.text = $"{(int)Player.GetInstance().GetResource(ResourceIdentifiers.OIL)}";
         
         temperatureText.text = Numbers.OneDP(EnvironmentManager.GetInstance().currentTemperature)+"°C";
         co2Text.text = Numbers.OneDP(EnvironmentManager.GetInstance().currentCO2)+"%";
     }
 
-    private void DisplayDetailsForPlatform(HexPlatform platform) 
+    private void DisplayDetailsForPlatform(HexTile platform) 
     {
         // detailsPanel.SetActive(true);
         // detailsPanel.GetComponentInChildren<Text>().text = $"{platform.GetDescription()}";

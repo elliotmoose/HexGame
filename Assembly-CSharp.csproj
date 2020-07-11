@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Buildings\TreeBuilding.cs" />
      <Compile Include="Assets\Scripts\Buildings\Turbine.cs" />
      <Compile Include="Assets\Scripts\Controls\Controls.cs" />
+     <Compile Include="Assets\Scripts\Data\Cost.cs" />
      <Compile Include="Assets\Scripts\Data\MetaDataParameter.cs" />
      <Compile Include="Assets\Scripts\Data\Metric.cs" />
      <Compile Include="Assets\Scripts\Data\MetricDisplayType.cs" />
@@ -79,7 +80,7 @@
      <Compile Include="Assets\Scripts\Managers\PrefabManager.cs" />
      <Compile Include="Assets\Scripts\Managers\Shop.cs" />
      <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
-     <Compile Include="Assets\Scripts\Platforms\HexPlatform.cs" />
+     <Compile Include="Assets\Scripts\Platforms\HexTile.cs" />
      <Compile Include="Assets\Scripts\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\UI\BarMetricUI.cs" />
      <Compile Include="Assets\Scripts\UI\Indicator.cs" />
@@ -89,6 +90,7 @@
      <Compile Include="Assets\Scripts\UI\ShopItemDetail.cs" />
      <Compile Include="Assets\Scripts\UI\ShopItemUI.cs" />
      <Compile Include="Assets\Scripts\UI\UIFollow.cs" />
+     <None Include="Assets\Materials\asd.shader" />
      <None Include="Assets\Materials\Fire.shader" />
      <None Include="Assets\Materials\Outline.shader" />
  <Reference Include="Unity.Timeline.Editor">

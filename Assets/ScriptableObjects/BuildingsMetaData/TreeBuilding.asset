@@ -15,7 +15,9 @@ MonoBehaviour:
   id: 6
   title: Tree
   description: A block of soil to grow things on
-  price: 300
+  costs:
+  - resourceId: 9
+    value: 1
   prefab: {fileID: 8834485628860174203, guid: 552e5a66a583941f9bc992d42ab7a583, type: 3}
   displayPrefab: {fileID: 8834485628860174203, guid: 36712eb4acc774dffb6eb0955ea102fb,
     type: 3}

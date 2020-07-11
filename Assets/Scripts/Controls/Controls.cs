@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public delegate void TileEvent(HexPlatform platform);
+public delegate void TileEvent(HexTile platform);
 
 public class Controls : MonoBehaviour
 {
-    HexPlatform lastHovered;
+    HexTile lastHovered;
     
     public TileEvent OnSelectPlatform;
-    private HexPlatform _tmpSelectPlatform;
+    private HexTile _tmpSelectPlatform;
 
     private BuildingMetaData _selectedShopItem;
     private GameObject _dragDropObject;
@@ -47,17 +47,17 @@ public class Controls : MonoBehaviour
         RaycastHit hit;
         bool hasHit = Physics.Raycast(ray, out hit);
 
-        HexPlatform platform = null;
+        HexTile platform = null;
         if (hasHit)
         {
-            platform = hit.transform.gameObject.GetComponent<HexPlatform>();
+            platform = hit.transform.gameObject.GetComponent<HexTile>();
             if(platform == null) 
             {
                 var parent = hit.transform.parent;
                 
                 if(parent != null) 
                 {
-                    platform = parent.GetComponent<HexPlatform>();
+                    platform = parent.GetComponent<HexTile>();
                 }
             }
 
@@ -222,12 +222,12 @@ public class Controls : MonoBehaviour
             RaycastHit hit;
             bool hasHit = Physics.Raycast(ray, out hit);
 
-            HexPlatform platform = null;
+            HexTile platform = null;
 
             #region update drag drop position
             if (hasHit)
             {
-                platform = hit.transform.gameObject.GetComponent<HexPlatform>();
+                platform = hit.transform.gameObject.GetComponent<HexTile>();
                 
                 float distanceTowardCamera = 1;
                 Vector3 offsetTowardCamera = (Camera.main.transform.position - hit.point).normalized * distanceTowardCamera;

@@ -119,19 +119,15 @@ public class Shop : MonoBehaviour
             return; 
         }
 
-        if(item.price > Player.GetInstance().minerals)
+        if(!Player.GetInstance().CanAfford(item.costs))
         {
-            Debug.LogWarning("Insufficient Minerals");
             return;
         }
 
         GameObject platform = BuildingsManager.GetInstance().Build(item, coord);
         if(platform != null) {
-            Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, -item.price);            
+            Player.GetInstance().TransactCosts(item.costs);            
         }
-
-
-        // UpdateShopItems();
     }
 
     private static Shop _singleton;

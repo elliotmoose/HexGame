@@ -35,4 +35,5 @@ public enum ResourceIdentifiers
     MINERALS = 6,
     DURABILITY = 7,
     WOOD = 8,
+    SEED = 9,
 }

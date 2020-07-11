@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HexPlatform : MonoBehaviour
+public class HexTile : MonoBehaviour
 {
     public bool inBase = true;
     // public ObjectMetaData metaData;
@@ -49,7 +49,7 @@ public class HexPlatform : MonoBehaviour
         {
             Vector2Int neighbourCoord = Hexagon.NeighbourAtIndex(this.coordinate, i);
             GameObject neighbourTileGameObject = HexMapManager.GetInstance().TileAtCoordinate(neighbourCoord);
-            if(neighbourTileGameObject != null && neighbourTileGameObject.GetComponent<HexPlatform>().inBase)
+            if(neighbourTileGameObject != null && neighbourTileGameObject.GetComponent<HexTile>().inBase)
             {
                 continue;
             }

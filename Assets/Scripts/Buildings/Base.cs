@@ -14,7 +14,7 @@ public class Base : Building
     {
         foreach(var tile in HexMapManager.GetInstance().tiles.Values)
         {
-            HexPlatform platform = tile.GetComponent<HexPlatform>();
+            HexTile platform = tile.GetComponent<HexTile>();
             platform.inBase = false;
         }
 
@@ -24,7 +24,7 @@ public class Base : Building
         Collider[] colliders = Physics.OverlapCapsule(this.transform.position + capsuleOffset, this.transform.position - capsuleOffset, range);
         foreach(var collider in colliders)
         {
-            HexPlatform platform = collider.GetComponent<HexPlatform>();
+            HexTile platform = collider.GetComponent<HexTile>();
             if(platform != null)
             {
                 platform.inBase = true;                
@@ -33,7 +33,7 @@ public class Base : Building
         
         foreach(var tile in HexMapManager.GetInstance().tiles.Values)
         {
-            HexPlatform platform = tile.GetComponent<HexPlatform>();
+            HexTile platform = tile.GetComponent<HexTile>();
             platform.UpdateBorder();
         }
     }

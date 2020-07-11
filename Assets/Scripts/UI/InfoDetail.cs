@@ -41,7 +41,7 @@ public class InfoDetail : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Controls.GetInstance().OnSelectPlatform += (HexPlatform platform) => {
+        Controls.GetInstance().OnSelectPlatform += (HexTile platform) => {
             Debug.Log("ok!");
             Building building = BuildingsManager.GetInstance().BuildingAtCoordinate(platform.coordinate);
             LoadData(building);
@@ -119,7 +119,7 @@ public class InfoDetail : MonoBehaviour
         {
             upgradeDetailContainer.SetActive(true);
             upgradeTitleText.text = $"UPGRADE: {upgradeData.title}";    
-            upgradeCostText.text = $"{upgradeData.price}";
+            upgradeCostText.text = $"{upgradeData.costs[0].value}";
 
             if (_upgradeDisplayObject)
             {

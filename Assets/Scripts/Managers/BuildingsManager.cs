@@ -10,6 +10,9 @@ public class BuildingsManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(Tick());
+
+        Player.GetInstance().OnResourceFinished += OnResourceNonZeroChange;
+        Player.GetInstance().OnResourceNonZero += OnResourceNonZeroChange;
     }
 
     IEnumerator Tick() 
@@ -89,7 +92,7 @@ public class BuildingsManager : MonoBehaviour
     public bool CanBuild(BuildingMetaData buildingMetaData, Vector2Int coord)
     {
         GameObject tileGameObject = HexMapManager.GetInstance().TileAtCoordinate(coord);
-        HexPlatform tile = tileGameObject.GetComponent<HexPlatform>();
+        HexTile tile = tileGameObject.GetComponent<HexTile>();
 
         if(tile == null || buildingMetaData == null || !tile.inBase)
         {
@@ -97,6 +100,12 @@ public class BuildingsManager : MonoBehaviour
         }
 
         return buildingMetaData.CanBuildOn(tile.id);
+    }
+
+
+    void OnResourceNonZeroChange(ResourceIdentifiers resource, float currentAmount)
+    {
+        RecalculateResources();
     }
 
     /// <summary>
@@ -129,7 +138,7 @@ public class BuildingsManager : MonoBehaviour
         {
             if(consumer.NeedsResource(ResourceIdentifiers.OIL)) 
             {
-                if(Player.GetInstance().oil != 0)
+                if(Player.GetInstance().HasResource(ResourceIdentifiers.OIL))
                 {
                     consumer.ReceiveResource(ResourceIdentifiers.OIL, 1);
                 }

@@ -76,7 +76,7 @@ public class HexMapManager : MonoBehaviour
     {                   
         foreach(var tile in tiles.Values)
         {
-            HexPlatform platform = tile.GetComponent<HexPlatform>();
+            HexTile platform = tile.GetComponent<HexTile>();
             platform.inBase = false;
             // int range = 3;
             // if((platform.coordinate - Vector2Int.zero).magnitude < range)
@@ -188,7 +188,7 @@ public class HexMapManager : MonoBehaviour
         Vector3 heightAdjustedPos = new Vector3(position.x, mapParent.transform.position.y + height/2, position.z);
         GameObject tileGameObject = GameObject.Instantiate(this.tile, heightAdjustedPos, Quaternion.identity, mapParent.transform);            
         tiles.Add(coordinate, tileGameObject);
-        HexPlatform tile = tileGameObject.GetComponent<HexPlatform>();        
+        HexTile tile = tileGameObject.GetComponent<HexTile>();        
         tileGameObject.transform.localScale = new Vector3(1, height, 1);
         tileGameObject.transform.position = heightAdjustedPos;
 

@@ -45,13 +45,13 @@ public class Generator : Building
         }
         //draw oil from player source
         Player player = Player.GetInstance();
-        float consumedThisFrame = Mathf.Min(oilInput * Time.deltaTime, player.oil);
+        float consumedThisFrame = Mathf.Min(oilInput * Time.deltaTime, player.GetResource(ResourceIdentifiers.OIL));
         player.TransactResource(ResourceIdentifiers.OIL, -consumedThisFrame);
     }
 
     public override void RecalculateResources()
     {
-        if(Player.GetInstance().oil <= 0) 
+        if(!Player.GetInstance().HasResource(ResourceIdentifiers.OIL)) 
         {
             Debug.Log("No oil generator");
             return;

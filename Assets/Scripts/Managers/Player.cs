@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void ResourceEvent(ResourceIdentifiers resource, float currentAmount);
+
 public class Player : MonoBehaviour
 {
-    public float minerals = 2000;
-    public float oil = 500;
+    private Dictionary<ResourceIdentifiers, float> resources = new Dictionary<ResourceIdentifiers, float>();
+
+    public ResourceEvent OnResourceFinished;
+    public ResourceEvent OnResourceNonZero;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        resources.Add(ResourceIdentifiers.MINERALS, 1000);
+        resources.Add(ResourceIdentifiers.OIL, 1000);
+        resources.Add(ResourceIdentifiers.SEED, 1);
+    }
     void Start()
     {
         
@@ -19,32 +29,64 @@ public class Player : MonoBehaviour
         
     }
 
-    public void TransactResource(ResourceIdentifiers resourceId, float amount) 
+    public bool CanAfford(List<Cost> costs) 
     {
-        
-        switch (resourceId)
+        foreach(Cost cost in costs)   
         {
-            case ResourceIdentifiers.OIL:
-                float oldOil = oil;                
-                oil += amount;
+            if(cost.value > GetResource(cost.resourceId))
+            {
+                Debug.Log($"Insufficient resource: {cost.resourceId}");
+                return false;
+            }
+        }
 
-                if((oldOil > 0 && oil <= 0) || oldOil <= 0 && oldOil > 0) 
-                {
-                    OilEmptyStatusChanged();
-                }
-                break;
-            case ResourceIdentifiers.MINERALS:
-                minerals += amount;
-                break;
-            default:
-                Debug.LogError($"Player does not have the resource {resourceId}");
-                return;
+        return true;
+    }
+
+    public void TransactCosts(List<Cost> costs) 
+    {
+        foreach(Cost cost in costs)   
+        {
+            TransactResource(cost.resourceId, -cost.value);
         }
     }
 
-    private void OilEmptyStatusChanged() 
+    public void TransactResource(ResourceIdentifiers resourceId, float amount) 
     {
-        BuildingsManager.GetInstance().RecalculateResources();
+        if(!resources.ContainsKey(resourceId))
+        {
+            Debug.LogError($"PLayer does not have resource: {resourceId}");
+            return;
+        }
+        float oldResourceAmount = resources[resourceId];
+        resources[resourceId] += amount;
+        float newResourceAmount = resources[resourceId];
+        if(oldResourceAmount > 0 && newResourceAmount < 0)
+        {
+            if(OnResourceNonZero != null)
+            {
+                OnResourceFinished(resourceId, newResourceAmount);
+            }
+        }
+        
+        if(oldResourceAmount <= 0 && newResourceAmount > 0)
+        {
+            if(OnResourceNonZero != null)
+            {
+                OnResourceNonZero(resourceId, newResourceAmount);
+            }
+        }
+    }
+
+
+    public float GetResource(ResourceIdentifiers resourceId) 
+    {
+        return resources[resourceId];
+    }
+
+    public bool HasResource(ResourceIdentifiers resourceId) 
+    {
+        return GetResource(resourceId) > 0;
     }
 
     private static Player _singleton;

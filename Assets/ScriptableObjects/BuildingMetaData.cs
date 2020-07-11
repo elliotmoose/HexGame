@@ -9,7 +9,7 @@ public class BuildingMetaData : ScriptableObject
     public Identifiers id;
     public string title;
     public string description;
-    public float price;
+    public List<Cost> costs = new List<Cost>();
     public GameObject prefab;
     public GameObject displayPrefab;
     public ShopItemType type;
