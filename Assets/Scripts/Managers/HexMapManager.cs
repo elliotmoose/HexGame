@@ -5,8 +5,6 @@ using UnityEngine;
 public class HexMapManager : MonoBehaviour
 {
     public GameObject tile;
-
-    public const float HEXAGON_FLAT_WIDTH = 2;
     const int CHUNK_WIDTH = 4;
     const int loadAdjacentChunkThreshold = 6; 
 
@@ -128,7 +126,7 @@ public class HexMapManager : MonoBehaviour
                         
 
                         //position and height
-                        Vector3 position = Hexagon.PositionForCoordinate(coordinate, HEXAGON_FLAT_WIDTH);
+                        Vector3 position = Hexagon.PositionForCoordinate(coordinate);
                         float height = HeightMap(coordinate);
                         // float moisture = MoistMap(coordinate);
                         Vector3 heightAdjustedPos = new Vector3(position.x, mapParent.transform.position.y + height/2, position.z);
@@ -180,7 +178,7 @@ public class HexMapManager : MonoBehaviour
     void GenerateChunkUnit(Vector2Int coordinate) 
     {
         //root is reserved for tree
-        Vector3 position = Hexagon.PositionForCoordinate(coordinate, HEXAGON_FLAT_WIDTH);
+        Vector3 position = Hexagon.PositionForCoordinate(coordinate);
         
         //HEIGHT MAP: ALL COMES FROM HERE!!
         float height = HeightMap(coordinate);
@@ -242,7 +240,7 @@ public class HexMapManager : MonoBehaviour
         return output;
     }
 
-    float HeightMap(Vector2Int coordinate)
+    public float HeightMap(Vector2Int coordinate)
     {
         float perlin = Perlin(coordinate, heightPerlinOffset, PERLIN_SCALE, HEIGHT_SCALE);
         float island = QuadraticDist(coordinate, 0);        

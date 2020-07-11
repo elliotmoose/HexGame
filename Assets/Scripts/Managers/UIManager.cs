@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     {
         // mineralsText.text = $"{Numbers.TwoDP(Player.GetInstance().minerals)}";
         // oilText.text = $"{Numbers.TwoDP(Player.GetInstance().oil)}";
-        mineralsText.text = $"{(int)Player.GetInstance().GetResource(ResourceIdentifiers.MINERALS)}";
+        mineralsText.text = $"{(int)Player.GetInstance().GetResource(ResourceIdentifiers.IRON)}";
         oilText.text = $"{(int)Player.GetInstance().GetResource(ResourceIdentifiers.OIL)}";
         
         temperatureText.text = Numbers.OneDP(EnvironmentManager.GetInstance().currentTemperature)+"°C";

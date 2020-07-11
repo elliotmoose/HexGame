@@ -46,7 +46,6 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\ScriptableObjects\BuildingMetaData.cs" />
-     <Compile Include="Assets\Scripts\Attachments\Attachment.cs" />
      <Compile Include="Assets\Scripts\Buildings\Base.cs" />
      <Compile Include="Assets\Scripts\Buildings\Building.cs" />
      <Compile Include="Assets\Scripts\Buildings\Condenser.cs" />
@@ -81,6 +80,7 @@
      <Compile Include="Assets\Scripts\Managers\Shop.cs" />
      <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\Platforms\HexTile.cs" />
+     <Compile Include="Assets\Scripts\Population\Builder.cs" />
      <Compile Include="Assets\Scripts\ResourceConsumer.cs" />
      <Compile Include="Assets\Scripts\UI\BarMetricUI.cs" />
      <Compile Include="Assets\Scripts\UI\Indicator.cs" />

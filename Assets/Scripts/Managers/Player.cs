@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        resources.Add(ResourceIdentifiers.MINERALS, 1000);
+        resources.Add(ResourceIdentifiers.IRON, 1000);
+        resources.Add(ResourceIdentifiers.COPPER, 0);
         resources.Add(ResourceIdentifiers.OIL, 1000);
         resources.Add(ResourceIdentifiers.SEED, 1);
     }

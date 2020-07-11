@@ -33,7 +33,7 @@ public class ShopItemDetail : MonoBehaviour
         }
 
         titleText.text = data.title;
-        costText.text = $"{data.costs[0].value}";
+        // costText.text = $"{data.costs[0].value}";
         descriptionText.text = data.description;
 
         string statsString = "";

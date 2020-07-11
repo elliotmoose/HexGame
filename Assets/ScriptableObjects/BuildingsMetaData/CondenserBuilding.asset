@@ -15,7 +15,11 @@ MonoBehaviour:
   id: 8
   title: Condenser
   description: Makes water appear out of thin air! (literally)
-  price: 300
+  costs:
+  - resourceId: 10
+    value: 4
+  - resourceId: 6
+    value: 16
   prefab: {fileID: 8650658793903192494, guid: 4cc128fdef4d246109adb096e4b5db93, type: 3}
   displayPrefab: {fileID: 8650658793903192494, guid: 559cfe1e664f54b28b452b209bec690e,
     type: 3}

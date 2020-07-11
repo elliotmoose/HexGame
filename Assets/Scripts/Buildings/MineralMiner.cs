@@ -20,7 +20,7 @@ public class MineralMiner : Building
         if(HasResource(ResourceIdentifiers.ENERGY))
         {
             float mineralOutput = ScaledOutputByResource(ResourceIdentifiers.ENERGY, mineralOutputIdeal);
-            Player.GetInstance().TransactResource(ResourceIdentifiers.MINERALS, mineralOutput);
+            Player.GetInstance().TransactResource(ResourceIdentifiers.IRON, mineralOutput);
             UIManager.PopupText($"{mineralOutput}", this.gameObject);
         }
     }

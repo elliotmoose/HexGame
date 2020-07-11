@@ -40,7 +40,7 @@ public class HexTile : MonoBehaviour
         }
         
 
-        float width = HexMapManager.HEXAGON_FLAT_WIDTH;        
+        float width = Hexagon.HEXAGON_FLAT_WIDTH;        
         
         Vector3[] vertices = new Vector3[24];
         int[] triangles = new int[36];

@@ -44,6 +44,7 @@ public class BuildingsManager : MonoBehaviour
             }
             else 
             {
+                Debug.LogError("Cannot build: already have building here");
                 return null;
             }
         }

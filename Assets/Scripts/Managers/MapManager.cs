@@ -55,7 +55,7 @@ public class MapManager : MonoBehaviour
 
         if(randInt < 1) 
         {
-            Vector3 position = Hexagon.PositionForCoordinate(coordinate, MapManager.HEXAGON_FLAT_WIDTH);
+            Vector3 position = Hexagon.PositionForCoordinate(coordinate);
             Vector3 heightAdjustedPos = new Vector3(position.x, mapParent.transform.position.y, position.z);
             GameObject feature = GameObject.Instantiate(mineralPrefab, heightAdjustedPos, Quaternion.identity, mapParent.transform);            
             mapFeatures.Add(coordinate, feature);

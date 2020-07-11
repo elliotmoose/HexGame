@@ -32,8 +32,9 @@ public enum ResourceIdentifiers
     LIGHT = 3,
     COOL = 4,
     OIL = 5,
-    MINERALS = 6,
+    IRON = 6,
     DURABILITY = 7,
     WOOD = 8,
     SEED = 9,
+    COPPER = 10,
 }

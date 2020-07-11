@@ -124,10 +124,12 @@ public class Shop : MonoBehaviour
             return;
         }
 
-        GameObject platform = BuildingsManager.GetInstance().Build(item, coord);
-        if(platform != null) {
-            Player.GetInstance().TransactCosts(item.costs);            
-        }
+        // GameObject platform = BuildingsManager.GetInstance().Build(item, coord);
+        Builder.GetInstance().Build(item, coord);
+        
+        // if(platform != null) {
+        //     Player.GetInstance().TransactCosts(item.costs);            
+        // }
     }
 
     private static Shop _singleton;
